@@ -11,13 +11,10 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.*;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.management.BufferPoolMXBean;
 import java.security.InvalidParameterException;
 
 @Name("Disguise Entity")

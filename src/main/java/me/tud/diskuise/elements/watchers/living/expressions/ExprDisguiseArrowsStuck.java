@@ -11,7 +11,6 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 

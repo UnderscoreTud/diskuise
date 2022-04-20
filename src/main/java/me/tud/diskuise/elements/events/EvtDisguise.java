@@ -9,7 +9,6 @@ import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
 import ch.njol.util.Checker;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.DisguiseType;
 import me.libraryaddict.disguise.events.DisguiseEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
