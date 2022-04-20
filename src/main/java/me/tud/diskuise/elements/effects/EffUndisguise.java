@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Undisguise Entity")
 @Description("Resets an entity's disguise")
 @Examples("undisguise player")
-@Since("1.0")
+@Since("0.1")
 @RequiredPlugins({"LibsDisguises"})
 public class EffUndisguise extends Effect {
 

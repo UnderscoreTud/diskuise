@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Health")
 @Description("Set or get a disguise's Health")
 @Examples({"set health of player's disguise to 10", "remove 1 from health of player's disguise", "add 60 to health of player's disguise"})
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseHealth extends SimpleExpression<Number> {
 

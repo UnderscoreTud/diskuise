@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Make Upside down")
 @Description("Sets if a disguise appears to be upside down")
 @Examples("make player's disguise burn")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseMakeUpsideDown extends Effect {
 

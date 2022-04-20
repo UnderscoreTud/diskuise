@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Item in offhand")
 @Description("Get or set the item in a disguise's offhand")
 @Examples("broadcast offhand item of player's disguise")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseItemOffhand extends SimpleExpression<ItemStack> {
 

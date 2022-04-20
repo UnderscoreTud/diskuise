@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Burning")
 @Description("Set or get if a disguise appears to be burning")
 @Examples("set burning of disguise {dis} to true")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseBurning extends SimpleExpression<Boolean> {
 

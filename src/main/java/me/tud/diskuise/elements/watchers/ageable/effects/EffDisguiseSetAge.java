@@ -12,10 +12,10 @@ import me.libraryaddict.disguise.disguisetypes.watchers.*;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Set Burning")
+@Name("Disguise - Set Age")
 @Description("Sets the age of a disguise")
-@Examples("set adult of disguise {dis} to false")
-@Since("1.0")
+@Examples("set age of disguise {dis} to baby")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseSetAge extends Effect {
 

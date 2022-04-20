@@ -24,6 +24,7 @@ public class ClassInfos {
                         "\tset age of disguise {disguise} to baby",
                         "\tdisguise player as {disguise}"
                 )
+                .since("0.1")
                 .defaultExpression(new EventValueExpression<>(Disguise.class))
                 .requiredPlugins("LibsDisguises")
                 .parser(new Parser<Disguise>() {
@@ -56,6 +57,7 @@ public class ClassInfos {
                         "set notifybar of {disguise} to action bar",
                         "set {disguise}'s notify bar to bossbar"
                 )
+                .since("0.2")
                 .usage("boss bar", "action bar", "none")
                 .defaultExpression(new EventValueExpression<>(DisguiseConfig.NotifyBar.class))
                 .requiredPlugins("LibsDisguises")

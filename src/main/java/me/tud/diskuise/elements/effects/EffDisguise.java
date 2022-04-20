@@ -22,7 +22,7 @@ import java.security.InvalidParameterException;
 @Examples({"disguise all players as a cow disguise",
         "set disguise of target entity to zombie",
         "set all players' disguise to player \"_tud\""})
-@Since("1.0")
+@Since("0.1")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguise extends Effect {
 

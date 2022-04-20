@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise is invisible")
 @Examples({"if {dis} is invisible:",
         "\tbroadcast \"%{dis}% is invisible!\""})
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsInvisible extends Condition {
 

@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Raise hand")
 @Description("Sets if a disguise appears to be raising its main hand or offhand")
 @Examples("raise main hand of player's disguise")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseRaiseHand extends Effect {
 

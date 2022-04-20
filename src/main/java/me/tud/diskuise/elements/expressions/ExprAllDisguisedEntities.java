@@ -19,7 +19,7 @@ import java.util.List;
 @Description("Returns all the disguised entities of a list of entities")
 @Examples({"loop all disguised players:",
             "\tsend \"You are disguised as %loop-player's disguise type%!\" to loop-player"})
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprAllDisguisedEntities extends SimpleExpression<Entity> {
 

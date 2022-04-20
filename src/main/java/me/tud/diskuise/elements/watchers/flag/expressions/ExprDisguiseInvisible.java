@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Invisible")
 @Description("Set or get if a disguise is invisible")
 @Examples("set invisibility of disguise {dis} to true")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseInvisible extends SimpleExpression<Boolean> {
 

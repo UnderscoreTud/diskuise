@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Max health")
 @Description("Set or get a disguise's max health")
 @Examples("set max health of disguise {dis} to 100")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseMaxHealth extends SimpleExpression<Number> {
 

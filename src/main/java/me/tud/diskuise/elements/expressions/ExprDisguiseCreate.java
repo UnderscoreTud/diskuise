@@ -18,7 +18,7 @@ import java.security.InvalidParameterException;
 @Name("Create disguise")
 @Description("Creates a new customizable disguise")
 @Examples("set {_disguise} to a new cow disguise")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseCreate extends SimpleExpression<Disguise> {
 

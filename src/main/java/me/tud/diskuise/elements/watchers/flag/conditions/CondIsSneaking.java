@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise appears to be sneaking")
 @Examples({"if {dis} is sneaking:",
         "\tset sneaking of {dis} to true"})
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsSneaking extends Condition {
 

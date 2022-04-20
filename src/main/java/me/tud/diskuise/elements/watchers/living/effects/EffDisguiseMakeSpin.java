@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Make Spin")
 @Description("Sets if a disguise appears to be spinning")
 @Examples("make player's disguise spin")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseMakeSpin extends Effect {
 

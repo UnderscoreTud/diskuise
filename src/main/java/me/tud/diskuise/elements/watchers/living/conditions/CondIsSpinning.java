@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise appears to be spinning")
 @Examples({"if {dis} is spinning:",
             "\tset spinning state of {dis} to false"})
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsSpinning extends Condition {
 

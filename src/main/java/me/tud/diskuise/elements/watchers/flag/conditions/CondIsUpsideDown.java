@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise appears to be upside down")
 @Examples({"if {dis} is upside down:",
             "\tbroadcast \"haha {dis} is upside down\""})
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsUpsideDown extends Condition {
 

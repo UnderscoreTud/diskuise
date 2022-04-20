@@ -23,7 +23,7 @@ public class EvtUndisguise extends SkriptEvent {
                         , "(Cancellable)")
                 .examples("on entity disguise:",
                         "\tbroadcast \"%event-entity% disguised as %type of event-disguise%!\"")
-                .since("1.0")
+                .since("0.2")
                 .requiredPlugins("LibsDisguises");
         EventValues.registerEventValue(UndisguiseEvent.class, Entity.class, new Getter<Entity, UndisguiseEvent>() {
             @Override

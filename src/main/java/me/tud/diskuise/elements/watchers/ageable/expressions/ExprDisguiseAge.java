@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Age")
 @Description("Returns the age of a disguise (as a string)")
 @Examples("broadcast age of player's disguise")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseAge extends SimpleExpression<String> {
 

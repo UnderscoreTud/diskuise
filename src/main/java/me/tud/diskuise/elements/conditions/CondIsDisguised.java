@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if an entity is disguised")
 @Examples({"if player is disguised:",
             "\tundisguise player"})
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsDisguised extends Condition {
 

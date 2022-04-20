@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise has a custom name")
 @Examples({"if {dis} has a name:",
             "\tbroadcast name of {dis}"})
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class CondHasCustomName extends Condition {
 

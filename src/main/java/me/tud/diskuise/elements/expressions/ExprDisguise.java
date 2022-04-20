@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise of Entity")
 @Description("Returns the disguise of an entity")
 @Examples("broadcast player's disguise")
-@Since("1.0")
+@Since("0.1")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguise extends SimpleExpression<Disguise> {
 

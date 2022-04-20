@@ -2,6 +2,7 @@ package me.tud.diskuise.elements.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
@@ -13,6 +14,11 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
+@Name("Notify Bar")
+@Description("Get or set a disguise's notify bar")
+@Examples("set notify bar of {_disguise} to none")
+@Since("0.2")
+@RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseNotifyBar extends SimpleExpression<DisguiseConfig.NotifyBar> {
 
     static {

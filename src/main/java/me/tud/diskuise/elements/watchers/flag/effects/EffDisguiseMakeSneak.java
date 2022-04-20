@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Make Sneak")
 @Description("Sets if a disguise appears to be sneaking")
 @Examples("make {dis} sneak")
-@Since("1.0")
+@Since("0.2")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseMakeSneak extends Effect {
 

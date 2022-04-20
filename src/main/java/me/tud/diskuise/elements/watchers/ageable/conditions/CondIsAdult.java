@@ -1,6 +1,7 @@
 package me.tud.diskuise.elements.watchers.ageable.conditions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -12,6 +13,12 @@ import me.libraryaddict.disguise.disguisetypes.watchers.ZombieWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
+@Name("Disguise - Is Adult")
+@Description("Checks if a disguise is an adult")
+@Examples({"if {dis} is adult:",
+        "\tset age of {dis} to baby"})
+@Since("0.2")
+@RequiredPlugins({"LibsDisguises"})
 public class CondIsAdult extends Condition {
 
     static {
