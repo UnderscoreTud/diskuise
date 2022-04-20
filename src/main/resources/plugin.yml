@@ -1,0 +1,8 @@
+name: Diskuise
+version: '${project.version}'
+main: me.tud.diskuise.Diskuise
+api-version: 1.17
+depend: [ Skript, LibsDisguises ]
+softdepend: [ ProtocolLib ]
+authors: [ _tud ]
+description: A simple Skript addon to disguise players to different players or mobs!
