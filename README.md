@@ -9,3 +9,6 @@ Diskuise is a Skript addon that allows entities to disugise as other entities
 
 ## Download
 You can download Diskuise at the [releases page](https://github.com/UnderscoreTud/diskuise/releases)
+
+## Documentations
+Documentations of Diskuise can be found [here](http://skripthub.net/docs/?addon=Diskuise)
