@@ -15,7 +15,7 @@ import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
 @Name("Disguise - Hand raised")
-@Description("Set or get if a disguise appears to be spinning (I honestly don't know what this does lmao)")
+@Description("Set or get if a disguise appears to be raising its main hand or offhand")
 @Examples("set spinning of disguise {dis} to true")
 @Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
