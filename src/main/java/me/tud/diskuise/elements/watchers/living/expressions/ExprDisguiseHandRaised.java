@@ -27,7 +27,7 @@ public class ExprDisguiseHandRaised extends SimpleExpression<Boolean> {
                 "[dis(k|g)uise] %disguise%'s [main[( |-)]]hand rais(e[(d|s)]|ing) [(value|option|state)]",
 
                 "[the] off[( |-)]hand rais(e[(d|s)]|ing) [(value|option|state)] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s off[( |-)]]hand rais(e[(d|s)]|ing) [(value|option|state)]");
+                "[dis(k|g)uise] %disguise%'s off[( |-)]hand rais(e[(d|s)]|ing) [(value|option|state)]");
     }
 
     Expression<Disguise> disguise;
