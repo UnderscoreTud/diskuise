@@ -3,7 +3,7 @@ package me.tud.diskuise;
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import me.libraryaddict.disguise.DisguiseAPI;
-import org.bstats.bukkit.Metrics;
+import me.tud.diskuise.utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
