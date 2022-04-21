@@ -3,6 +3,7 @@ package me.tud.diskuise;
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import me.libraryaddict.disguise.DisguiseAPI;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +19,7 @@ public final class Diskuise extends JavaPlugin {
     public void onEnable() {
         instance = this;
         addon = Skript.registerAddon(this);
+        Metrics metrics = new Metrics(this, 14998);
         try {
             addon.loadClasses("me.tud.diskuise", "elements");
         } catch (IOException e) {
