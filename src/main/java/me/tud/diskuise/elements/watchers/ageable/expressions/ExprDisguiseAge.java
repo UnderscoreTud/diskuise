@@ -9,6 +9,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.*;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,15 +27,28 @@ public class ExprDisguiseAge extends SimpleExpression<String> {
     }
 
     Expression<Disguise> disguise;
+    boolean isBaby = false;
 
     @Override
     protected @Nullable
     String[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
-        if (disguise == null) return null;
-        if (!disguise.isMobDisguise()) return null;
         MobDisguise mobDisguise = (MobDisguise) disguise;
-        String age = (mobDisguise.isAdult()) ? "adult" : "baby";
+        assert mobDisguise != null;
+        LivingWatcher watcher = mobDisguise.getWatcher();
+        try {
+            if (((AgeableWatcher) watcher).isBaby()) isBaby = true;
+        } catch (ClassCastException ignore) {}
+        try {
+            if (((ZombieWatcher) watcher).isBaby()) isBaby = true;
+        } catch (ClassCastException ignore) {}
+        try {
+            if (((PiglinWatcher) watcher).isBaby()) isBaby = true;
+        } catch (ClassCastException ignore) {}
+        try {
+            if (((ZoglinWatcher) watcher).isBaby()) isBaby = true;
+        } catch (ClassCastException ignore) {}
+        String age = (isBaby) ? "baby" : "adult";
         return new String[]{age};
     }
 

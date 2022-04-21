@@ -8,8 +8,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.AgeableWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.ZombieWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.*;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,17 +32,20 @@ public class CondIsAdult extends Condition {
         Disguise disguise = this.disguise.getSingle(e);
         MobDisguise mobDisguise = (MobDisguise) disguise;
         assert mobDisguise != null;
-        AgeableWatcher ageableWatcher = null;
-        ZombieWatcher zombieWatcher = null;
+        LivingWatcher watcher = mobDisguise.getWatcher();
         try {
-            ageableWatcher = (AgeableWatcher) mobDisguise.getWatcher();
-        } catch (ClassCastException ignored) {}
+            return ((AgeableWatcher) watcher).isBaby() != isNegated();
+        } catch (ClassCastException ignore) {}
         try {
-            zombieWatcher = (ZombieWatcher) mobDisguise.getWatcher();
-        } catch (ClassCastException ignored) {}
-        if (ageableWatcher == null && zombieWatcher == null) return false;
-        if (ageableWatcher != null) return ageableWatcher.isBaby() == isNegated();
-        return zombieWatcher.isAdult() == isNegated();
+            return ((ZombieWatcher) watcher).isBaby() != isNegated();
+        } catch (ClassCastException ignore) {}
+        try {
+            return ((PiglinWatcher) watcher).isBaby() != isNegated();
+        } catch (ClassCastException ignore) {}
+        try {
+            return ((ZoglinWatcher) watcher).isBaby() != isNegated();
+        } catch (ClassCastException ignore) {}
+        return false;
     }
 
     @Override
