@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Make Burn")
 @Description("Sets if a disguise appears to be burning")
 @Examples("make player's disguise burn")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseMakeBurn extends Effect {
 

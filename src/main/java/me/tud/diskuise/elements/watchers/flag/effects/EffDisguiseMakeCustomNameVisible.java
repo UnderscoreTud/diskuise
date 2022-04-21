@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Make Custom name visible")
 @Description("Sets if a disguise has its custom name visible")
 @Examples("make custom name of {disguise} visible")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseMakeCustomNameVisible extends Effect {
 

@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Upside down")
 @Description("Set or get if a disguise appears to be upside down")
 @Examples("set upside down of player's disguise to true")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseUpsideDown extends SimpleExpression<Boolean> {
 

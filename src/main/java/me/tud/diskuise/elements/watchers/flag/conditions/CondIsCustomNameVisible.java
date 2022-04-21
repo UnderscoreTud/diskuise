@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise has its custom name visible")
 @Examples({"if {dis} is custom name visible:",
             "\tset custom name visible state of {dis} to false"})
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsCustomNameVisible extends Condition {
 

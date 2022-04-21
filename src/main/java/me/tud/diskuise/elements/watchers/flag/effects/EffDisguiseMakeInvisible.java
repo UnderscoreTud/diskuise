@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Make Invisible")
 @Description("Sets if a disguise is invisible")
 @Examples("make {disgusie} visible")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseMakeInvisible extends Effect {
 

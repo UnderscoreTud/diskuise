@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise is an adult")
 @Examples({"if {dis} is adult:",
         "\tset age of {dis} to baby"})
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsAdult extends Condition {
 

@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Item in slot")
 @Description("Get or set the item in one of a disguise's slots")
 @Examples("broadcast chestplate slot of {disguise}")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseSlot extends SimpleExpression<ItemStack> {
 

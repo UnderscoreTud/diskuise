@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Set Age")
 @Description("Sets the age of a disguise")
 @Examples("set age of disguise {dis} to baby")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseSetAge extends Effect {
 

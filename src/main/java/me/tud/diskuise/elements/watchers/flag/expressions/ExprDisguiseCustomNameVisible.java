@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Custom name visible")
 @Description("Set or get if a disguise has its name visible")
 @Examples("set custom name visible of disguise {dis} to true")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseCustomNameVisible extends SimpleExpression<Boolean> {
 

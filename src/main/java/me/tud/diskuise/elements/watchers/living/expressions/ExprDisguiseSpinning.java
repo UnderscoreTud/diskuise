@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Spinning")
 @Description("Set or get if a disguise appears to be spinning")
 @Examples("set spinning of disguise {dis} to true")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseSpinning extends SimpleExpression<Boolean> {
 

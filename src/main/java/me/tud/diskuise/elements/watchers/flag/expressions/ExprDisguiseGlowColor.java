@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Glow color")
 @Description("Sets or get a disguise's glowing color")
 @Examples("set glow color of player's disguise to red")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseGlowColor extends SimpleExpression<SkriptColor> {
 

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise has its main hand or offhand raised")
 @Examples({"if {dis} is hand raised:",
             "\tset offhand raised state of {dis} to false"})
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsHandRaised extends Condition {
 

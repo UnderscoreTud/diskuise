@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Make Glow")
 @Description("Sets if a disguise appears to be glowing")
 @Examples("make {dis} glow red")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseMakeGlow extends Effect {
 

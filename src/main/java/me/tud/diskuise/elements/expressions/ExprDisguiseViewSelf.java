@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("View Self")
 @Description("Get or set if a player sees their disguise")
 @Examples("set notify bar of {_disguise} to none")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseViewSelf extends SimpleExpression<Boolean> {
 

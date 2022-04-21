@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Sneaking")
 @Description("Set or get if a disguise appears to be sneaking")
 @Examples("set sneaking of disguise {dis} to true")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseSneaking extends SimpleExpression<Boolean> {
 

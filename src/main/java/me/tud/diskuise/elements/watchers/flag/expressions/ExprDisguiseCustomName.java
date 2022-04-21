@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Custom name")
 @Description("Set or get a disguise's custom name")
 @Examples("set name of {dis} to \"uhh a name :grin:\"")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseCustomName extends SimpleExpression<String> {
 

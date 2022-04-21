@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Arrows stuck")
 @Description("Set or get the amount of arrows stuck in a disguise")
 @Examples("set number of arrows stuck in player's disguise to 10")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseArrowsStuck extends SimpleExpression<Number> {
 

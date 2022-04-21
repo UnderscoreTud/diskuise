@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise - Item in main hand")
 @Description("Get or set the item in a disguise's main hand")
 @Examples("broadcast main hand item of player's disguise")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseItemMainHand extends SimpleExpression<ItemStack> {
 

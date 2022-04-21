@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Disguise Type")
 @Description("Returns the type of a disguise")
 @Examples("broadcast type of player's disguise")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseType extends SimpleExpression<EntityType> {
 

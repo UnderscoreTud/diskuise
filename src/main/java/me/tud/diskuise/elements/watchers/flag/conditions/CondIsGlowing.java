@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Checks if a disguise is appears to be glowing")
 @Examples({"if {dis} is glowing red:",
             "\tset glow color of {dis} to blue"})
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class CondIsGlowing extends Condition {
 

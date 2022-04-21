@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Notify Bar")
 @Description("Get or set a disguise's notify bar")
 @Examples("set notify bar of {_disguise} to none")
-@Since("0.2")
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseNotifyBar extends SimpleExpression<DisguiseConfig.NotifyBar> {
 
