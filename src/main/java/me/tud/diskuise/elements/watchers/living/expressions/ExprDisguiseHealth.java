@@ -16,7 +16,7 @@ import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
 @Name("Disguise - Health")
-@Description("Set or get a disguise's Health")
+@Description("Set or get a disguise's health")
 @Examples({"set health of player's disguise to 10", "remove 1 from health of player's disguise", "add 60 to health of player's disguise"})
 @Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
