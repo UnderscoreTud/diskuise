@@ -8,6 +8,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,6 +36,7 @@ public class EffDisguiseMakeSpin extends Effect {
             watcher = (LivingWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
         watcher.setSpinning(bool);
+        DisguiseUtil.update(disguise);
     }
 
     @Override

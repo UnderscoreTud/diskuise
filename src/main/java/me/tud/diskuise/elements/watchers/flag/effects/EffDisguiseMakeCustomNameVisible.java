@@ -8,6 +8,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,6 +34,7 @@ public class EffDisguiseMakeCustomNameVisible extends Effect {
         FlagWatcher watcher = disguise.getWatcher();
         if (watcher == null) return;
         watcher.setCustomNameVisible(bool);
+        DisguiseUtil.update(disguise);
     }
 
     @Override

@@ -7,6 +7,8 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.DisguiseAPI;
+import me.tud.diskuise.utils.DisguiseUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +30,7 @@ public class EffUndisguise extends Effect {
 
     @Override
     protected void execute(Event e) {
-        for (Entity entity : this.entities.getAll(e)) DisguiseAPI.undisguiseToAll(entity);
+        DisguiseUtil.undisguise(entities.getAll(e));
     }
 
     @Override

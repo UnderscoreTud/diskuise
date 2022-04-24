@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.flag.expressions;
+package me.tud.diskuise.elements.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -10,33 +10,30 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Custom name visible")
-@Description("Set or get if a disguise has its name visible")
-@Examples("set custom name visible of disguise {dis} to true")
-@Since("0.2-beta0")
+@Name("Keep on death")
+@Description("Get or set if a player keeps their disguise on death")
+@Examples("set keep on death of {_disguise} to false")
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseCustomNameVisible extends SimpleExpression<Boolean> {
+public class ExprDisguiseKeepOnDeath extends SimpleExpression<Boolean> {
 
     static {
-        Skript.registerExpression(ExprDisguiseCustomNameVisible.class, Boolean.class, ExpressionType.PROPERTY,
-                "[the] [custom[( |-)]]name visibl(e|ility) [(value|option|state)] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s [custom[( |-)]]name visibl(e|ility) [(value|option|state)]");
+        Skript.registerExpression(ExprDisguiseKeepOnDeath.class, Boolean.class, ExpressionType.PROPERTY,
+                "[the] keep on (death|dying) [(value|option|state)] of [dis(k|g)uise] %disguise%",
+                "[dis(k|g)uise] %disguise%'s keep on (death|dying) [(value|option|state)]");
     }
 
     Expression<Disguise> disguise;
 
     @Override
-    protected Boolean[] get(Event e) {
+    protected @Nullable
+    Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return null;
-        return new Boolean[]{watcher.isCustomNameVisible()};
+        return new Boolean[]{disguise.isKeepDisguiseOnPlayerDeath()};
     }
 
     @Override
@@ -62,9 +59,8 @@ public class ExprDisguiseCustomNameVisible extends SimpleExpression<Boolean> {
     }
 
     @Override
-    public @Nullable
-    Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET) return CollectionUtils.array(Boolean.class);
+    public Class<?>[] acceptChange(final Changer.ChangeMode changeMode) {
+        if (changeMode == Changer.ChangeMode.SET) return CollectionUtils.array(Boolean.class);
         return null;
     }
 
@@ -73,7 +69,6 @@ public class ExprDisguiseCustomNameVisible extends SimpleExpression<Boolean> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
-        disguise.getWatcher().setCustomNameVisible(bool);
-        DisguiseUtil.update(disguise);
+        disguise.setKeepDisguiseOnPlayerDeath(bool);
     }
 }

@@ -11,6 +11,7 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -87,5 +88,6 @@ public class ExprDisguiseHandRaised extends SimpleExpression<Boolean> {
         boolean bool = Boolean.TRUE.equals(delta[0]);
         if (!isMainHand) watcher.setOffhandRaised(bool);
         else watcher.setMainHandRaised(bool);
+        DisguiseUtil.update(disguise);
     }
 }

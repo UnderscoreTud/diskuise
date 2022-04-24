@@ -11,6 +11,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.*;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -72,9 +73,7 @@ public class EffDisguise extends Effect {
 
         if (disguise == null) return;
         for (Entity entity : entities) {
-            DisguiseAPI.disguiseEntity(entity, disguise);
-            disguise.setNotifyBar(DisguiseConfig.NotifyBar.NONE);
-            disguise.startDisguise();
+            DisguiseUtil.disguise(entity, disguise);
         }
     }
 

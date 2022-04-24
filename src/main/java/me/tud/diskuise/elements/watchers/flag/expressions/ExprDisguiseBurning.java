@@ -11,6 +11,7 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,5 +74,6 @@ public class ExprDisguiseBurning extends SimpleExpression<Boolean> {
         if (disguise == null) return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
         disguise.getWatcher().setBurning(bool);
+        DisguiseUtil.update(disguise);
     }
 }

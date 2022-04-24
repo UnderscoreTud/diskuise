@@ -11,6 +11,7 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -87,5 +88,6 @@ public class ExprDisguiseArrowsStuck extends SimpleExpression<Number> {
         }
         else arrows = value;
         watcher.setArrowsSticking(arrows);
+        DisguiseUtil.update(disguise);
     }
 }

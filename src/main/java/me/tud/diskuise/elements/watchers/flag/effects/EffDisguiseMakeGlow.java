@@ -10,6 +10,7 @@ import ch.njol.skript.util.SkriptColor;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,6 +45,7 @@ public class EffDisguiseMakeGlow extends Effect {
         if (!bool) return;
         if (color == null) return;
         watcher.setGlowColor(color.asChatColor());
+        DisguiseUtil.update(disguise);
     }
 
     @Override

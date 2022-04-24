@@ -9,6 +9,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.*;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,6 +57,7 @@ public class EffDisguiseSetAge extends Effect {
         try {
             ((ZoglinWatcher) watcher).setBaby(!isAdult);
         } catch (ClassCastException ignore) {}
+        DisguiseUtil.update(disguise);
     }
 
     @Override

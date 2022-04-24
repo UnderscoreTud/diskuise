@@ -8,6 +8,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,6 +39,7 @@ public class EffDisguiseRaiseHand extends Effect {
         } catch (ClassCastException ignore) { return; }
         if (!isMainHand) watcher.setOffhandRaised(bool);
         else watcher.setMainHandRaised(bool);
+        DisguiseUtil.update(disguise);
     }
 
     @Override
