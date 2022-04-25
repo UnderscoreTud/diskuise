@@ -15,30 +15,31 @@ import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Living Disguise - Health")
-@Description("Set or get a disguise's health")
-@Examples({"set health of player's disguise to 10", "remove 1 from health of player's disguise", "add 60 to health of player's disguise"})
-@Since("0.2-beta0")
+@Name("Living Disguise - Ambient particles")
+@Description("Set or get if the particles of a disguise are ambient")
+@Examples("set ambient particles of disguise {dis} to true")
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseHealth extends SimpleExpression<Number> {
+public class ExprDisguiseParticlesAmbient extends SimpleExpression<Boolean> {
 
     static {
-        Skript.registerExpression(ExprDisguiseHealth.class, Number.class, ExpressionType.PROPERTY,
-                "[the] (health|hp|health[( |-)]point[s]) [value] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s (health|hp|health[( |-)]point[s]) [value]");
+        Skript.registerExpression(ExprDisguiseParticlesAmbient.class, Boolean.class, ExpressionType.PROPERTY,
+                "[the] ambient [potion[s]][( |-)]particle[s] [(value|option|state)] of [dis(k|g)uise] %disguise%",
+                "[dis(k|g)uise] %disguise%'s ambient [potion[s]][( |-)]particle[s] [(value|option|state)]");
     }
 
     Expression<Disguise> disguise;
 
     @Override
-    protected Number[] get(Event e) {
+    protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
         LivingWatcher watcher;
         try {
             watcher = (LivingWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getHealth()};
+        if (watcher == null) return null;
+        return new Boolean[]{watcher.isPotionParticlesAmbient()};
     }
 
     @Override
@@ -47,8 +48,8 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     }
 
     @Override
-    public Class<? extends Number> getReturnType() {
-        return Number.class;
+    public Class<? extends Boolean> getReturnType() {
+        return Boolean.class;
     }
 
     @Override
@@ -66,29 +67,20 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        if (mode == Changer.ChangeMode.SET) return CollectionUtils.array(Boolean.class);
         return null;
     }
 
     @Override
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-        if (delta[0] == null) return;
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         LivingWatcher watcher;
         try {
             watcher = (LivingWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
-
-        float value = ((Number) delta[0]).floatValue();
-        float health = watcher.getHealth();
-
-        if (mode != Changer.ChangeMode.SET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            health += value;
-        }
-        else health = value;
-        watcher.setHealth(health);
+        boolean bool = Boolean.TRUE.equals(delta[0]);
+        watcher.setPotionParticlesAmbient(bool);
         DisguiseUtil.update(disguise);
     }
 }

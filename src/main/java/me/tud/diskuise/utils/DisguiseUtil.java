@@ -26,7 +26,7 @@ public class DisguiseUtil {
         removeEntities(entities);
     }
 
-    public static DisguiseMap getDisguisedEntities() {
+    public static DisguiseMap getDisguisedEntitiesMap() {
         return DISGUISED_ENTITIES;
     }
     public static Collection<Entity> getDisguisedEntities(Disguise disguise) {
@@ -42,7 +42,6 @@ public class DisguiseUtil {
 
     public static void update(Disguise disguise) {
         for (Entity entity : DISGUISED_ENTITIES.get(disguise)) {
-            DisguiseAPI.undisguiseToAll(entity);
             DisguiseAPI.disguiseEntity(entity, disguise);
         }
     }

@@ -13,7 +13,7 @@ import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Set Age")
+@Name("Ageable Disguise - Set Age")
 @Description("Sets the age of a disguise")
 @Examples("set age of disguise {dis} to baby")
 @Since("0.2-beta0")

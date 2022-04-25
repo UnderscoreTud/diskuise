@@ -15,7 +15,7 @@ import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Spinning")
+@Name("Living Disguise - Spinning")
 @Description("Set or get if a disguise appears to be spinning")
 @Examples("set spinning of disguise {dis} to true")
 @Since("0.2-beta0")

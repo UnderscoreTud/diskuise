@@ -13,7 +13,7 @@ import me.libraryaddict.disguise.disguisetypes.watchers.*;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Age")
+@Name("Ageable Disguise - Age")
 @Description("Returns the age of a disguise (as a string)")
 @Examples("broadcast age of player's disguise")
 @Since("0.2-beta0")

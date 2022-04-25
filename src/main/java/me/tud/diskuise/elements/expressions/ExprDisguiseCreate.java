@@ -10,6 +10,10 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +49,7 @@ public class ExprDisguiseCreate extends SimpleExpression<Disguise> {
 
         // if pattern is 0
         EntityData<?> entityData = this.entityData.getSingle(e);
-        assert entityData != null;
+        if (entityData == null) entityData = EntityUtils.toSkriptEntityData(EntityType.DROPPED_ITEM);
         DisguiseType type = DisguiseType.getType(EntityUtils.toBukkitEntityType(entityData));
         try {
             disguise = new MobDisguise(type);

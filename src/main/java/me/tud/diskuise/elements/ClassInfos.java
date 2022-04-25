@@ -3,15 +3,21 @@ package me.tud.diskuise.elements;
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.classes.Serializer;
+import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.yggdrasil.Fields;
 import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import org.bukkit.Particle;
 
 import java.io.NotSerializableException;
 import java.io.StreamCorruptedException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ClassInfos {
     static {
@@ -45,7 +51,7 @@ public class ClassInfos {
 
                     @Override
                     public String toVariableNameString(Disguise o) {
-                        return "disguise:" + o.getType().toReadable().toLowerCase().replace(" ", "_");
+                        return EntityData.fromClass(o.getType().getEntityClass()) + " disguise";
                     }
                 })
         );
@@ -65,8 +71,9 @@ public class ClassInfos {
                     @Override
                     public DisguiseConfig.NotifyBar parse(String input, ParseContext context) {
                         for (DisguiseConfig.NotifyBar notifyBar : DisguiseConfig.NotifyBar.values()) {
-                            if (notifyBar.toString().replace("_", " ").equalsIgnoreCase(input)) return notifyBar;
-                            if (notifyBar.toString().replace("_", "").equalsIgnoreCase(input)) return notifyBar;
+                            if (notifyBar.toString().replace("_", " ").equalsIgnoreCase(input) ||
+                                    notifyBar.toString().replace("_", "").equalsIgnoreCase(input))
+                                return notifyBar;
                         }
                         return null;
                     }
@@ -96,6 +103,73 @@ public class ClassInfos {
 
                     @Override
                     public void deserialize(DisguiseConfig.NotifyBar o, Fields f) throws StreamCorruptedException, NotSerializableException {
+                        assert false;
+                    }
+
+                    @Override
+                    public boolean mustSyncDeserialization() {
+                        return false;
+                    }
+
+                    @Override
+                    protected boolean canBeInstantiated() {
+                        return false;
+                    }
+                })
+        );
+        List<String> particleList = new ArrayList<>();
+        for (Particle particle : Particle.values()) {
+            String name = particle.name().toLowerCase().replace("_", " ");
+            if (name.contains("legacy")) continue;
+            particleList.add(name);
+        }
+        Classes.registerClass(new ClassInfo<>(Particle.class, "particle")
+                .user("particles?")
+                .name("Particle")
+                .description("A particle type")
+                .examples("set area effect cloud particle type of player's disguise to flame")
+                .since("0.2-beta1")
+                .usage(particleList.toArray(new String[0]))
+                .defaultExpression(new EventValueExpression<>(Particle.class))
+                .requiredPlugins("LibsDisguises")
+                .parser(new Parser<Particle>() {
+                    @Override
+                    public Particle parse(String input, ParseContext context) {
+                        for (Particle particle : Particle.values()) {
+                            String name = particle.name().toLowerCase();
+                            if (name.equalsIgnoreCase(input) ||
+                            name.replace("_", " ").equalsIgnoreCase(input) ||
+                            name.replace("_", "").equalsIgnoreCase(input))
+                                return particle;
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    public String toString(Particle o, int flags) {
+                        return toVariableNameString(o);
+                    }
+
+                    @Override
+                    public String toVariableNameString(Particle o) {
+                        return o.toString().toLowerCase().replace("_", " ");
+                    }
+                })
+                .serializer(new Serializer<Particle>() {
+                    @Override
+                    public Fields serialize(Particle o) throws NotSerializableException {
+                        Fields f = new Fields();
+                        f.putObject("particle", o);
+                        return f;
+                    }
+
+                    @Override
+                    public Particle deserialize(Fields f) throws StreamCorruptedException, NotSerializableException {
+                        return f.getObject("particle", Particle.class);
+                    }
+
+                    @Override
+                    public void deserialize(Particle o, Fields f) throws StreamCorruptedException, NotSerializableException {
                         assert false;
                     }
 

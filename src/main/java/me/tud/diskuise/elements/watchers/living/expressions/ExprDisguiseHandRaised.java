@@ -15,7 +15,7 @@ import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Hand raised")
+@Name("Living Disguise - Hand raised")
 @Description("Set or get if a disguise appears to be raising its main hand or offhand")
 @Examples("set spinning of disguise {dis} to true")
 @Since("0.2-beta0")

@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.living.expressions;
+package me.tud.diskuise.elements.watchers.droppeditem.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -10,35 +10,36 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.DroppedItemWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.event.Event;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Living Disguise - Health")
-@Description("Set or get a disguise's health")
-@Examples({"set health of player's disguise to 10", "remove 1 from health of player's disguise", "add 60 to health of player's disguise"})
-@Since("0.2-beta0")
+@Name("Dropped Item Disguise - Item Stack")
+@Description("Set or get the item of a dropped item disguise")
+@Examples("set the dropped item of {_dis} to diamond sword")
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseHealth extends SimpleExpression<Number> {
+public class ExprDisguiseItemStack extends SimpleExpression<ItemStack> {
 
     static {
-        Skript.registerExpression(ExprDisguiseHealth.class, Number.class, ExpressionType.PROPERTY,
-                "[the] (health|hp|health[( |-)]point[s]) [value] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s (health|hp|health[( |-)]point[s]) [value]");
+        Skript.registerExpression(ExprDisguiseItemStack.class, ItemStack.class, ExpressionType.PROPERTY,
+                "[the] [dropped] item [stack] of [dis(k|g)uise] %disguise%");
     }
 
     Expression<Disguise> disguise;
 
     @Override
-    protected Number[] get(Event e) {
+    protected ItemStack[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
+        DroppedItemWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (DroppedItemWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getHealth()};
+        return new ItemStack[]{watcher.getItemStack()};
     }
 
     @Override
@@ -47,8 +48,8 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     }
 
     @Override
-    public Class<? extends Number> getReturnType() {
-        return Number.class;
+    public Class<? extends ItemStack> getReturnType() {
+        return ItemStack.class;
     }
 
     @Override
@@ -66,29 +67,22 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        if (mode == Changer.ChangeMode.SET) return CollectionUtils.array(ItemStack.class);
         return null;
     }
 
     @Override
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-        if (delta[0] == null) return;
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        LivingWatcher watcher;
+        DroppedItemWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (DroppedItemWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
 
-        float value = ((Number) delta[0]).floatValue();
-        float health = watcher.getHealth();
+        ItemStack itemStack = (ItemStack) delta[0];
+        watcher.setItemStack(itemStack);
 
-        if (mode != Changer.ChangeMode.SET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            health += value;
-        }
-        else health = value;
-        watcher.setHealth(health);
         DisguiseUtil.update(disguise);
     }
 }

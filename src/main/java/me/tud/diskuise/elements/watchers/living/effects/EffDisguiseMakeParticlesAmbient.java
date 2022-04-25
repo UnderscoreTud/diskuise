@@ -12,22 +12,20 @@ import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Living Disguise - Raise hand")
-@Description("Sets if a disguise appears to be raising its main hand or offhand")
-@Examples("raise main hand of player's disguise")
-@Since("0.2-beta0")
+@Name("Living Disguise - Make Spin")
+@Description("Sets if the particles of a disguise are ambient")
+@Examples("make particles of player's disguise ambient")
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class EffDisguiseRaiseHand extends Effect {
+public class EffDisguiseMakeParticlesAmbient extends Effect {
 
     static {
-        Skript.registerEffect(EffDisguiseRaiseHand.class,
-                "(1¦lower|[1¦un]raise) [dis(k|g)uise] %disguise% [main[( |-)]]hand",
-                "(1¦lower|[1¦un]raise) [dis(k|g)uise] %disguise% off[( |-)]hand");
+        Skript.registerEffect(EffDisguiseMakeParticlesAmbient.class,
+                "make [potion[s]][( |-)]particle[s] of [dis(k|g)uise] %disguise% [1¦not] ambient[s]");
     }
 
     Expression<Disguise> disguise;
     boolean bool;
-    boolean isMainHand = true;
 
     @Override
     protected void execute(Event e) {
@@ -37,8 +35,7 @@ public class EffDisguiseRaiseHand extends Effect {
         try {
             watcher = (LivingWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
-        if (!isMainHand) watcher.setOffhandRaised(bool);
-        else watcher.setMainHandRaised(bool);
+        watcher.setPotionParticlesAmbient(bool);
         DisguiseUtil.update(disguise);
     }
 
@@ -51,7 +48,6 @@ public class EffDisguiseRaiseHand extends Effect {
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         disguise = (Expression<Disguise>) exprs[0];
-        if (matchedPattern == 1) isMainHand = false;
         bool = parseResult.mark != 1;
         return true;
     }

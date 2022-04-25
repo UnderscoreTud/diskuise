@@ -15,7 +15,7 @@ import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Arrows stuck")
+@Name("Living Disguise - Arrows stuck")
 @Description("Set or get the amount of arrows stuck in a disguise")
 @Examples("set number of arrows stuck in player's disguise to 10")
 @Since("0.2-beta0")

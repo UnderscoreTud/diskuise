@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.living.conditions;
+package me.tud.diskuise.elements.watchers.fallingblock.conditions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
@@ -7,37 +7,34 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Living Disguise - Is Hand raised")
-@Description("Checks if a disguise has its main hand or offhand raised")
-@Examples({"if {dis} is hand raised:",
-            "\tset offhand raised state of {dis} to false"})
-@Since("0.2-beta0")
+@Name("Falling Block Disguise - Is Grid locked")
+@Description("Checks if a falling block disguise is grid locked")
+@Examples({"if {dis} is grid locked:",
+            "\tset grid lock state of {dis} to false"})
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class CondIsHandRaised extends Condition {
+public class CondIsGridLocked extends Condition {
 
     static {
-        Skript.registerCondition(CondIsHandRaised.class,
-                "[dis(k|g)uise] %disguise% (1¦is|2¦is(n't| not)) [main[( |-)]]hand rais(e[(d|s)]|ing)",
-                "[dis(k|g)uise] %disguise% (1¦is|2¦is(n't| not)) off[( |-)]hand rais(e[(d|s)]|ing)");
+        Skript.registerCondition(CondIsGridLocked.class,
+                "[dis(k|g)uise] %disguise% (1¦is|2¦is(n't| not)) grid[( |-)]lock[ed]");
     }
 
     Expression<Disguise> disguise;
-    boolean isMainHand = true;
 
     @Override
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        LivingWatcher watcher;
+        FallingBlockWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (FallingBlockWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return false; }
-        if (!isMainHand) return watcher.isOffhandRaised() != isNegated();
-        return watcher.isMainHandRaised() != isNegated();
+        return watcher.isGridLocked() != isNegated();
     }
 
     @Override
@@ -49,7 +46,6 @@ public class CondIsHandRaised extends Condition {
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         if (parseResult.mark == 2) setNegated(true);
-        if (matchedPattern == 1) isMainHand = false;
         disguise = (Expression<Disguise>) exprs[0];
         return true;
     }

@@ -48,7 +48,7 @@ public class EffDisguiseMakeInvisible extends Effect {
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         disguise = (Expression<Disguise>) exprs[0];
         bool = parseResult.mark != 1;
-        if (matchedPattern == 3) bool = !bool;
+        if (matchedPattern == 1) bool = !bool;
         return true;
     }
 }

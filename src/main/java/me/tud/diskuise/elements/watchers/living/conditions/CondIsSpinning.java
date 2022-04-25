@@ -11,7 +11,7 @@ import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Is Spinning")
+@Name("Living Disguise - Is Spinning")
 @Description("Checks if a disguise appears to be spinning")
 @Examples({"if {dis} is spinning:",
             "\tset spinning state of {dis} to false"})

@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.living.effects;
+package me.tud.diskuise.elements.watchers.fallingblock.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
@@ -7,38 +7,37 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Living Disguise - Raise hand")
-@Description("Sets if a disguise appears to be raising its main hand or offhand")
-@Examples("raise main hand of player's disguise")
-@Since("0.2-beta0")
+@Name("Falling Block Disguise - Lock grid")
+@Description("Sets if a falling block disguise is locked to a grid")
+@Examples({"make player's disguise grid locked", "lock {_dis} grid"})
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class EffDisguiseRaiseHand extends Effect {
+public class EffDisguiseLockGrid extends Effect {
 
     static {
-        Skript.registerEffect(EffDisguiseRaiseHand.class,
-                "(1¦lower|[1¦un]raise) [dis(k|g)uise] %disguise% [main[( |-)]]hand",
-                "(1¦lower|[1¦un]raise) [dis(k|g)uise] %disguise% off[( |-)]hand");
+        Skript.registerEffect(EffDisguiseLockGrid.class,
+                "make [dis(k|g)uise] %disguise% [1¦not] grid[( |-)]lock[ed]",
+                "[1¦un]lock [dis(k|g)uise] %disguise%'s grid",
+                "[1¦un]lock grid of [dis(k|g)uise] %disguise%");
     }
 
     Expression<Disguise> disguise;
     boolean bool;
-    boolean isMainHand = true;
 
     @Override
     protected void execute(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        LivingWatcher watcher;
+        FallingBlockWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (FallingBlockWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
-        if (!isMainHand) watcher.setOffhandRaised(bool);
-        else watcher.setMainHandRaised(bool);
+        watcher.setGridLocked(bool);
         DisguiseUtil.update(disguise);
     }
 
@@ -51,7 +50,6 @@ public class EffDisguiseRaiseHand extends Effect {
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         disguise = (Expression<Disguise>) exprs[0];
-        if (matchedPattern == 1) isMainHand = false;
         bool = parseResult.mark != 1;
         return true;
     }

@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.living.expressions;
+package me.tud.diskuise.elements.watchers.fallingblock.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -10,35 +10,36 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.event.Event;
+import org.bukkit.block.data.BlockData;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Living Disguise - Health")
-@Description("Set or get a disguise's health")
-@Examples({"set health of player's disguise to 10", "remove 1 from health of player's disguise", "add 60 to health of player's disguise"})
-@Since("0.2-beta0")
+@Name("Falling Block Disguise - Block Data")
+@Description("Set or get the block data of a falling block disguise")
+@Examples("set the falling block of {_dis} to furnace[lit=true]")
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseHealth extends SimpleExpression<Number> {
+public class ExprDisguiseBlockData extends SimpleExpression<BlockData> {
 
     static {
-        Skript.registerExpression(ExprDisguiseHealth.class, Number.class, ExpressionType.PROPERTY,
-                "[the] (health|hp|health[( |-)]point[s]) [value] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s (health|hp|health[( |-)]point[s]) [value]");
+        Skript.registerExpression(ExprDisguiseBlockData.class, BlockData.class, ExpressionType.PROPERTY,
+                "[the] [falling] block[( |-)]data of [dis(k|g)uise] %disguise%");
     }
 
     Expression<Disguise> disguise;
 
     @Override
-    protected Number[] get(Event e) {
+    protected BlockData[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
+        FallingBlockWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (FallingBlockWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getHealth()};
+        return new BlockData[]{watcher.getBlockData()};
     }
 
     @Override
@@ -47,8 +48,8 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     }
 
     @Override
-    public Class<? extends Number> getReturnType() {
-        return Number.class;
+    public Class<? extends BlockData> getReturnType() {
+        return BlockData.class;
     }
 
     @Override
@@ -66,29 +67,22 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        if (mode == Changer.ChangeMode.SET) return CollectionUtils.array(BlockData.class);
         return null;
     }
 
     @Override
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-        if (delta[0] == null) return;
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        LivingWatcher watcher;
+        FallingBlockWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (FallingBlockWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
 
-        float value = ((Number) delta[0]).floatValue();
-        float health = watcher.getHealth();
+        BlockData blockData = (BlockData) delta[0];
+        watcher.setBlockData(blockData);
 
-        if (mode != Changer.ChangeMode.SET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            health += value;
-        }
-        else health = value;
-        watcher.setHealth(health);
         DisguiseUtil.update(disguise);
     }
 }

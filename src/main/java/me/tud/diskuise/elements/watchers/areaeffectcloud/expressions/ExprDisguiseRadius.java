@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.living.expressions;
+package me.tud.diskuise.elements.watchers.areaeffectcloud.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -10,22 +10,22 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.AreaEffectCloudWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Living Disguise - Health")
-@Description("Set or get a disguise's health")
-@Examples({"set health of player's disguise to 10", "remove 1 from health of player's disguise", "add 60 to health of player's disguise"})
-@Since("0.2-beta0")
+@Name("AoE Disguise - Radius")
+@Description("Set or get the radius of an area of effect cloud disguise")
+@Examples("set the radius of player's disguise to 10")
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseHealth extends SimpleExpression<Number> {
+public class ExprDisguiseRadius extends SimpleExpression<Number> {
 
     static {
-        Skript.registerExpression(ExprDisguiseHealth.class, Number.class, ExpressionType.PROPERTY,
-                "[the] (health|hp|health[( |-)]point[s]) [value] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s (health|hp|health[( |-)]point[s]) [value]");
+        Skript.registerExpression(ExprDisguiseRadius.class, Number.class, ExpressionType.PROPERTY,
+                "[the] radius of [the] (area [of effect]|AoE) [cloud] [dis(k|g)uise] %disguise%",
+                "[the] (area [of effect]|AoE) [cloud] [dis(k|g)uise] %disguise%'s radius");
     }
 
     Expression<Disguise> disguise;
@@ -34,11 +34,11 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     protected Number[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
+        AreaEffectCloudWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getHealth()};
+        return new Number[]{watcher.getRadius()};
     }
 
     @Override
@@ -66,7 +66,10 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        if (mode == Changer.ChangeMode.SET ||
+                mode == Changer.ChangeMode.ADD ||
+                mode == Changer.ChangeMode.REMOVE ||
+                mode == Changer.ChangeMode.RESET) return CollectionUtils.array(Number.class);
         return null;
     }
 
@@ -75,20 +78,21 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
         if (delta[0] == null) return;
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        LivingWatcher watcher;
+        AreaEffectCloudWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
 
         float value = ((Number) delta[0]).floatValue();
-        float health = watcher.getHealth();
+        float radius = watcher.getRadius();
 
-        if (mode != Changer.ChangeMode.SET) {
+        if (mode != Changer.ChangeMode.SET && mode != Changer.ChangeMode.RESET) {
             if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            health += value;
+            radius += value;
         }
-        else health = value;
-        watcher.setHealth(health);
+        else if (mode == Changer.ChangeMode.RESET) radius = 3f;
+        else radius = value;
+        watcher.setRadius(radius);
         DisguiseUtil.update(disguise);
     }
 }

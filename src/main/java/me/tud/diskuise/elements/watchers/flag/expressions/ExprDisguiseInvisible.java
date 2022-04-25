@@ -76,7 +76,7 @@ public class ExprDisguiseInvisible extends SimpleExpression<Boolean> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
-        disguise.getWatcher().setBurning(bool);
+        disguise.getWatcher().setInvisible(bool != isNegated);
         DisguiseUtil.update(disguise);
     }
 }

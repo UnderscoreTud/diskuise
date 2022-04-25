@@ -73,7 +73,7 @@ public class ExprDisguiseCustomName extends SimpleExpression<String> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         if (mode != Changer.ChangeMode.SET) {
-            disguise.getWatcher().setCustomName(disguise.getDisguiseName());
+            disguise.getWatcher().setCustomName(null);
             return;
         }
         disguise.getWatcher().setCustomName((String) delta[0]);

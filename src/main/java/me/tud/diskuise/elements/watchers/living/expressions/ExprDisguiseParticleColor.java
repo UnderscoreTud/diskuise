@@ -14,10 +14,13 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import ch.njol.skript.util.SkriptColor;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Particle color")
+import java.util.Arrays;
+
+@Name("Living Disguise - Particle color")
 @Description("Set or get a disguise's particle color")
 @Examples("set particle color of player's disguise to red")
 @Since("0.2-beta1")
@@ -68,13 +71,14 @@ public class ExprDisguiseParticleColor extends SimpleExpression<SkriptColor> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET) return CollectionUtils.array(Color.class);
+        if (mode == Changer.ChangeMode.SET ||
+        mode == Changer.ChangeMode.RESET ||
+        mode == Changer.ChangeMode.DELETE) return CollectionUtils.array(Color.class);
         return null;
     }
 
     @Override
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-        if (delta[0] == null) return;
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         LivingWatcher watcher;
@@ -82,8 +86,12 @@ public class ExprDisguiseParticleColor extends SimpleExpression<SkriptColor> {
             watcher = (LivingWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
 
-        org.bukkit.Color color = ((SkriptColor) delta[0]).asBukkitColor();
-
+        org.bukkit.Color color = org.bukkit.Color.fromRGB(0);
+        if (mode == Changer.ChangeMode.SET) {
+            if (delta[0] != null) {
+                color = ((SkriptColor) delta[0]).asBukkitColor();
+            }
+        }
         watcher.setParticlesColor(color);
         DisguiseUtil.update(disguise);
     }

@@ -15,7 +15,7 @@ import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Max health")
+@Name("Living Disguise - Max health")
 @Description("Set or get a disguise's max health")
 @Examples("set max health of disguise {dis} to 100")
 @Since("0.2-beta0")

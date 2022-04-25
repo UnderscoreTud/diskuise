@@ -12,7 +12,7 @@ import me.libraryaddict.disguise.disguisetypes.watchers.*;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Is Adult")
+@Name("Ageable Disguise - Is Adult")
 @Description("Checks if a disguise is an adult")
 @Examples({"if {dis} is adult:",
         "\tset age of {dis} to baby"})

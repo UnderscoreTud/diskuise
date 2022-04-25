@@ -8,11 +8,11 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import me.libraryaddict.disguise.DisguiseAPI;
-import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.*;
 import me.tud.diskuise.utils.DisguiseUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,41 +22,30 @@ import java.security.InvalidParameterException;
 @Description("Disguises the specified entity into another entity")
 @Examples({"disguise all players as a cow disguise",
         "set disguise of target entity to zombie",
-        "set all players' disguise to player \"_tud\""})
+        "set all players' disguise to \"_tud\""})
 @Since("0.1")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguise extends Effect {
 
     static {
         Skript.registerEffect(EffDisguise.class,
-                "dis(g|k)uise %entities% (to|as) [(a|an)] %disguise%",
-                "(set|change) %entities%'[s] dis(g|k)uise to %disguise%",
-                "(set|change) dis(g|k)uise of %entities% to %disguise%",
-
-                "dis(g|k)uise %entities% (to|as) [(a|an)] %entitydata%",
-                "(set|change) %entities%'[s] dis(g|k)uise to %entitydata%",
-                "(set|change) dis(g|k)uise of %entities% to %entitydata%",
-
-                "dis(g|k)uise %entities% (to|as) [(a|an)] [player] %string%",
-                "(set|change) %entities%'[s] dis(g|k)uise to [player] %string%",
-                "(set|change) dis(g|k)uise of %entities% to [player] %string%");
+                "dis(g|k)uise %entities% (to|as) [(a|an)] %disguise/entitydata/string%",
+                "(set|change) %entities%'[s] dis(g|k)uise to %disguise/entitydata/string%",
+                "(set|change) dis(g|k)uise of %entities% to %disguise/entitydata/string%");
     }
 
     Expression<Entity> entities;
-    Expression<Disguise> disguise;
-    Expression<EntityData<?>> entityData;
-    Expression<String> string;
-    int pattern;
+    Expression<Object> object;
 
     @Override
     protected void execute(Event e) {
         Entity[] entities = this.entities.getArray(e);
+        Object object = this.object.getSingle(e) != null ? this.object.getSingle(e) : EntityUtils.toSkriptEntityData(EntityType.DROPPED_ITEM);
         Disguise disguise = null;
 
-        if (pattern < 3) disguise = this.disguise.getSingle(e);
-        else if (pattern < 6) {
-            EntityData<?> entityData = this.entityData.getSingle(e);
-            if (entityData == null) return;
+        if (object instanceof Disguise) disguise = (Disguise) object;
+        if (object instanceof EntityData) {
+            EntityData<?> entityData = (EntityData<?>) object;
             DisguiseType type = DisguiseType.getType(EntityUtils.toBukkitEntityType(entityData));
             try {
                 disguise = new MobDisguise(type);
@@ -65,9 +54,8 @@ public class EffDisguise extends Effect {
                 disguise = new MiscDisguise(type);
             } catch (InvalidParameterException ignore) {}
         }
-        else if (pattern < 9) {
-            String string = this.string.getSingle(e);
-            if (string == null) return;
+        else if (object instanceof String) {
+            String string = (String) object;
             disguise = new PlayerDisguise(string);
         }
 
@@ -86,10 +74,7 @@ public class EffDisguise extends Effect {
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         entities = (Expression<Entity>) exprs[0];
-        if (matchedPattern < 3) disguise = (Expression<Disguise>) exprs[1];
-        else if (matchedPattern < 6) entityData = (Expression<EntityData<?>>) exprs[1];
-        else if (matchedPattern < 9) string = (Expression<String>) exprs[1];
-        pattern = matchedPattern;
+        object = (Expression<Object>) exprs[1];
         return true;
     }
 }

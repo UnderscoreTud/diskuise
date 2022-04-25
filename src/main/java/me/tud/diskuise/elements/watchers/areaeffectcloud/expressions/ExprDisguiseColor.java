@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.living.expressions;
+package me.tud.diskuise.elements.watchers.areaeffectcloud.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -7,38 +7,42 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.skript.util.Color;
+import ch.njol.skript.util.SkriptColor;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.AreaEffectCloudWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Living Disguise - Health")
-@Description("Set or get a disguise's health")
-@Examples({"set health of player's disguise to 10", "remove 1 from health of player's disguise", "add 60 to health of player's disguise"})
-@Since("0.2-beta0")
+@Name("AoE Disguise - Color")
+@Description("Set or get an area of effect disguise's color")
+@Examples("set AoE color of player's disguise to red")
+@Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseHealth extends SimpleExpression<Number> {
+public class ExprDisguiseColor extends SimpleExpression<SkriptColor> {
 
     static {
-        Skript.registerExpression(ExprDisguiseHealth.class, Number.class, ExpressionType.PROPERTY,
-                "[the] (health|hp|health[( |-)]point[s]) [value] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s (health|hp|health[( |-)]point[s]) [value]");
+        Skript.registerExpression(ExprDisguiseColor.class, SkriptColor.class, ExpressionType.PROPERTY,
+                "[the] colo[u]r[s] [value] of (area [of effect]|AoE) [cloud] [dis(k|g)uise] %disguise%",
+                "(area [of effect]|AoE) [cloud] [dis(k|g)uise] %disguise%'s colo[u]r[s] [value]");
     }
 
     Expression<Disguise> disguise;
 
     @Override
-    protected Number[] get(Event e) {
+    protected SkriptColor[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
+        AreaEffectCloudWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getHealth()};
+        Bukkit.broadcastMessage(watcher.getColor().toString());
+        return new SkriptColor[]{SkriptColor.fromBukkitColor(watcher.getColor())};
     }
 
     @Override
@@ -47,8 +51,8 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     }
 
     @Override
-    public Class<? extends Number> getReturnType() {
-        return Number.class;
+    public Class<? extends SkriptColor> getReturnType() {
+        return SkriptColor.class;
     }
 
     @Override
@@ -66,29 +70,27 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        if (mode == Changer.ChangeMode.SET ||
+        mode == Changer.ChangeMode.RESET) return CollectionUtils.array(Color.class);
         return null;
     }
 
     @Override
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-        if (delta[0] == null) return;
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        LivingWatcher watcher;
+        AreaEffectCloudWatcher watcher;
         try {
-            watcher = (LivingWatcher) disguise.getWatcher();
+            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
 
-        float value = ((Number) delta[0]).floatValue();
-        float health = watcher.getHealth();
-
-        if (mode != Changer.ChangeMode.SET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            health += value;
+        org.bukkit.Color color = org.bukkit.Color.WHITE;
+        if (mode == Changer.ChangeMode.SET) {
+            if (delta[0] != null) {
+                color = ((SkriptColor) delta[0]).asBukkitColor();
+            }
         }
-        else health = value;
-        watcher.setHealth(health);
+        watcher.setColor(color);
         DisguiseUtil.update(disguise);
     }
 }
