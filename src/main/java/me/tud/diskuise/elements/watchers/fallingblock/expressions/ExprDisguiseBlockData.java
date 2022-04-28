@@ -26,7 +26,8 @@ public class ExprDisguiseBlockData extends SimpleExpression<BlockData> {
 
     static {
         Skript.registerExpression(ExprDisguiseBlockData.class, BlockData.class, ExpressionType.PROPERTY,
-                "[the] [falling] block[( |-)]data of [dis(k|g)uise] %disguise%");
+                "[the] [falling] block[( |-)]data of [dis(k|g)uise] %disguise%",
+                "[dis(k|g)uise] %disguise%'s [falling] block[( |-)]data");
     }
 
     Expression<Disguise> disguise;

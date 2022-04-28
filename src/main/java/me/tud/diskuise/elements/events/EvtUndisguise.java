@@ -21,8 +21,8 @@ public class EvtUndisguise extends SkriptEvent {
                 "[entity] undis(g|k)uise [(of|for) %-entitydatas%]")
                 .description("This event gets called when an entity undisguises"
                         , "(Cancellable)")
-                .examples("on entity disguise:",
-                        "\tbroadcast \"%event-entity% disguised as %type of event-disguise%!\"")
+                .examples("on entity undisguise:",
+                        "\tbroadcast \"%event-entity% undisguised from %type of event-disguise%!\"")
                 .since("0.2-beta0")
                 .requiredPlugins("LibsDisguises");
         EventValues.registerEventValue(UndisguiseEvent.class, Entity.class, new Getter<Entity, UndisguiseEvent>() {

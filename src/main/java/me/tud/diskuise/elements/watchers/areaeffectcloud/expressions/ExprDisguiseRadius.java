@@ -17,15 +17,15 @@ import org.jetbrains.annotations.Nullable;
 
 @Name("AoE Disguise - Radius")
 @Description("Set or get the radius of an area of effect cloud disguise")
-@Examples("set the radius of player's disguise to 10")
+@Examples("set the radius of AoE {_disguise} to 10")
 @Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseRadius extends SimpleExpression<Number> {
 
     static {
         Skript.registerExpression(ExprDisguiseRadius.class, Number.class, ExpressionType.PROPERTY,
-                "[the] radius of [the] (area [of effect]|AoE) [cloud] [dis(k|g)uise] %disguise%",
-                "[the] (area [of effect]|AoE) [cloud] [dis(k|g)uise] %disguise%'s radius");
+                "[the] [(area [of effect]|AoE)] cloud radius of [dis(k|g)uise] %disguise%",
+                "[the] [dis(k|g)uise] %disguise%'s [(area [of effect]|AoE)] cloud radius");
     }
 
     Expression<Disguise> disguise;

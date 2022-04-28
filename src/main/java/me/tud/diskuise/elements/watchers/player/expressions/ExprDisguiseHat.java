@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.areaeffectcloud.expressions;
+package me.tud.diskuise.elements.watchers.player.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -7,42 +7,39 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.skript.util.visual.*;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.AreaEffectCloudWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
-import org.bukkit.Particle;
-import org.bukkit.Particle;
-import org.bukkit.Particle;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("AoE Disguise - Particle type")
-@Description("Set or get an area effect disguise's particle type")
-@Examples("set AoE particle type of player's disguise to flame")
-@Since("0.2-beta1")
+@Name("Player Disguise - Hat")
+@Description("Set or get if the hat of a player disguise is enabled")
+@Examples("set hat of disguise {dis} to true")
+@Since("0.2-beta2")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
+public class ExprDisguiseHat extends SimpleExpression<Boolean> {
 
     static {
-        Skript.registerExpression(ExprDisguiseParticleType.class, Particle.class, ExpressionType.PROPERTY,
-                "[the] [(area [of effect]|AoE)] cloud [potion[s]] particle[s] type [value] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s [(area [of effect]|AoE)] cloud [potion[s]] particle[s] type [value]");
+        Skript.registerExpression(ExprDisguiseHat.class, Boolean.class, ExpressionType.PROPERTY,
+                "[the] hat [(value|option|state)] of [dis(k|g)uise] %disguise%",
+                "[dis(k|g)uise] %disguise%'s hat [(value|option|state)]");
     }
 
     Expression<Disguise> disguise;
 
     @Override
-    protected Particle[] get(Event e) {
+    protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        AreaEffectCloudWatcher watcher;
+        PlayerWatcher watcher;
         try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
+            watcher = (PlayerWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return null; }
-        return new Particle[]{watcher.getParticleType()};
+        if (watcher == null) return null;
+        return new Boolean[]{watcher.isHatEnabled()};
     }
 
     @Override
@@ -51,8 +48,8 @@ public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
     }
 
     @Override
-    public Class<? extends Particle> getReturnType() {
-        return Particle.class;
+    public Class<? extends Boolean> getReturnType() {
+        return Boolean.class;
     }
 
     @Override
@@ -70,8 +67,7 @@ public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET ||
-        mode == Changer.ChangeMode.RESET) return CollectionUtils.array(Particle.class);
+        if (mode == Changer.ChangeMode.SET) return CollectionUtils.array(Boolean.class);
         return null;
     }
 
@@ -79,18 +75,12 @@ public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        AreaEffectCloudWatcher watcher;
+        PlayerWatcher watcher;
         try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
+            watcher = (PlayerWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
-
-        Particle particle = Particle.SPELL_MOB;
-        if (mode == Changer.ChangeMode.SET) {
-            if (delta[0] != null) {
-                particle = (Particle) delta[0];
-            }
-        }
-        watcher.setParticleType(particle);
+        boolean bool = Boolean.TRUE.equals(delta[0]);
+        watcher.setHatEnabled(bool);
         DisguiseUtil.update(disguise);
     }
 }

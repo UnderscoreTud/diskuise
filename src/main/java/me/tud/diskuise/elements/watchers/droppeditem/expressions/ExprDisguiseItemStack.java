@@ -12,7 +12,6 @@ import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.DroppedItemWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -26,7 +25,8 @@ public class ExprDisguiseItemStack extends SimpleExpression<ItemStack> {
 
     static {
         Skript.registerExpression(ExprDisguiseItemStack.class, ItemStack.class, ExpressionType.PROPERTY,
-                "[the] [dropped] item [stack] of [dis(k|g)uise] %disguise%");
+                "[the] [dropped] item [stack] of [dis(k|g)uise] %disguise%",
+                "[dis(k|g)uise] %disguise%'s [dropped] item [stack]");
     }
 
     Expression<Disguise> disguise;

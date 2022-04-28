@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.flag.conditions;
+package me.tud.diskuise.elements.watchers.player.conditions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
@@ -7,21 +7,22 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
 import org.bukkit.event.Event;
+import org.bukkit.inventory.MainHand;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguise - Is Custom name visible")
-@Description("Checks if a disguise has its custom name visible")
-@Examples({"if custom name of {dis} is visible:",
-            "\tset custom name visible state of {dis} to false"})
-@Since("0.2-beta0")
+@Name("Player Disguise - Is Left handed")
+@Description("Checks if a disguise is left handed")
+@Examples({"if {dis} is left handed:",
+            "\tmake {dis} right handed"})
+@Since("0.2-beta2")
 @RequiredPlugins({"LibsDisguises"})
-public class CondIsCustomNameVisible extends Condition {
+public class CondIsLeftHanded extends Condition {
 
     static {
-        Skript.registerCondition(CondIsCustomNameVisible.class,
-                "[custom[( |-)]]name of [dis(k|g)uise] %disguise% (1¦is|2¦is(n't| not)) visible");
+        Skript.registerCondition(CondIsLeftHanded.class,
+                "[dis(k|g)uise] %disguise% (1¦is|2¦is(n't| not)) left[( |-)]handed");
     }
 
     Expression<Disguise> disguise;
@@ -30,10 +31,11 @@ public class CondIsCustomNameVisible extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        if (!disguise.isMobDisguise()) return false;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return false;
-        return watcher.isCustomNameVisible() != isNegated();
+        PlayerWatcher watcher;
+        try {
+            watcher = (PlayerWatcher) disguise.getWatcher();
+        } catch (ClassCastException ignore) { return false; }
+        return (watcher.getMainHand() == MainHand.LEFT) != isNegated();
     }
 
     @Override

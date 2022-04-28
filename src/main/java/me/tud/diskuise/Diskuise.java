@@ -3,7 +3,9 @@ package me.tud.diskuise;
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import me.libraryaddict.disguise.DisguiseAPI;
+import me.tud.diskuise.listeners.JoinListener;
 import me.tud.diskuise.utils.Metrics;
+import me.tud.diskuise.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,14 +14,21 @@ import java.io.IOException;
 
 public final class Diskuise extends JavaPlugin {
 
-    private Diskuise instance;
-    private SkriptAddon addon;
+    private static Diskuise instance;
+    private static SkriptAddon addon;
+    private static int resourceId = 101529;
 
     @Override
     public void onEnable() {
         instance = this;
         addon = Skript.registerAddon(this);
-        Metrics metrics = new Metrics(this, 14998);
+
+        UpdateChecker updateChecker = new UpdateChecker(this, resourceId);
+        updateChecker.checkForUpdates(Bukkit.getConsoleSender());
+
+        Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
+        new Metrics(this, 14998);
+
         try {
             addon.loadClasses("me.tud.diskuise", "elements");
         } catch (IOException e) {
@@ -33,11 +42,13 @@ public final class Diskuise extends JavaPlugin {
         for (Player player : Bukkit.getOnlinePlayers()) DisguiseAPI.undisguiseToAll(player);
     }
 
-    public Diskuise getInstance() {
+    public static Diskuise getInstance() {
         return instance;
     }
-
-    public SkriptAddon getAddonInstance() {
+    public static SkriptAddon getAddonInstance() {
         return addon;
+    }
+    public static int getResourceId() {
+        return resourceId;
     }
 }

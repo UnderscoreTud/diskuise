@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.fallingblock.expressions;
+package me.tud.diskuise.elements.watchers.itemframe.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -7,30 +7,26 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.skript.util.SkriptColor;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.ItemFrameWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.event.Event;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Falling Block Disguise - Block")
-@Description("Set or get the block of a falling block disguise (Supports block data)")
-@Examples("set the falling block of {_dis} to diamond block")
-@Since("0.2-beta1")
+@Name("Item Frame Disguise - Item")
+@Description("Set or get the item of an item frame disguise")
+@Examples("set the frame item of {_dis} to stick of unbreaking 1")
+@Since("0.2-beta2")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseBlock extends SimpleExpression<ItemStack> {
+public class ExprDisguiseItem extends SimpleExpression<ItemStack> {
 
     static {
-        Skript.registerExpression(ExprDisguiseBlock.class, ItemStack.class, ExpressionType.PROPERTY,
-                "[the] [falling] block [type] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s [falling] block [type]");
+        Skript.registerExpression(ExprDisguiseItem.class, ItemStack.class, ExpressionType.PROPERTY,
+                "[the] [item[( |-)]]frame item [stack] of [dis(k|g)uise] %disguise%",
+                "[dis(k|g)uise] %disguise%'s [item[( |-)]]frame item [stack]");
     }
 
     Expression<Disguise> disguise;
@@ -39,11 +35,11 @@ public class ExprDisguiseBlock extends SimpleExpression<ItemStack> {
     protected ItemStack[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        FallingBlockWatcher watcher;
+        ItemFrameWatcher watcher;
         try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
+            watcher = (ItemFrameWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return null; }
-        return new ItemStack[]{watcher.getBlock()};
+        return new ItemStack[]{watcher.getItem()};
     }
 
     @Override
@@ -71,7 +67,7 @@ public class ExprDisguiseBlock extends SimpleExpression<ItemStack> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET) return CollectionUtils.array(ItemStack.class, BlockData.class);
+        if (mode == Changer.ChangeMode.SET) return CollectionUtils.array(ItemStack.class);
         return null;
     }
 
@@ -79,23 +75,13 @@ public class ExprDisguiseBlock extends SimpleExpression<ItemStack> {
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        FallingBlockWatcher watcher;
+        ItemFrameWatcher watcher;
         try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
+            watcher = (ItemFrameWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
 
-        if (delta[0] instanceof ItemStack) {
-            ItemStack block = (ItemStack) delta[0];
-            if (!block.getType().isBlock()) return;
-            watcher.setBlock(block);
-        }
-
-        else if (delta[0] instanceof BlockData) {
-            BlockData blockData = (BlockData) delta[0];
-            watcher.setBlockData(blockData);
-        }
-
-        else return;
+        ItemStack itemStack = (ItemStack) delta[0];
+        watcher.setItem(itemStack);
 
         DisguiseUtil.update(disguise);
     }

@@ -39,13 +39,6 @@ public class Metrics {
 
     private final MetricsBase metricsBase;
 
-    /**
-     * Creates a new Metrics instance.
-     *
-     * @param plugin Your plugin instance.
-     * @param serviceId The id of the service. It can be found at <a
-     *     href="https://bstats.org/what-is-my-plugin-id">What is my plugin id?</a>
-     */
     public Metrics(JavaPlugin plugin, int serviceId) {
         this.plugin = plugin;
         // Get the config file
@@ -262,33 +255,35 @@ public class Metrics {
         }
 
         private void submitData() {
-            final JsonObjectBuilder baseJsonBuilder = new JsonObjectBuilder();
-            appendPlatformDataConsumer.accept(baseJsonBuilder);
-            final JsonObjectBuilder serviceJsonBuilder = new JsonObjectBuilder();
-            appendServiceDataConsumer.accept(serviceJsonBuilder);
-            JsonObjectBuilder.JsonObject[] chartData =
-                    customCharts.stream()
-                            .map(customChart -> customChart.getRequestJsonObject(errorLogger, logErrors))
-                            .filter(Objects::nonNull)
-                            .toArray(JsonObjectBuilder.JsonObject[]::new);
-            serviceJsonBuilder.appendField("id", serviceId);
-            serviceJsonBuilder.appendField("customCharts", chartData);
-            baseJsonBuilder.appendField("service", serviceJsonBuilder.build());
-            baseJsonBuilder.appendField("serverUUID", serverUuid);
-            baseJsonBuilder.appendField("metricsVersion", METRICS_VERSION);
-            JsonObjectBuilder.JsonObject data = baseJsonBuilder.build();
-            scheduler.execute(
-                    () -> {
-                        try {
-                            // Send the data
-                            sendData(data);
-                        } catch (Exception e) {
-                            // Something went wrong! :(
-                            if (logErrors) {
-                                errorLogger.accept("Could not submit bStats metrics data", e);
+            try {
+                final JsonObjectBuilder baseJsonBuilder = new JsonObjectBuilder();
+                appendPlatformDataConsumer.accept(baseJsonBuilder);
+                final JsonObjectBuilder serviceJsonBuilder = new JsonObjectBuilder();
+                appendServiceDataConsumer.accept(serviceJsonBuilder);
+                JsonObjectBuilder.JsonObject[] chartData =
+                        customCharts.stream()
+                                .map(customChart -> customChart.getRequestJsonObject(errorLogger, logErrors))
+                                .filter(Objects::nonNull)
+                                .toArray(JsonObjectBuilder.JsonObject[]::new);
+                serviceJsonBuilder.appendField("id", serviceId);
+                serviceJsonBuilder.appendField("customCharts", chartData);
+                baseJsonBuilder.appendField("service", serviceJsonBuilder.build());
+                baseJsonBuilder.appendField("serverUUID", serverUuid);
+                baseJsonBuilder.appendField("metricsVersion", METRICS_VERSION);
+                JsonObjectBuilder.JsonObject data = baseJsonBuilder.build();
+                scheduler.execute(
+                        () -> {
+                            try {
+                                // Send the data
+                                sendData(data);
+                            } catch (Exception e) {
+                                // Something went wrong! :(
+                                if (logErrors) {
+                                    errorLogger.accept("Could not submit bStats metrics data", e);
+                                }
                             }
-                        }
-                    });
+                        });
+            } catch (NoClassDefFoundError ignore) {}
         }
 
         private void sendData(JsonObjectBuilder.JsonObject data) throws Exception {

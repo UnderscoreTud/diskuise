@@ -27,8 +27,8 @@ public class ExprDisguiseColor extends SimpleExpression<SkriptColor> {
 
     static {
         Skript.registerExpression(ExprDisguiseColor.class, SkriptColor.class, ExpressionType.PROPERTY,
-                "[the] colo[u]r[s] [value] of (area [of effect]|AoE) [cloud] [dis(k|g)uise] %disguise%",
-                "(area [of effect]|AoE) [cloud] [dis(k|g)uise] %disguise%'s colo[u]r[s] [value]");
+                "[the] [(area [of effect]|AoE)] cloud colo[u]r[s] [value] of [dis(k|g)uise] %disguise%",
+                "[dis(k|g)uise] %disguise%'s [(area [of effect]|AoE)] cloud colo[u]r[s] [value]");
     }
 
     Expression<Disguise> disguise;

@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.areaeffectcloud.expressions;
+package me.tud.diskuise.elements.watchers.itemframe.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
@@ -7,42 +7,39 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.skript.util.visual.*;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.AreaEffectCloudWatcher;
+import me.libraryaddict.disguise.disguisetypes.MetaIndex;
+import me.libraryaddict.disguise.disguisetypes.watchers.ItemFrameWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
-import org.bukkit.Particle;
-import org.bukkit.Particle;
-import org.bukkit.Particle;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("AoE Disguise - Particle type")
-@Description("Set or get an area effect disguise's particle type")
-@Examples("set AoE particle type of player's disguise to flame")
-@Since("0.2-beta1")
+@Name("Item Frame Disguise - Rotation")
+@Description("Set or get the item rotation of an item frame disguise")
+@Examples("set the frame rotation of {_dis} to 4")
+@Since("0.2-beta2")
 @RequiredPlugins({"LibsDisguises"})
-public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
+public class ExprDisguiseRotation extends SimpleExpression<Number> {
 
     static {
-        Skript.registerExpression(ExprDisguiseParticleType.class, Particle.class, ExpressionType.PROPERTY,
-                "[the] [(area [of effect]|AoE)] cloud [potion[s]] particle[s] type [value] of [dis(k|g)uise] %disguise%",
-                "[dis(k|g)uise] %disguise%'s [(area [of effect]|AoE)] cloud [potion[s]] particle[s] type [value]");
+        Skript.registerExpression(ExprDisguiseRotation.class, Number.class, ExpressionType.PROPERTY,
+                "[the] [item[( |-)]]frame [item] rotation of [dis(k|g)uise] %disguise%",
+                "[dis(k|g)uise] %disguise%'s [item[( |-)]]frame [item] rotation");
     }
 
     Expression<Disguise> disguise;
 
     @Override
-    protected Particle[] get(Event e) {
+    protected Number[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        AreaEffectCloudWatcher watcher;
+        ItemFrameWatcher watcher;
         try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
+            watcher = (ItemFrameWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return null; }
-        return new Particle[]{watcher.getParticleType()};
+        return new Number[]{watcher.getRotation()};
     }
 
     @Override
@@ -51,8 +48,8 @@ public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
     }
 
     @Override
-    public Class<? extends Particle> getReturnType() {
-        return Particle.class;
+    public Class<? extends Number> getReturnType() {
+        return Number.class;
     }
 
     @Override
@@ -70,27 +67,29 @@ public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET ||
-        mode == Changer.ChangeMode.RESET) return CollectionUtils.array(Particle.class);
+        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
         return null;
     }
 
     @Override
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
+        if (delta[0] == null) return;
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        AreaEffectCloudWatcher watcher;
+        ItemFrameWatcher watcher;
         try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
+            watcher = (ItemFrameWatcher) disguise.getWatcher();
         } catch (ClassCastException ignore) { return; }
 
-        Particle particle = Particle.SPELL_MOB;
-        if (mode == Changer.ChangeMode.SET) {
-            if (delta[0] != null) {
-                particle = (Particle) delta[0];
-            }
+        int value = ((Number) delta[0]).intValue();
+        int rotation = watcher.getRotation();
+
+        if (mode != Changer.ChangeMode.SET) {
+            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
+            rotation += value;
         }
-        watcher.setParticleType(particle);
+        else rotation = value;
+        watcher.setRotation(rotation);
         DisguiseUtil.update(disguise);
     }
 }
