@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Name("AoE Disguise - Color")
 @Description("Set or get an area of effect disguise's color")
-@Examples("set AoE color of player's disguise to red")
+@Examples("set cloud color of player's disguise to red")
 @Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseColor extends SimpleExpression<SkriptColor> {

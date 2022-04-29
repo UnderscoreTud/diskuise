@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Name("AoE Disguise - Particle type")
 @Description("Set or get an area effect disguise's particle type")
-@Examples("set AoE particle type of player's disguise to flame")
+@Examples("set cloud particle type of player's disguise to flame")
 @Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseParticleType extends SimpleExpression<Particle> {

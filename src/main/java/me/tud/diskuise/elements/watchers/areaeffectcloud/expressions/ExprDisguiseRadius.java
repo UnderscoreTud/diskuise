@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Name("AoE Disguise - Radius")
 @Description("Set or get the radius of an area of effect cloud disguise")
-@Examples("set the radius of AoE {_disguise} to 10")
+@Examples("set the radius of cloud {_disguise} to 10")
 @Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseRadius extends SimpleExpression<Number> {
