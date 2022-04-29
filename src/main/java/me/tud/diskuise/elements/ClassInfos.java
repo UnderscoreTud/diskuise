@@ -30,9 +30,9 @@ public class ClassInfos {
                 .name("Disguise")
                 .description("A customizable disguise")
                 .examples("set {disguise} to a new cow disguise",
-                        "\tset view self of disguise {disguise} to false",
-                        "\tset age of disguise {disguise} to baby",
-                        "\tdisguise player as {disguise}"
+                        "set view self of disguise {disguise} to false",
+                        "set age of disguise {disguise} to baby",
+                        "disguise player as {disguise}"
                 )
                 .since("0.1")
                 .defaultExpression(new EventValueExpression<>(Disguise.class))
