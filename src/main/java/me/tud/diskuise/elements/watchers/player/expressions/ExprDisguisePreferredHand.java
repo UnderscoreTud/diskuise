@@ -1,17 +1,14 @@
 package me.tud.diskuise.elements.watchers.player.expressions;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
-import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 

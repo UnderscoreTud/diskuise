@@ -10,7 +10,6 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.*;
 import me.tud.diskuise.utils.DisguiseUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;

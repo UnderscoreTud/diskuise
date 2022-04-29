@@ -2,7 +2,6 @@ package me.tud.diskuise.utils;
 
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import org.bukkit.entity.Entity;
-import org.bukkit.util.StringUtil;
 
 import java.util.*;
 

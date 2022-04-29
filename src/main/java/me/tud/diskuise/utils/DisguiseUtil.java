@@ -1,15 +1,11 @@
 package me.tud.diskuise.utils;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 
 import java.util.Collection;
-import java.util.HashMap;
 
 public class DisguiseUtil {
 

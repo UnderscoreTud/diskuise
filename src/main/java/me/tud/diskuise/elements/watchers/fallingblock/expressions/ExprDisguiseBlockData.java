@@ -14,7 +14,6 @@ import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.event.Event;
-import org.bukkit.block.data.BlockData;
 import org.jetbrains.annotations.Nullable;
 
 @Name("Falling Block Disguise - Block Data")

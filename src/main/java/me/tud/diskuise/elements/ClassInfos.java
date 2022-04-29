@@ -12,12 +12,9 @@ import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import org.bukkit.Art;
 import org.bukkit.Particle;
-import org.bukkit.entity.Ageable;
-import org.bukkit.entity.Parrot;
 
 import java.io.NotSerializableException;
 import java.io.StreamCorruptedException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

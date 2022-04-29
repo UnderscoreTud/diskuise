@@ -8,17 +8,14 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.util.Color;
+import ch.njol.skript.util.SkriptColor;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
-import ch.njol.skript.util.SkriptColor;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Arrays;
 
 @Name("Living Disguise - Particle color")
 @Description("Set or get a disguise's particle color")
