@@ -8,23 +8,20 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.util.Color;
+import ch.njol.skript.util.SkriptColor;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
-import ch.njol.skript.util.SkriptColor;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Parrot;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.image.BufferedImage;
-
 @Name("Player Disguise - Parrot variant")
 @Description({"Set or get the variant of a parrot on a player disguise's shoulder", "The only available colors are:", "red", "green", "blue", "aqua", "gray"})
-@Examples("set parrot variant of disguise {dis} to red")
+@Examples("set left shoulder parrot variant of disguise {dis} to red")
 @Since("0.2-beta2")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseParrotVariant extends SimpleExpression<SkriptColor> {
