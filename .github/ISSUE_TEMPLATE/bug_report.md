@@ -7,6 +7,9 @@ assignees: UnderscoreTud
 
 ---
 
+**Skript/Server version**
+Information about Skript and its addons, and the Minecraft server that it's running on
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
