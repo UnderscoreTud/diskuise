@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Name("Falling Block Disguise - Lock grid")
 @Description("Sets if a falling block disguise is locked to a grid")
-@Examples({"make player's disguise grid locked", "lock {_dis} grid"})
+@Examples({"make player's disguise grid locked", "lock {_dis}'s grid"})
 @Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseLockGrid extends Effect {
