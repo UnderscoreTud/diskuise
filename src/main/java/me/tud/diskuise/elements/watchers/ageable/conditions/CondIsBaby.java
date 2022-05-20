@@ -8,8 +8,10 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.libraryaddict.disguise.disguisetypes.MobDisguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.*;
+import me.libraryaddict.disguise.disguisetypes.watchers.AgeableWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.PiglinWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.ZoglinWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.ZombieWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 

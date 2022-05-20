@@ -1,20 +1,15 @@
 package me.tud.diskuise.elements.expressions;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.bukkitutil.EntityUtils;
 import ch.njol.skript.doc.*;
-import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.libraryaddict.disguise.disguisetypes.*;
-import org.bukkit.entity.EntityType;
+import me.libraryaddict.disguise.disguisetypes.Disguise;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
-
-import java.security.InvalidParameterException;
 
 @Name("Clone disguise")
 @Description("Clones an already existing disguise")

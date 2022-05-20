@@ -12,7 +12,6 @@ import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.EndermanWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.GhastWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.InsentientWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;

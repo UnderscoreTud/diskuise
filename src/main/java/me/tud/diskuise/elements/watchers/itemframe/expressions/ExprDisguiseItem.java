@@ -10,8 +10,6 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.InsentientWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.IronGolemWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.ItemFrameWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;

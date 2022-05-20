@@ -7,9 +7,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.AreaEffectCloudWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.ArrowWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
