@@ -34,13 +34,10 @@ public class EffDisguiseSetSkin extends Effect {
         Object object = this.object.getSingle(e);
         if (disguise == null) return;
         PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof PlayerWatcher) watcher = (PlayerWatcher) disguise.getWatcher();
+        else return;
         String skin;
-        if (object instanceof OfflinePlayer) {
-            skin = ((OfflinePlayer) object).getName();
-        }
+        if (object instanceof OfflinePlayer) skin = ((OfflinePlayer) object).getName();
         else skin = (String) object;
         watcher.setSkin(skin);
         DisguiseUtil.update(disguise);

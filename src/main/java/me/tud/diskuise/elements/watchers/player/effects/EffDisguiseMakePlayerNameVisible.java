@@ -32,9 +32,8 @@ public class EffDisguiseMakePlayerNameVisible extends Effect {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof PlayerWatcher) watcher = (PlayerWatcher) disguise.getWatcher();
+        else return;
         watcher.setNameVisible(bool);
         DisguiseUtil.update(disguise);
     }

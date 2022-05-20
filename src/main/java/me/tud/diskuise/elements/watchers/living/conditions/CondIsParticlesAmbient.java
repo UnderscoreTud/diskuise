@@ -30,11 +30,8 @@ public class CondIsParticlesAmbient extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return false; }
-        return watcher.isPotionParticlesAmbient() != isNegated();
+        return disguise.getWatcher() instanceof LivingWatcher &&
+                ((LivingWatcher) disguise.getWatcher()).isPotionParticlesAmbient() != isNegated();
     }
 
     @Override

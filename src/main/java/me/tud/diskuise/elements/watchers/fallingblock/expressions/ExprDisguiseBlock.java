@@ -10,6 +10,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.block.data.BlockData;
@@ -36,11 +37,8 @@ public class ExprDisguiseBlock extends SimpleExpression<ItemStack> {
     protected ItemStack[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new ItemStack[]{watcher.getBlock()};
+        return new ItemStack[]{disguise.getWatcher() instanceof FallingBlockWatcher ?
+                ((FallingBlockWatcher) disguise.getWatcher()).getBlock() : null};
     }
 
     @Override
@@ -77,18 +75,15 @@ public class ExprDisguiseBlock extends SimpleExpression<ItemStack> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof FallingBlockWatcher) watcher = (FallingBlockWatcher) disguise.getWatcher();
+        else return;
 
-        if (delta[0] instanceof ItemStack) {
-            ItemStack block = (ItemStack) delta[0];
+        if (delta[0] instanceof ItemStack block) {
             if (!block.getType().isBlock()) return;
             watcher.setBlock(block);
         }
 
-        else if (delta[0] instanceof BlockData) {
-            BlockData blockData = (BlockData) delta[0];
+        else if (delta[0] instanceof BlockData blockData) {
             watcher.setBlockData(blockData);
         }
 

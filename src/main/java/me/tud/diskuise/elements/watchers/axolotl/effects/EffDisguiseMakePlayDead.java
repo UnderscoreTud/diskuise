@@ -32,9 +32,8 @@ public class EffDisguiseMakePlayDead extends Effect {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         AxolotlWatcher watcher;
-        try {
-            watcher = (AxolotlWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof AxolotlWatcher) watcher = (AxolotlWatcher) disguise.getWatcher();
+        else return;
         watcher.setPlayingDead(bool);
         DisguiseUtil.update(disguise);
     }

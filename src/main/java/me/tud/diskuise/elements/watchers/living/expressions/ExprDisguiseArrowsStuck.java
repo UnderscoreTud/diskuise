@@ -10,6 +10,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
@@ -33,11 +34,8 @@ public class ExprDisguiseArrowsStuck extends SimpleExpression<Number> {
     protected Number[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getArrowsSticking()};
+        return new Number[]{disguise.getWatcher() instanceof LivingWatcher ?
+                ((LivingWatcher) disguise.getWatcher()).getArrowsSticking() : null};
     }
 
     @Override
@@ -65,7 +63,9 @@ public class ExprDisguiseArrowsStuck extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        switch (mode) {
+            case SET, ADD, REMOVE, REMOVE_ALL -> { return CollectionUtils.array(Number.class); }
+        }
         return null;
     }
 
@@ -75,18 +75,21 @@ public class ExprDisguiseArrowsStuck extends SimpleExpression<Number> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof LivingWatcher) watcher = (LivingWatcher) disguise.getWatcher();
+        else return;
 
-        int value = ((Number) delta[0]).intValue();
+        int value = mode != Changer.ChangeMode.REMOVE_ALL ? ((Number) delta[0]).intValue() : 0;
         int arrows = watcher.getArrowsSticking();
 
-        if (mode != Changer.ChangeMode.SET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            arrows += value;
+        switch (mode) {
+            case SET -> arrows = value;
+            case REMOVE_ALL -> arrows = 0;
+            case ADD, REMOVE -> {
+                if (mode == Changer.ChangeMode.REMOVE) value *= -1;
+                arrows += value;
+            }
         }
-        else arrows = value;
+
         watcher.setArrowsSticking(arrows);
         DisguiseUtil.update(disguise);
     }

@@ -34,12 +34,8 @@ public class ExprDisguiseLeftPants extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
-        return new Boolean[]{watcher.isLeftPantsEnabled()};
+        return new Boolean[]{disguise.getWatcher() instanceof PlayerWatcher ?
+                ((PlayerWatcher) disguise.getWatcher()).isLeftPantsEnabled() : null};
     }
 
     @Override
@@ -76,9 +72,8 @@ public class ExprDisguiseLeftPants extends SimpleExpression<Boolean> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof PlayerWatcher) watcher = (PlayerWatcher) disguise.getWatcher();
+        else return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
         watcher.setLeftPantsEnabled(bool);
         DisguiseUtil.update(disguise);

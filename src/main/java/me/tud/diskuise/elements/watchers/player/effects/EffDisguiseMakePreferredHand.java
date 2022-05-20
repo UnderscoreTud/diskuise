@@ -33,9 +33,8 @@ public class EffDisguiseMakePreferredHand extends Effect {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof PlayerWatcher) watcher = (PlayerWatcher) disguise.getWatcher();
+        else return;
         if (isRightHanded) watcher.setMainHand(MainHand.RIGHT);
         else watcher.setMainHand(MainHand.LEFT);
         DisguiseUtil.update(disguise);

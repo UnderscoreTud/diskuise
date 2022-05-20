@@ -31,10 +31,8 @@ public class CondHasCustomName extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        if (!disguise.isMobDisguise()) return false;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return false;
-        return watcher.hasCustomName() != isNegated();
+        return disguise.getWatcher() != null &&
+                disguise.getWatcher().hasCustomName() != isNegated();
     }
 
     @Override

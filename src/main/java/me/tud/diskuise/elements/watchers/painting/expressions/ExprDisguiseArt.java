@@ -35,11 +35,8 @@ public class ExprDisguiseArt extends SimpleExpression<Art> {
     protected Art[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        PaintingWatcher watcher;
-        try {
-            watcher = (PaintingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new Art[]{watcher.getArt()};
+        return new Art[]{disguise.getWatcher() instanceof PaintingWatcher ?
+                ((PaintingWatcher) disguise.getWatcher()).getArt() : null};
     }
 
     @Override
@@ -77,9 +74,8 @@ public class ExprDisguiseArt extends SimpleExpression<Art> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         PaintingWatcher watcher;
-        try {
-            watcher = (PaintingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof PaintingWatcher) watcher = (PaintingWatcher) disguise.getWatcher();
+        else return;
 
         watcher.setArt((Art) delta[0]);
         DisguiseUtil.update(disguise);

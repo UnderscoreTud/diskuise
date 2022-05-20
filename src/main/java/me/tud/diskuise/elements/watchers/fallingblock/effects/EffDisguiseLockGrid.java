@@ -7,6 +7,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
@@ -34,9 +35,8 @@ public class EffDisguiseLockGrid extends Effect {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof FallingBlockWatcher) watcher = (FallingBlockWatcher) disguise.getWatcher();
+        else return;
         watcher.setGridLocked(bool);
         DisguiseUtil.update(disguise);
     }

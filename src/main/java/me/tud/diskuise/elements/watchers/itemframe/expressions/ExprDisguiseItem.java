@@ -10,6 +10,8 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.InsentientWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.IronGolemWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.ItemFrameWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
@@ -35,11 +37,8 @@ public class ExprDisguiseItem extends SimpleExpression<ItemStack> {
     protected ItemStack[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        ItemFrameWatcher watcher;
-        try {
-            watcher = (ItemFrameWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new ItemStack[]{watcher.getItem()};
+        return new ItemStack[]{disguise.getWatcher() instanceof ItemFrameWatcher ?
+                ((ItemFrameWatcher) disguise.getWatcher()).getItem() : null};
     }
 
     @Override
@@ -76,9 +75,8 @@ public class ExprDisguiseItem extends SimpleExpression<ItemStack> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         ItemFrameWatcher watcher;
-        try {
-            watcher = (ItemFrameWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof ItemFrameWatcher) watcher = (ItemFrameWatcher) disguise.getWatcher();
+        else return;
 
         ItemStack itemStack = (ItemStack) delta[0];
         watcher.setItem(itemStack);

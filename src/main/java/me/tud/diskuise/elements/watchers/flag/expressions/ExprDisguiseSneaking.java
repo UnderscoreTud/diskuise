@@ -34,9 +34,8 @@ public class ExprDisguiseSneaking extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return null;
-        return new Boolean[]{watcher.isSneaking()};
+        return new Boolean[]{disguise.getWatcher() != null ?
+                disguise.getWatcher().isSneaking() : null};
     }
 
     @Override

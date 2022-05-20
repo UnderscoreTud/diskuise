@@ -30,10 +30,8 @@ public class CondIsUpsideDown extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        if (!disguise.isMobDisguise()) return false;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return false;
-        return watcher.isUpsideDown() != isNegated();
+        return disguise.getWatcher() != null &&
+                disguise.getWatcher().isUpsideDown() != isNegated();
     }
 
     @Override

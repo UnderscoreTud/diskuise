@@ -35,10 +35,8 @@ public class ExprDisguiseInvisible extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        if (!disguise.isMobDisguise()) return null;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return null;
-        return new Boolean[]{watcher.isInvisible() != isNegated};
+        return new Boolean[]{disguise.getWatcher() != null ?
+                disguise.getWatcher().isInvisible() : null};
     }
 
     @Override

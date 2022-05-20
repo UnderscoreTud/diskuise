@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.enderman.effects;
+package me.tud.diskuise.elements.watchers.insentient.effects;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
@@ -8,12 +8,13 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.EndermanWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.GhastWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Enderman Disguise - Make Aggressive")
-@Description("Sets if an enderman disguise appears to be aggressive")
+@Name("Insentient Disguise - Make Aggressive")
+@Description("Sets if an insentient disguise appears to be aggressive")
 @Examples({"make player's disguise aggressive"})
 @Since("0.2-beta3")
 @RequiredPlugins({"LibsDisguises"})
@@ -31,11 +32,9 @@ public class EffDisguiseMakeAggressive extends Effect {
     protected void execute(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        EndermanWatcher watcher;
-        try {
-            watcher = (EndermanWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
-        watcher.setAggressive(bool);
+        if (disguise.getWatcher() instanceof EndermanWatcher) ((EndermanWatcher) disguise.getWatcher()).setAggressive(bool);
+        else if (disguise.getWatcher() instanceof GhastWatcher) ((GhastWatcher) disguise.getWatcher()).setAggressive(bool);
+        else return;
         DisguiseUtil.update(disguise);
     }
 

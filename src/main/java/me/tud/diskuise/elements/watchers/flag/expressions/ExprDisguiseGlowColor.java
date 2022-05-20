@@ -36,9 +36,8 @@ public class ExprDisguiseGlowColor extends SimpleExpression<SkriptColor> {
     protected SkriptColor[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return null;
-        return new SkriptColor[]{SkriptColor.valueOf(watcher.getGlowColor().name())};
+        return new SkriptColor[]{SkriptColor.valueOf(disguise.getWatcher() != null ?
+                disguise.getWatcher().getGlowColor().name() : null)};
     }
 
     @Override

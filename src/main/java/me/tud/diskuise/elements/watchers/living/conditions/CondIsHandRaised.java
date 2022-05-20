@@ -7,6 +7,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.ArrowWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -32,12 +33,10 @@ public class CondIsHandRaised extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return false; }
-        if (!isMainHand) return watcher.isOffhandRaised() != isNegated();
-        return watcher.isMainHandRaised() != isNegated();
+        if (!isMainHand) return disguise.getWatcher() instanceof LivingWatcher &&
+                ((LivingWatcher) disguise.getWatcher()).isOffhandRaised() != isNegated();
+        return disguise.getWatcher() instanceof LivingWatcher &&
+                disguise.getWatcher().isMainHandRaised() != isNegated();
     }
 
     @Override

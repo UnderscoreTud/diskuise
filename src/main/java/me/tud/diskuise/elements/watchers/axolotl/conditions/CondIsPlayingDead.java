@@ -7,7 +7,9 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.ArrowWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,11 +32,8 @@ public class CondIsPlayingDead extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        AxolotlWatcher watcher;
-        try {
-            watcher = (AxolotlWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return false; }
-        return watcher.isPlayingDead() != isNegated();
+        return disguise.getWatcher() instanceof AxolotlWatcher &&
+                ((AxolotlWatcher) disguise.getWatcher()).isPlayingDead() != isNegated();
     }
 
     @Override

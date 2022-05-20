@@ -10,6 +10,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.AreaEffectCloudWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.ArrowWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
@@ -34,12 +35,8 @@ public class ExprDisguiseCritical extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        ArrowWatcher watcher;
-        try {
-            watcher = (ArrowWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
-        return new Boolean[]{watcher.isCritical()};
+        return new Boolean[]{disguise.getWatcher() instanceof ArrowWatcher ?
+                ((ArrowWatcher) disguise.getWatcher()).isCritical() : null};
     }
 
     @Override
@@ -76,9 +73,8 @@ public class ExprDisguiseCritical extends SimpleExpression<Boolean> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         ArrowWatcher watcher;
-        try {
-            watcher = (ArrowWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof ArrowWatcher) watcher = (ArrowWatcher) disguise.getWatcher();
+        else return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
         watcher.setCritical(bool);
         DisguiseUtil.update(disguise);

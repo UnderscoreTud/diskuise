@@ -37,12 +37,8 @@ public class ExprDisguiseColor extends SimpleExpression<SkriptColor> {
     protected SkriptColor[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        AreaEffectCloudWatcher watcher;
-        try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        Bukkit.broadcastMessage(watcher.getColor().toString());
-        return new SkriptColor[]{SkriptColor.fromBukkitColor(watcher.getColor())};
+        return new SkriptColor[]{SkriptColor.fromBukkitColor(disguise.getWatcher() instanceof AreaEffectCloudWatcher ?
+                ((AreaEffectCloudWatcher) disguise.getWatcher()).getColor() : null)};
     }
 
     @Override
@@ -70,8 +66,8 @@ public class ExprDisguiseColor extends SimpleExpression<SkriptColor> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET ||
-        mode == Changer.ChangeMode.RESET) return CollectionUtils.array(Color.class);
+        if (mode == Changer.ChangeMode.SET)
+            return CollectionUtils.array(Color.class);
         return null;
     }
 
@@ -80,16 +76,12 @@ public class ExprDisguiseColor extends SimpleExpression<SkriptColor> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         AreaEffectCloudWatcher watcher;
-        try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof AreaEffectCloudWatcher) watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
+        else return;
 
-        org.bukkit.Color color = org.bukkit.Color.WHITE;
-        if (mode == Changer.ChangeMode.SET) {
-            if (delta[0] != null) {
-                color = ((SkriptColor) delta[0]).asBukkitColor();
-            }
-        }
+        org.bukkit.Color color;
+        if (mode == Changer.ChangeMode.SET && delta[0] != null) color = ((SkriptColor) delta[0]).asBukkitColor();
+        else return;
         watcher.setColor(color);
         DisguiseUtil.update(disguise);
     }

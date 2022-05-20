@@ -10,6 +10,8 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.watchers.AreaEffectCloudWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.DroppedItemWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
@@ -35,11 +37,8 @@ public class ExprDisguiseItemStack extends SimpleExpression<ItemStack> {
     protected ItemStack[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        DroppedItemWatcher watcher;
-        try {
-            watcher = (DroppedItemWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new ItemStack[]{watcher.getItemStack()};
+        return new ItemStack[]{disguise.getWatcher() instanceof DroppedItemWatcher ?
+                ((DroppedItemWatcher) disguise.getWatcher()).getItemStack() : null};
     }
 
     @Override
@@ -76,9 +75,8 @@ public class ExprDisguiseItemStack extends SimpleExpression<ItemStack> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         DroppedItemWatcher watcher;
-        try {
-            watcher = (DroppedItemWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof DroppedItemWatcher) watcher = (DroppedItemWatcher) disguise.getWatcher();
+        else return;
 
         ItemStack itemStack = (ItemStack) delta[0];
         watcher.setItemStack(itemStack);

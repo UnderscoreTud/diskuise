@@ -35,12 +35,8 @@ public class ExprDisguiseVariant extends SimpleExpression<Axolotl.Variant> {
     protected Axolotl.Variant[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        AxolotlWatcher watcher;
-        try {
-            watcher = (AxolotlWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
-        return new Axolotl.Variant[]{watcher.getVariant()};
+        return new Axolotl.Variant[]{disguise.getWatcher() instanceof AxolotlWatcher ?
+                ((AxolotlWatcher) disguise.getWatcher()).getVariant() : null};
     }
 
     @Override
@@ -77,9 +73,8 @@ public class ExprDisguiseVariant extends SimpleExpression<Axolotl.Variant> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         AxolotlWatcher watcher;
-        try {
-            watcher = (AxolotlWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof AxolotlWatcher) watcher = (AxolotlWatcher) disguise.getWatcher();
+        else return;
         assert delta[0] != null;
         watcher.setVariant((Axolotl.Variant) delta[0]);
         DisguiseUtil.update(disguise);

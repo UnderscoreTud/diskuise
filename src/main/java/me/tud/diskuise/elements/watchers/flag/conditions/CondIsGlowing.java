@@ -34,15 +34,12 @@ public class CondIsGlowing extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         SkriptColor color = this.color != null ? (SkriptColor) this.color.getSingle(e) : null;
-        if (disguise == null) return false;
-        if (!disguise.isMobDisguise()) return false;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return false;
-        if (color != null && watcher.isGlowing()) {
-            if (color.asChatColor() == watcher.getGlowColor()) return watcher.isGlowing() != isNegated();
-            return watcher.isGlowing() == isNegated();
+        if (disguise == null || disguise.getWatcher() == null) return false;
+        if (color != null && disguise.getWatcher().isGlowing()) {
+            if (color.asChatColor() == disguise.getWatcher().getGlowColor()) return disguise.getWatcher().isGlowing() != isNegated();
+            return disguise.getWatcher().isGlowing() == isNegated();
         }
-        return watcher.isGlowing() != isNegated();
+        return disguise.getWatcher().isGlowing() != isNegated();
     }
 
     @Override

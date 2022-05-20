@@ -35,13 +35,10 @@ public class ExprDisguiseShoulderHasParrot extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
-        if (isRight) return new Boolean[]{watcher.isRightShoulderHasParrot()};
-        return new Boolean[]{watcher.isLeftShoulderHasParrot()};
+        if (isRight) return new Boolean[]{disguise.getWatcher() instanceof PlayerWatcher ?
+                ((PlayerWatcher) disguise.getWatcher()).isRightShoulderHasParrot() : null};
+        return new Boolean[]{disguise.getWatcher() instanceof PlayerWatcher ?
+                ((PlayerWatcher) disguise.getWatcher()).isLeftShoulderHasParrot() : null};
     }
 
     @Override
@@ -79,9 +76,8 @@ public class ExprDisguiseShoulderHasParrot extends SimpleExpression<Boolean> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof PlayerWatcher) watcher = (PlayerWatcher) disguise.getWatcher();
+        else return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
         if (isRight) watcher.setRightShoulderHasParrot(bool);
         else watcher.setLeftShoulderHasParrot(bool);

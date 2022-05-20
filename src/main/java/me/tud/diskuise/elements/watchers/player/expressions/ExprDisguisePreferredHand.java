@@ -31,12 +31,8 @@ public class ExprDisguisePreferredHand extends SimpleExpression<String> {
     protected String[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
-        String preferredHand = watcher.getMainHand().name().toLowerCase();
+        String preferredHand = disguise.getWatcher() instanceof PlayerWatcher ?
+                ((PlayerWatcher) disguise.getWatcher()).getMainHand().name().toLowerCase() : null;
         return new String[]{preferredHand};
     }
 

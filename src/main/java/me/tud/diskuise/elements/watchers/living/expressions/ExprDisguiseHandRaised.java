@@ -38,13 +38,10 @@ public class ExprDisguiseHandRaised extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
-        if (!isMainHand) return new Boolean[]{watcher.isOffhandRaised()};
-        return new Boolean[]{watcher.isMainHandRaised()};
+        if (!isMainHand) return new Boolean[]{disguise.getWatcher() instanceof LivingWatcher ?
+                ((LivingWatcher) disguise.getWatcher()).isOffhandRaised() : null};
+        return new Boolean[]{disguise.getWatcher() instanceof LivingWatcher ?
+                disguise.getWatcher().isMainHandRaised() : null};
     }
 
     @Override
@@ -82,9 +79,8 @@ public class ExprDisguiseHandRaised extends SimpleExpression<Boolean> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof LivingWatcher) watcher = (LivingWatcher) disguise.getWatcher();
+        else return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
         if (!isMainHand) watcher.setOffhandRaised(bool);
         else watcher.setMainHandRaised(bool);

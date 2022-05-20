@@ -11,6 +11,7 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.AreaEffectCloudWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -34,11 +35,8 @@ public class ExprDisguiseRadius extends SimpleExpression<Number> {
     protected Number[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        AreaEffectCloudWatcher watcher;
-        try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getRadius()};
+        return new Number[]{disguise.getWatcher() instanceof AreaEffectCloudWatcher ?
+                ((AreaEffectCloudWatcher) disguise.getWatcher()).getRadius() : null};
     }
 
     @Override
@@ -66,32 +64,32 @@ public class ExprDisguiseRadius extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET ||
-                mode == Changer.ChangeMode.ADD ||
-                mode == Changer.ChangeMode.REMOVE ||
-                mode == Changer.ChangeMode.RESET) return CollectionUtils.array(Number.class);
+        switch (mode) {
+            case SET, ADD, REMOVE, RESET -> { return CollectionUtils.array(Number.class); }
+        }
         return null;
     }
 
     @Override
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-        if (delta[0] == null) return;
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         AreaEffectCloudWatcher watcher;
-        try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof AreaEffectCloudWatcher) watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
+        else return;
 
-        float value = ((Number) delta[0]).floatValue();
+        float value = 0;
+        if (mode != Changer.ChangeMode.RESET) value = ((Number) delta[0]).floatValue();
         float radius = watcher.getRadius();
 
-        if (mode != Changer.ChangeMode.SET && mode != Changer.ChangeMode.RESET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            radius += value;
+        switch (mode) {
+            case SET -> radius = value;
+            case RESET -> radius = 3f;
+            case ADD, REMOVE -> {
+                if (mode == Changer.ChangeMode.REMOVE) value *= -1;
+                radius += value;
+            }
         }
-        else if (mode == Changer.ChangeMode.RESET) radius = 3f;
-        else radius = value;
         watcher.setRadius(radius);
         DisguiseUtil.update(disguise);
     }

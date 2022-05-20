@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.enderman.conditions;
+package me.tud.diskuise.elements.watchers.flag.conditions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
@@ -7,21 +7,21 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.EndermanWatcher;
+import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Enderman Disguise - Is Aggressive")
-@Description("Checks if an enderman disguise is aggressive")
-@Examples({"if {dis} is aggressive:",
-            "\tset aggressive state of {dis} to false"})
-@Since("0.2-beta1")
+@Name("Disguise - Is Burning")
+@Description("Checks if a disguise appears to be burning")
+@Examples({"if {dis} is burning:",
+            "\tset burning state of {dis} to false"})
+@Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
-public class CondIsAggressive extends Condition {
+public class CondIsSwimming extends Condition {
 
     static {
-        Skript.registerCondition(CondIsAggressive.class,
-                "[dis(k|g)uise] %disguise% (1¦is|2¦is(n't| not)) aggressive");
+        Skript.registerCondition(CondIsSwimming.class,
+                "[dis(k|g)uise] %disguise% (1¦is|2¦is(n't| not)) swim[(ing|s)]");
     }
 
     Expression<Disguise> disguise;
@@ -30,11 +30,8 @@ public class CondIsAggressive extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        EndermanWatcher watcher;
-        try {
-            watcher = (EndermanWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return false; }
-        return watcher.isAggressive() != isNegated();
+        return disguise.getWatcher() != null &&
+                disguise.getWatcher().isSwimming() != isNegated();
     }
 
     @Override

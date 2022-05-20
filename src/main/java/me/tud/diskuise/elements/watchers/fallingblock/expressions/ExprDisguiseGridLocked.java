@@ -34,12 +34,8 @@ public class ExprDisguiseGridLocked extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
-        return new Boolean[]{watcher.isGridLocked()};
+        return new Boolean[]{disguise.getWatcher() instanceof FallingBlockWatcher ?
+                ((FallingBlockWatcher) disguise.getWatcher()).isGridLocked() : null};
     }
 
     @Override
@@ -76,9 +72,8 @@ public class ExprDisguiseGridLocked extends SimpleExpression<Boolean> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof FallingBlockWatcher) watcher = (FallingBlockWatcher) disguise.getWatcher();
+        else return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
         watcher.setGridLocked(bool);
         DisguiseUtil.update(disguise);

@@ -30,10 +30,8 @@ public class CondIsBurning extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        if (!disguise.isMobDisguise()) return false;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return false;
-        return watcher.isBurning() != isNegated();
+        return disguise.getWatcher() != null &&
+                disguise.getWatcher().isBurning() != isNegated();
     }
 
     @Override

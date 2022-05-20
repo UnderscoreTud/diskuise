@@ -35,11 +35,8 @@ public class ExprDisguiseBlockData extends SimpleExpression<BlockData> {
     protected BlockData[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new BlockData[]{watcher.getBlockData()};
+        return new BlockData[]{disguise.getWatcher() instanceof FallingBlockWatcher ?
+                ((FallingBlockWatcher) disguise.getWatcher()).getBlockData() : null};
     }
 
     @Override
@@ -76,9 +73,8 @@ public class ExprDisguiseBlockData extends SimpleExpression<BlockData> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof FallingBlockWatcher) watcher = (FallingBlockWatcher) disguise.getWatcher();
+        else return;
 
         BlockData blockData = (BlockData) delta[0];
         watcher.setBlockData(blockData);

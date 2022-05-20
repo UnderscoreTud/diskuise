@@ -34,12 +34,8 @@ public class ExprDisguisePlayingDead extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        AxolotlWatcher watcher;
-        try {
-            watcher = (AxolotlWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
-        return new Boolean[]{watcher.isPlayingDead()};
+        return new Boolean[]{disguise.getWatcher() instanceof AxolotlWatcher ?
+                ((AxolotlWatcher) disguise.getWatcher()).isPlayingDead() : null};
     }
 
     @Override
@@ -76,9 +72,8 @@ public class ExprDisguisePlayingDead extends SimpleExpression<Boolean> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         AxolotlWatcher watcher;
-        try {
-            watcher = (AxolotlWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof AxolotlWatcher) watcher = (AxolotlWatcher) disguise.getWatcher();
+        else return;
         boolean bool = Boolean.TRUE.equals(delta[0]);
         watcher.setPlayingDead(bool);
         DisguiseUtil.update(disguise);
