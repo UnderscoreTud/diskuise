@@ -1,4 +1,4 @@
-package me.tud.diskuise.elements.watchers.axolotl.conditions;
+package me.tud.diskuise.elements.watchers.bat.conditions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
@@ -7,21 +7,21 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.BatWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Axolotl Disguise - Is Playing dead")
-@Description("Checks if an axolotl disguise appears to be playing dead")
-@Examples({"if {dis} is playing dead:",
-            "\tset playing dead state of {dis} to false"})
+@Name("Bat Disguise - Is Hanging")
+@Description("Checks if a bat disguise appears to be hanging upside down")
+@Examples({"if {dis} is hanging:",
+        "\tset hanging state of {dis} to false"})
 @Since("0.2-beta3")
 @RequiredPlugins({"LibsDisguises"})
-public class CondIsPlayingDead extends Condition {
+public class CondIsHanging extends Condition {
 
     static {
-        Skript.registerCondition(CondIsPlayingDead.class,
-                "[dis(k|g)uise] %disguise% [(1¦is|2¦is(n't| not))] play[(ing|s)] dead");
+        Skript.registerCondition(CondIsHanging.class,
+                "[dis(k|g)uise] %disguise% [(1¦is|2¦is(n't| not))] hanging [upside[ ]down]");
     }
 
     Expression<Disguise> disguise;
@@ -30,8 +30,8 @@ public class CondIsPlayingDead extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        return disguise.getWatcher() instanceof AxolotlWatcher &&
-                ((AxolotlWatcher) disguise.getWatcher()).isPlayingDead() != isNegated();
+        return disguise.getWatcher() instanceof BatWatcher &&
+                ((BatWatcher) disguise.getWatcher()).isHanging() != isNegated();
     }
 
     @Override
