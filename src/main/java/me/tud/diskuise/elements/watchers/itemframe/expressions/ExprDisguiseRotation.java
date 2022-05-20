@@ -34,11 +34,8 @@ public class ExprDisguiseRotation extends SimpleExpression<Number> {
     protected Number[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        ItemFrameWatcher watcher;
-        try {
-            watcher = (ItemFrameWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getRotation()};
+        return new Number[]{disguise.getWatcher() instanceof ItemFrameWatcher ?
+                ((ItemFrameWatcher) disguise.getWatcher()).getRotation() : null};
     }
 
     @Override
@@ -66,7 +63,9 @@ public class ExprDisguiseRotation extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        switch (mode) {
+            case SET, ADD, REMOVE -> { return CollectionUtils.array(Number.class); }
+        }
         return null;
     }
 
@@ -76,18 +75,20 @@ public class ExprDisguiseRotation extends SimpleExpression<Number> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         ItemFrameWatcher watcher;
-        try {
-            watcher = (ItemFrameWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof ItemFrameWatcher) watcher = (ItemFrameWatcher) disguise.getWatcher();
+        else return;
 
         int value = ((Number) delta[0]).intValue();
         int rotation = watcher.getRotation();
 
-        if (mode != Changer.ChangeMode.SET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            rotation += value;
+        switch (mode) {
+            case SET -> rotation = value;
+            case ADD, REMOVE -> {
+                if (mode == Changer.ChangeMode.REMOVE) value *= -1;
+                rotation += value;
+            }
         }
-        else rotation = value;
+
         watcher.setRotation(rotation);
         DisguiseUtil.update(disguise);
     }

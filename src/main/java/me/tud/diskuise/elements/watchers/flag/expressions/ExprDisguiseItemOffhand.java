@@ -37,9 +37,8 @@ public class ExprDisguiseItemOffhand extends SimpleExpression<ItemStack> {
     ItemStack[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        if (!disguise.isMobDisguise()) return null;
-        FlagWatcher watcher = disguise.getWatcher();
-        return new ItemStack[]{(watcher.getItemInOffHand() != null ? watcher.getItemInOffHand() : new ItemStack(Material.AIR))};
+        return new ItemStack[]{disguise.getWatcher() != null ?
+                disguise.getWatcher().getItemInOffHand() : null};
     }
 
     @Override
@@ -64,26 +63,23 @@ public class ExprDisguiseItemOffhand extends SimpleExpression<ItemStack> {
     }
 
     @Override
-    public Class<?>[] acceptChange(final Changer.ChangeMode changeMode) {
-        if (
-                changeMode != Changer.ChangeMode.SET &&
-                changeMode != Changer.ChangeMode.DELETE &&
-                changeMode != Changer.ChangeMode.REMOVE_ALL &&
-                changeMode != Changer.ChangeMode.RESET) return null;
-        return CollectionUtils.array(ItemStack.class);
+    public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
+        switch (mode) {
+            case SET, DELETE, REMOVE_ALL, RESET -> { return CollectionUtils.array(ItemStack.class); }
+        }
+        return null;
     }
 
     @Override
-    public void change(Event e, Object[] delta, Changer.ChangeMode changeMode) {
+    public void change(Event e, Object[] delta, Changer.ChangeMode mode) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         if (!disguise.isMobDisguise()) return;
         FlagWatcher watcher = disguise.getWatcher();
-        if (changeMode != Changer.ChangeMode.SET) {
-            watcher.setItemInOffHand(new ItemStack(Material.AIR));
-            return;
+        switch (mode) {
+            case SET -> watcher.setItemInOffHand((ItemStack) delta[0]);
+            case DELETE, REMOVE_ALL, RESET -> watcher.setItemInOffHand(new ItemStack(Material.AIR));
         }
-        watcher.setItemInOffHand((ItemStack) delta[0]);
         DisguiseUtil.update(disguise);
     }
 }

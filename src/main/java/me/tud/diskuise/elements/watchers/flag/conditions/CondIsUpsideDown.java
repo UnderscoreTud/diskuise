@@ -7,7 +7,6 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,10 +29,8 @@ public class CondIsUpsideDown extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        if (!disguise.isMobDisguise()) return false;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return false;
-        return watcher.isUpsideDown() != isNegated();
+        return disguise.getWatcher() != null &&
+                disguise.getWatcher().isUpsideDown() != isNegated();
     }
 
     @Override

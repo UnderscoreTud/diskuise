@@ -7,11 +7,13 @@ import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.*;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,18 +30,24 @@ public class EffDisguise extends Effect {
 
     static {
         Skript.registerEffect(EffDisguise.class,
-                "dis(g|k)uise %entities% (to|as) [(a|an)] %disguise/entitydata/string%",
-                "(set|change) %entities%'[s] dis(g|k)uise to %disguise/entitydata/string%",
-                "(set|change) dis(g|k)uise of %entities% to %disguise/entitydata/string%");
+                "dis(g|k)uise %entities% (to|as) [(a|an)] %disguise/entitydata/string% [to %-players%] [for %-timespan%]",
+                "(set|change) %entities%'[s] dis(g|k)uise to %disguise/entitydata/string% [to %-players%] [for %-timespan%]",
+                "(set|change) dis(g|k)uise of %entities% to %disguise/entitydata/string% [to %-players%] [for %-timespan%]");
     }
 
     Expression<Entity> entities;
     Expression<Object> object;
+    Expression<Player> targets;
+    Expression<Timespan> timespan;
 
     @Override
     protected void execute(Event e) {
         Entity[] entities = this.entities.getArray(e);
         Object object = this.object.getSingle(e) != null ? this.object.getSingle(e) : EntityUtils.toSkriptEntityData(EntityType.DROPPED_ITEM);
+        Player[] targets = null;
+        Timespan timespan = null;
+        if (this.targets != null) targets = this.targets.getArray(e);
+        if (this.timespan != null) timespan = this.timespan.getSingle(e);
         Disguise disguise = null;
 
         if (object instanceof Disguise) disguise = (Disguise) object;
@@ -59,8 +67,10 @@ public class EffDisguise extends Effect {
         }
 
         if (disguise == null) return;
+        Long timeToExpire = null;
+        if (timespan != null) timeToExpire = timespan.getTicks_i();
         for (Entity entity : entities) {
-            DisguiseUtil.disguise(entity, disguise);
+            DisguiseUtil.disguise(entity, disguise, timeToExpire, targets);
         }
     }
 
@@ -74,6 +84,8 @@ public class EffDisguise extends Effect {
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         entities = (Expression<Entity>) exprs[0];
         object = (Expression<Object>) exprs[1];
+        targets = (Expression<Player>) exprs[2];
+        timespan = (Expression<Timespan>) exprs[3];
         return true;
     }
 }

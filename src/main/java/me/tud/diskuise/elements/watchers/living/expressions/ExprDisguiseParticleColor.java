@@ -36,11 +36,8 @@ public class ExprDisguiseParticleColor extends SimpleExpression<SkriptColor> {
     protected SkriptColor[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new SkriptColor[]{SkriptColor.fromBukkitColor(watcher.getParticlesColor())};
+        return new SkriptColor[]{SkriptColor.fromBukkitColor(disguise.getWatcher() instanceof LivingWatcher ?
+                ((LivingWatcher) disguise.getWatcher()).getParticlesColor() : null)};
     }
 
     @Override
@@ -68,9 +65,9 @@ public class ExprDisguiseParticleColor extends SimpleExpression<SkriptColor> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET ||
-        mode == Changer.ChangeMode.RESET ||
-        mode == Changer.ChangeMode.DELETE) return CollectionUtils.array(Color.class);
+        switch (mode) {
+            case SET, RESET, DELETE -> { return CollectionUtils.array(Color.class); }
+        }
         return null;
     }
 
@@ -79,16 +76,11 @@ public class ExprDisguiseParticleColor extends SimpleExpression<SkriptColor> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof LivingWatcher) watcher = (LivingWatcher) disguise.getWatcher();
+        else return;
 
         org.bukkit.Color color = org.bukkit.Color.fromRGB(0);
-        if (mode == Changer.ChangeMode.SET) {
-            if (delta[0] != null) {
-                color = ((SkriptColor) delta[0]).asBukkitColor();
-            }
-        }
+        if (mode == Changer.ChangeMode.SET && delta[0] != null) color = ((SkriptColor) delta[0]).asBukkitColor();
         watcher.setParticlesColor(color);
         DisguiseUtil.update(disguise);
     }

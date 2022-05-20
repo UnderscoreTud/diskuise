@@ -34,11 +34,8 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     protected Number[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getHealth()};
+        return new Number[]{disguise.getWatcher() instanceof LivingWatcher ?
+                ((LivingWatcher) disguise.getWatcher()).getHealth() : null};
     }
 
     @Override
@@ -66,7 +63,9 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        switch (mode) {
+            case SET, ADD, REMOVE -> { return CollectionUtils.array(Number.class); }
+        }
         return null;
     }
 
@@ -76,18 +75,20 @@ public class ExprDisguiseHealth extends SimpleExpression<Number> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof LivingWatcher) watcher = (LivingWatcher) disguise.getWatcher();
+        else return;
 
         float value = ((Number) delta[0]).floatValue();
         float health = watcher.getHealth();
 
-        if (mode != Changer.ChangeMode.SET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            health += value;
+        switch (mode) {
+            case SET -> health = value;
+            case ADD, REMOVE -> {
+                if (mode == Changer.ChangeMode.REMOVE) value *= -1;
+                health += value;
+            }
         }
-        else health = value;
+
         watcher.setHealth(health);
         DisguiseUtil.update(disguise);
     }

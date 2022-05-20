@@ -7,8 +7,11 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.MobDisguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.*;
+import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.AgeableWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.PiglinWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.ZoglinWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.ZombieWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -37,26 +40,18 @@ public class EffDisguiseSetAge extends Effect {
     @Override
     protected void execute(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
-        MobDisguise mobDisguise = (MobDisguise) disguise;
-        assert mobDisguise != null;
+        if (disguise == null) return;
         boolean isAdult;
         if (pattern == 0) isAdult = Boolean.TRUE.equals(this.bool.getSingle(e));
         else isAdult = false;
         isAdult = isAdult == isNegated;
 
-        LivingWatcher watcher = mobDisguise.getWatcher();
-        try {
-            ((AgeableWatcher) watcher).setBaby(!isAdult);
-        } catch (ClassCastException ignore) {}
-        try {
-            ((ZombieWatcher) watcher).setBaby(!isAdult);
-        } catch (ClassCastException ignore) {}
-        try {
-            ((PiglinWatcher) watcher).setBaby(!isAdult);
-        } catch (ClassCastException ignore) {}
-        try {
-            ((ZoglinWatcher) watcher).setBaby(!isAdult);
-        } catch (ClassCastException ignore) {}
+        FlagWatcher watcher = disguise.getWatcher();
+        if (watcher instanceof AgeableWatcher) ((AgeableWatcher) watcher).setBaby(!isAdult);
+        else if (watcher instanceof ZombieWatcher) ((ZombieWatcher) watcher).setBaby(!isAdult);
+        else if (watcher instanceof PiglinWatcher) ((PiglinWatcher) watcher).setBaby(!isAdult);
+        else if (watcher instanceof ZoglinWatcher) ((ZoglinWatcher) watcher).setBaby(!isAdult);
+        else return;
         DisguiseUtil.update(disguise);
     }
 

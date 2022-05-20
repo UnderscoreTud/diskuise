@@ -24,8 +24,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>14</source>
-                    <target>14</target>
+                    <source>17</source>
+                    <target>17</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -40,7 +41,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <outputDirectory>D:\Minecraft\Servers\diskuise\plugins</outputDirectory>
+                            <outputFile>D:\Minecraft\Servers\diskuise\plugins\Diskuise.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>

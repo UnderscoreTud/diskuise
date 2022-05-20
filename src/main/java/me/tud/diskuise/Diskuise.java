@@ -16,7 +16,7 @@ public final class Diskuise extends JavaPlugin {
 
     private static Diskuise instance;
     private static SkriptAddon addon;
-    private static int resourceId = 101529;
+    private static final int resourceId = 101529;
 
     @Override
     public void onEnable() {

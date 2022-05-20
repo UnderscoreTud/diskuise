@@ -32,9 +32,8 @@ public class EffDisguiseMakeDisplayInTab extends Effect {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof PlayerWatcher) watcher = (PlayerWatcher) disguise.getWatcher();
+        else return;
         watcher.setDisplayedInTab(bool);
         DisguiseUtil.update(disguise);
     }

@@ -7,8 +7,11 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.MobDisguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.*;
+import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.AgeableWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.PiglinWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.ZoglinWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.ZombieWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,22 +33,13 @@ public class CondIsBaby extends Condition {
     @Override
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
-        MobDisguise mobDisguise = (MobDisguise) disguise;
-        assert mobDisguise != null;
-        LivingWatcher watcher = mobDisguise.getWatcher();
-        try {
-            return ((AgeableWatcher) watcher).isBaby() == isNegated();
-        } catch (ClassCastException ignore) {}
-        try {
-            return ((ZombieWatcher) watcher).isBaby() == isNegated();
-        } catch (ClassCastException ignore) {}
-        try {
-            return ((PiglinWatcher) watcher).isBaby() == isNegated();
-        } catch (ClassCastException ignore) {}
-        try {
-            return ((ZoglinWatcher) watcher).isBaby() == isNegated();
-        } catch (ClassCastException ignore) {}
-        return false;
+        boolean isBaby = false;
+        FlagWatcher watcher = disguise.getWatcher();
+        if (watcher instanceof AgeableWatcher) isBaby = ((AgeableWatcher) watcher).isBaby();
+        else if (watcher instanceof ZombieWatcher) isBaby = ((ZombieWatcher) watcher).isBaby();
+        else if (watcher instanceof PiglinWatcher) isBaby = ((PiglinWatcher) watcher).isBaby();
+        else if (watcher instanceof ZoglinWatcher) isBaby = ((ZoglinWatcher) watcher).isBaby();
+        return isBaby == isNegated();
     }
 
     @Override

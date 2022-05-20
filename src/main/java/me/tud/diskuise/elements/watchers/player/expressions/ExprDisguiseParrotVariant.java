@@ -40,10 +40,8 @@ public class ExprDisguiseParrotVariant extends SimpleExpression<SkriptColor> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
         PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        if (watcher == null) return null;
+        if (disguise.getWatcher() instanceof PlayerWatcher) watcher = (PlayerWatcher) disguise.getWatcher();
+        else return null;
         if (isRight && !watcher.isRightShoulderHasParrot() ||
                 !isRight && !watcher.isLeftShoulderHasParrot()) return null;
         Parrot.Variant variant = (isRight ? watcher.getRightShoulderParrot() : watcher.getLeftShoulderParrot());
@@ -93,9 +91,8 @@ public class ExprDisguiseParrotVariant extends SimpleExpression<SkriptColor> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof PlayerWatcher) watcher = (PlayerWatcher) disguise.getWatcher();
+        else return;
         assert delta[0] != null;
         ChatColor color = ((SkriptColor) delta[0]).asChatColor();
         Parrot.Variant variant = null;

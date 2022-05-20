@@ -31,11 +31,8 @@ public class CondIsJacketEnabled extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return false; }
-        return watcher.isJacketEnabled() != isNegated();
+        return disguise.getWatcher() instanceof PlayerWatcher &&
+                ((PlayerWatcher) disguise.getWatcher()).isJacketEnabled() != isNegated();
     }
 
     @Override

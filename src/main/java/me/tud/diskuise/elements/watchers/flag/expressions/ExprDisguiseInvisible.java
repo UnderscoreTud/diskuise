@@ -10,7 +10,6 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -35,10 +34,8 @@ public class ExprDisguiseInvisible extends SimpleExpression<Boolean> {
     protected Boolean[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        if (!disguise.isMobDisguise()) return null;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return null;
-        return new Boolean[]{watcher.isInvisible() != isNegated};
+        return new Boolean[]{disguise.getWatcher() != null ?
+                disguise.getWatcher().isInvisible() : null};
     }
 
     @Override

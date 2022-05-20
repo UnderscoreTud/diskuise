@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Name("Falling Block Disguise - Lock grid")
 @Description("Sets if a falling block disguise is locked to a grid")
-@Examples({"make player's disguise grid locked", "lock {_dis} grid"})
+@Examples({"make player's disguise grid locked", "lock {_dis}'s grid"})
 @Since("0.2-beta1")
 @RequiredPlugins({"LibsDisguises"})
 public class EffDisguiseLockGrid extends Effect {
@@ -34,9 +34,8 @@ public class EffDisguiseLockGrid extends Effect {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof FallingBlockWatcher) watcher = (FallingBlockWatcher) disguise.getWatcher();
+        else return;
         watcher.setGridLocked(bool);
         DisguiseUtil.update(disguise);
     }

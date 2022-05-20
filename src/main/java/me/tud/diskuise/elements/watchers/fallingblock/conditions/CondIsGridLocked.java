@@ -30,11 +30,8 @@ public class CondIsGridLocked extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        FallingBlockWatcher watcher;
-        try {
-            watcher = (FallingBlockWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return false; }
-        return watcher.isGridLocked() != isNegated();
+        return disguise.getWatcher() instanceof FallingBlockWatcher &&
+                ((FallingBlockWatcher) disguise.getWatcher()).isGridLocked() != isNegated();
     }
 
     @Override

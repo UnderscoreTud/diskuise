@@ -32,9 +32,8 @@ public class EffDisguiseMakeParticlesAmbient extends Effect {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof LivingWatcher) watcher = (LivingWatcher) disguise.getWatcher();
+        else return;
         watcher.setPotionParticlesAmbient(bool);
         DisguiseUtil.update(disguise);
     }

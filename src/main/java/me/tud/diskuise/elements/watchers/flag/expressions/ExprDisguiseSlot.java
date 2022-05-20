@@ -39,34 +39,17 @@ public class ExprDisguiseSlot extends SimpleExpression<ItemStack> {
     ItemStack[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        if (!disguise.isMobDisguise()) return null;
-        FlagWatcher watcher = disguise.getWatcher();
-        ItemStack itemStack;
-        EquipmentSlot slot;
+        EquipmentSlot slot = null;
         switch (mark) {
-            case 1:
-                slot = EquipmentSlot.HEAD;
-                break;
-            case 2:
-                slot = EquipmentSlot.CHEST;
-                break;
-            case 3:
-                slot = EquipmentSlot.LEGS;
-                break;
-            case 4:
-                slot = EquipmentSlot.FEET;
-                break;
-            case 5:
-                slot = EquipmentSlot.HAND;
-                break;
-            case 6:
-                slot = EquipmentSlot.OFF_HAND;
-                break;
-            default:
-                return new ItemStack[]{new ItemStack(Material.AIR, 1)};
+            case 1 -> slot = EquipmentSlot.HEAD;
+            case 2 -> slot = EquipmentSlot.CHEST;
+            case 3 -> slot = EquipmentSlot.LEGS;
+            case 4 -> slot = EquipmentSlot.FEET;
+            case 5 -> slot = EquipmentSlot.HAND;
+            case 6 -> slot = EquipmentSlot.OFF_HAND;
         }
-        itemStack = watcher.getItemStack(slot);
-        return new ItemStack[]{itemStack != null ? itemStack : new ItemStack(Material.AIR, 1)};
+        return new ItemStack[]{disguise.getWatcher() != null ?
+                disguise.getWatcher().getItemStack(slot) : null};
     }
 
     @Override
@@ -92,47 +75,30 @@ public class ExprDisguiseSlot extends SimpleExpression<ItemStack> {
     }
 
     @Override
-    public Class<?>[] acceptChange(final Changer.ChangeMode changeMode) {
-        if (
-                changeMode != Changer.ChangeMode.SET &&
-                changeMode != Changer.ChangeMode.DELETE &&
-                changeMode != Changer.ChangeMode.REMOVE_ALL &&
-                changeMode != Changer.ChangeMode.RESET) return null;
-        return CollectionUtils.array(ItemStack.class);
+    public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
+        switch (mode) {
+            case SET, DELETE, REMOVE_ALL, RESET -> { return CollectionUtils.array(ItemStack.class); }
+        }
+        return null;
     }
 
     @Override
-    public void change(Event e, Object[] delta, Changer.ChangeMode changeMode) {
+    public void change(Event e, Object[] delta, Changer.ChangeMode mode) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        if (!disguise.isMobDisguise()) return;
         FlagWatcher watcher = disguise.getWatcher();
         ItemStack itemStack = new ItemStack(Material.AIR, 1);
         try {
             itemStack = (ItemStack) delta[0];
         } catch (NullPointerException ignore) {}
-        EquipmentSlot slot;
+        EquipmentSlot slot = null;
         switch (mark) {
-            case 1:
-                slot = EquipmentSlot.HEAD;
-                break;
-            case 2:
-                slot = EquipmentSlot.CHEST;
-                break;
-            case 3:
-                slot = EquipmentSlot.LEGS;
-                break;
-            case 4:
-                slot = EquipmentSlot.FEET;
-                break;
-            case 5:
-                slot = EquipmentSlot.HAND;
-                break;
-            case 6:
-                slot = EquipmentSlot.OFF_HAND;
-                break;
-            default:
-                return;
+            case 1 -> slot = EquipmentSlot.HEAD;
+            case 2 -> slot = EquipmentSlot.CHEST;
+            case 3 -> slot = EquipmentSlot.LEGS;
+            case 4 -> slot = EquipmentSlot.FEET;
+            case 5 -> slot = EquipmentSlot.HAND;
+            case 6 -> slot = EquipmentSlot.OFF_HAND;
         }
         watcher.setItemStack(slot, itemStack);
         DisguiseUtil.update(disguise);

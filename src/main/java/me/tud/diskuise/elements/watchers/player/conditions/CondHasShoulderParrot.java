@@ -32,12 +32,10 @@ public class CondHasShoulderParrot extends Condition {
     public boolean check(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return false;
-        PlayerWatcher watcher;
-        try {
-            watcher = (PlayerWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return false; }
-        if (isRight) return watcher.isRightShoulderHasParrot() != isNegated();
-        else return watcher.isLeftShoulderHasParrot() != isNegated();
+        if (isRight) return disguise.getWatcher() instanceof PlayerWatcher &&
+                ((PlayerWatcher) disguise.getWatcher()).isRightShoulderHasParrot() != isNegated();
+        return disguise.getWatcher() instanceof PlayerWatcher &&
+                ((PlayerWatcher) disguise.getWatcher()).isLeftShoulderHasParrot() != isNegated();
     }
 
     @Override

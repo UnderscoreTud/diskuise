@@ -34,11 +34,8 @@ public class ExprDisguiseMaxHealth extends SimpleExpression<Number> {
     protected Number[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        LivingWatcher watcher;
-        try {
-            watcher = (LivingWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new Number[]{watcher.getMaxHealth()};
+        return new Number[]{disguise.getWatcher() instanceof LivingWatcher ?
+                ((LivingWatcher) disguise.getWatcher()).getMaxHealth() : null};
     }
 
     @Override
@@ -66,7 +63,9 @@ public class ExprDisguiseMaxHealth extends SimpleExpression<Number> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) return CollectionUtils.array(Number.class);
+        switch (mode) {
+            case SET, ADD, REMOVE -> { return CollectionUtils.array(Number.class); }
+        }
         return null;
     }
 
@@ -83,11 +82,14 @@ public class ExprDisguiseMaxHealth extends SimpleExpression<Number> {
         double value = ((Number) delta[0]).doubleValue();
         double maxHealth = watcher.getMaxHealth();
 
-        if (mode != Changer.ChangeMode.SET) {
-            if (mode == Changer.ChangeMode.REMOVE) value *= -1;
-            maxHealth += value;
+        switch (mode) {
+            case SET -> maxHealth = value;
+            case ADD, REMOVE -> {
+                if (mode == Changer.ChangeMode.REMOVE) value *= -1;
+                maxHealth += value;
+            }
         }
-        else maxHealth = value;
+
         watcher.setMaxHealth(maxHealth);
         DisguiseUtil.update(disguise);
     }

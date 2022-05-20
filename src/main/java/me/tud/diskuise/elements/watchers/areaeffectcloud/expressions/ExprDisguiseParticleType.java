@@ -35,11 +35,8 @@ public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
     protected Particle[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        AreaEffectCloudWatcher watcher;
-        try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return null; }
-        return new Particle[]{watcher.getParticleType()};
+        return new Particle[]{disguise.getWatcher() instanceof AreaEffectCloudWatcher ?
+                ((AreaEffectCloudWatcher) disguise.getWatcher()).getParticleType() : null};
     }
 
     @Override
@@ -67,8 +64,9 @@ public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET ||
-        mode == Changer.ChangeMode.RESET) return CollectionUtils.array(Particle.class);
+        switch (mode) {
+            case SET, RESET -> { return CollectionUtils.array(Particle.class); }
+        }
         return null;
     }
 
@@ -77,16 +75,11 @@ public class ExprDisguiseParticleType extends SimpleExpression<Particle> {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
         AreaEffectCloudWatcher watcher;
-        try {
-            watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
-        } catch (ClassCastException ignore) { return; }
+        if (disguise.getWatcher() instanceof AreaEffectCloudWatcher) watcher = (AreaEffectCloudWatcher) disguise.getWatcher();
+        else return;
 
         Particle particle = Particle.SPELL_MOB;
-        if (mode == Changer.ChangeMode.SET) {
-            if (delta[0] != null) {
-                particle = (Particle) delta[0];
-            }
-        }
+        if (mode == Changer.ChangeMode.SET && delta[0] != null) particle = (Particle) delta[0];
         watcher.setParticleType(particle);
         DisguiseUtil.update(disguise);
     }

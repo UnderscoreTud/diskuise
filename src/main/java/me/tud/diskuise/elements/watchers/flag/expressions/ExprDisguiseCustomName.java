@@ -10,7 +10,6 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.utils.DisguiseUtil;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -34,9 +33,8 @@ public class ExprDisguiseCustomName extends SimpleExpression<String> {
     protected String[] get(Event e) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return null;
-        FlagWatcher watcher = disguise.getWatcher();
-        if (watcher == null) return null;
-        return new String[]{watcher.getCustomName()};
+        return new String[]{disguise.getWatcher() != null ?
+                disguise.getWatcher().getCustomName() : null};
     }
 
     @Override
@@ -64,7 +62,9 @@ public class ExprDisguiseCustomName extends SimpleExpression<String> {
     @Override
     public @Nullable
     Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.RESET || mode == Changer.ChangeMode.DELETE) return CollectionUtils.array(String.class);
+        switch (mode) {
+            case SET, RESET, DELETE -> { return CollectionUtils.array(String.class); }
+        }
         return null;
     }
 
@@ -72,11 +72,10 @@ public class ExprDisguiseCustomName extends SimpleExpression<String> {
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
         Disguise disguise = this.disguise.getSingle(e);
         if (disguise == null) return;
-        if (mode != Changer.ChangeMode.SET) {
-            disguise.getWatcher().setCustomName(null);
-            return;
+        switch (mode) {
+            case RESET, DELETE -> disguise.getWatcher().setCustomName(null);
+            case SET -> disguise.getWatcher().setCustomName((String) delta[0]);
         }
-        disguise.getWatcher().setCustomName((String) delta[0]);
         DisguiseUtil.update(disguise);
     }
 }
