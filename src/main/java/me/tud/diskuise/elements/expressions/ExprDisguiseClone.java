@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Clone disguise")
 @Description("Clones an already existing disguise")
 @Examples({"set {anotherDisguise} to clone of {disguise}"})
-@Since("0.1")
+@Since("0.2-beta3")
 @RequiredPlugins({"LibsDisguises"})
 public class ExprDisguiseClone extends SimpleExpression<Disguise> {
 
