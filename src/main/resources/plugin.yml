@@ -1,8 +1,8 @@
 name: Diskuise
 version: '${project.version}'
 main: me.tud.diskuise.Diskuise
-api-version: 1.17
-depend: [ Skript, LibsDisguises ]
-softdepend: [ ProtocolLib ]
+api-version: 1.18
+softdepend: [ Skript, LibsDisguises, ProtocolLib ]
 authors: [ _tud ]
-description: A simple Skript addon to disguise players to different players or mobs!
+description: A simple Skript addon for disguising players/entities into other entities
+website: https://github.com/UnderscoreTud/diskuise

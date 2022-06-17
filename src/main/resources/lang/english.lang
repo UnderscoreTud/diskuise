@@ -1,0 +1,10 @@
+version: 0.3
+
+types:
+    disguise: disguise¦s @a
+    notifybar: notify bar¦s, notifybar¦s @a
+
+notifybars:
+    none: none
+    boss_bar: bossbar, boss bar
+    action_bar: actionbar, action bar

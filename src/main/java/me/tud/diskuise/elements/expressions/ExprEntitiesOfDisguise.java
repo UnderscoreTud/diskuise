@@ -2,43 +2,39 @@ package me.tud.diskuise.elements.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
+import ch.njol.skript.expressions.base.PropertyExpression;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.tud.diskuise.utils.DisguiseUtil;
+import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Disguised Entities")
-@Description("Returns all the disguised entities of a list of entities")
-@Examples({"loop all disguised players:",
-            "\tsend \"You are disguised as %loop-player's disguise type%!\" to loop-player"})
+import java.util.ArrayList;
+import java.util.List;
+
+@Name("Entities Of Disguise")
+@Description("Returns the entities of a disguise")
+@Examples("set {_list::*} to entities of disguise {_dis}")
 @Since("0.2-beta1")
-@RequiredPlugins({"LibsDisguises"})
-public class ExprEntitiesOfDisguise extends SimpleExpression<Entity> {
+@RequiredPlugins("LibsDisguises")
+public class ExprEntitiesOfDisguise extends PropertyExpression<Disguise, Entity> {
 
     static {
         Skript.registerExpression(ExprEntitiesOfDisguise.class, Entity.class, ExpressionType.PROPERTY,
-                "[all [of]] [the] [dis(g|k)uise[d]] entit(y|ies) of [dis(g|k)uise] %disguise%");
-    }
-
-    Expression<Disguise> disguise;
-
-    @Override
-    protected @Nullable
-    Entity[] get(Event e) {
-        Disguise disguise = this.disguise.getSingle(e);
-        if (disguise == null) return null;
-        return DisguiseUtil.getDisguisedEntities(disguise).toArray(new Entity[0]);
+                "[(all [of the]|the)] [dis(g|k)uised] entities of [dis(g|k)uise] %disguises%",
+                "[dis(g|k)uise] %disguises%'[s] entities");
     }
 
     @Override
-    public boolean isSingle() {
-        return false;
+    protected Entity[] get(Event e, Disguise[] source) {
+        List<Entity> entities = new ArrayList<>();
+        for (Disguise disguise : source)
+            entities.addAll(DisguiseUtils.getDisguisedEntities(disguise));
+        return entities.toArray(new Entity[0]);
     }
 
     @Override
@@ -48,13 +44,13 @@ public class ExprEntitiesOfDisguise extends SimpleExpression<Entity> {
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        return null;
+        return "entities of " + getExpr().toString(e, debug);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        disguise = (Expression<Disguise>) exprs[0];
+        setExpr((Expression<? extends Disguise>) exprs[0]);
         return true;
     }
 }
