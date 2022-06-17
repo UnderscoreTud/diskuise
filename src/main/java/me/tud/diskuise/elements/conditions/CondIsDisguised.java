@@ -1,6 +1,7 @@
 package me.tud.diskuise.elements.conditions;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.conditions.base.PropertyCondition;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
@@ -17,32 +18,20 @@ import org.jetbrains.annotations.Nullable;
             "\tundisguise player"})
 @Since("0.2-beta0")
 @RequiredPlugins({"LibsDisguises"})
-public class CondIsDisguised extends Condition {
+public class CondIsDisguised extends PropertyCondition<Entity> {
 
     static {
-        Skript.registerCondition(CondIsDisguised.class,
-                "%entity% (1¦is|2¦is(n't| not)) [in] [a] dis(k|g)uise(|s|d)");
-    }
-
-    Expression<Entity> entity;
-
-    @Override
-    public boolean check(Event e) {
-        Entity entity = this.entity.getSingle(e);
-        if (entity == null) return false;
-        return DisguiseAPI.isDisguised(entity) == isNegated();
+        register(CondIsDisguised.class, "[currently] dis(g|k)uised", "entities");
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean debug) {
-        return null;
+    public boolean check(Entity entity) {
+        return DisguiseAPI.isDisguised(entity);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        if (parseResult.mark == 1) setNegated(true);
-        entity = (Expression<Entity>) exprs[0];
-        return true;
+    protected String getPropertyName() {
+        return "disguised";
     }
+
 }
