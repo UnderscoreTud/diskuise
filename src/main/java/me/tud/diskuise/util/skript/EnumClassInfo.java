@@ -30,7 +30,7 @@ public class EnumClassInfo<T extends Enum<T>> extends ClassInfo<T> {
 
             @Override
             public String toVariableNameString(T o) {
-                return o.name().toLowerCase().replace('_', ' ');
+                return codeName + ": " + o.name().toLowerCase().replace('_', ' ');
             }
         });
     }

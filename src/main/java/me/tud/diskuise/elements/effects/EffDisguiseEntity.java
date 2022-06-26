@@ -7,19 +7,17 @@ import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.LiteralUtils;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.*;
 import me.tud.diskuise.util.DisguiseUtils;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
 import org.bukkit.entity.Entity;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("Disguise Entity")
 @Description("Disguises the specified entity into another entity")
@@ -32,32 +30,32 @@ public class EffDisguiseEntity extends Effect {
 
     static {
         Skript.registerEffect(EffDisguiseEntity.class,
-                "dis(g|k)uise %entities% (to|as) [(a|an)] %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]",
-                "(set|change) %entities%'[s] dis(g|k)uise to %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]",
-                "(set|change) dis(g|k)uise of %entities% to %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]");
+                "dis(g|k)uise %entities% (to|as) %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]",
+                "set %entities%'[s] dis(g|k)uise to %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]",
+                "set dis(g|k)uise of %entities% to %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]");
     }
 
     private Expression<Entity> entities;
-    private Expression<?> object;
+    private Expression<?> expr;
     private Expression<Player> targets;
     private Expression<Timespan> timespan;
 
     @Override
     protected void execute(Event e) {
         Entity[] entities = this.entities.getArray(e);
-        Object object = this.object.getSingle(e) != null ? this.object.getSingle(e) : EntityUtils.toSkriptEntityData(EntityType.DROPPED_ITEM);
+        Object object = this.expr.getSingle(e);
         Player[] targets = new Player[0];
         Timespan timespan = null;
         if (this.targets != null) targets = this.targets.getArray(e);
         if (this.timespan != null) timespan = this.timespan.getSingle(e);
         Disguise disguise = null;
 
-        if (object instanceof Disguise) disguise = (Disguise) object;
-        else if (object instanceof EntityData<?> entityData) {
-            DisguiseType type = DisguiseType.getType(EntityUtils.toBukkitEntityType(entityData));
-            disguise = (type.isMob() ? new MobDisguise(type) : new MiscDisguise(type));
-        }
-        else if (object instanceof String string) disguise = new PlayerDisguise(string);
+        if (object instanceof Disguise)
+            disguise = (Disguise) object;
+        else if (object instanceof EntityData<?> entityData)
+            disguise = DisguiseUtils.createDisguise(EntityUtils.toBukkitEntityType(entityData));
+        else if (object instanceof String name)
+            disguise = DisguiseUtils.createDisguise(name);
 
         if (disguise == null) return;
         Long timeToExpire = null;
@@ -71,7 +69,7 @@ public class EffDisguiseEntity extends Effect {
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        return "disguise " + entities.toString(e, debug) + " as " + object.toString(e, debug)
+        return "disguise " + entities.toString(e, debug) + " as " + expr.toString(e, debug)
                 + " to " + (targets == null ? "all players" : targets.toString(e, debug))
                 + (timespan == null ? "" : " for " + timespan.toString(e, debug));
     }
@@ -80,9 +78,9 @@ public class EffDisguiseEntity extends Effect {
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         entities = (Expression<Entity>) exprs[0];
-        object = exprs[1];
+        expr = LiteralUtils.defendExpression(exprs[1]);
         targets = (Expression<Player>) exprs[2];
         timespan = (Expression<Timespan>) exprs[3];
-        return true;
+        return LiteralUtils.canInitSafely(expr);
     }
 }

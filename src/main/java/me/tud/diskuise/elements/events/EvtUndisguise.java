@@ -57,6 +57,6 @@ public class EvtUndisguise extends SkriptEvent {
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        return "on undisguise" + (entities == null ? "" : " of " + entities.toString(e, debug));
+        return "undisguise" + (entities == null ? "" : " of " + entities.toString(e, debug));
     }
 }

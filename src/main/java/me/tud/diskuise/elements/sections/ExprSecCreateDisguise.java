@@ -1,20 +1,16 @@
 package me.tud.diskuise.elements.sections;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.bukkitutil.EntityUtils;
 import ch.njol.skript.config.SectionNode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.entity.EntityData;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.TriggerItem;
+import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
-import me.tud.diskuise.util.Util;
 import me.tud.diskuise.util.skript.ExpressionSection;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,17 +39,21 @@ public class ExprSecCreateDisguise extends ExpressionSection<Disguise> {
                 "[create] [a] [new] %string% [player] dis(g|k)uise");
     }
 
+    private Expression<?> expr;
+
     @Override
     protected @Nullable Disguise[] get(Event e) {
+        return new Disguise[]{getDisguise(e)};
+    }
+
+    private Disguise getDisguise(Event e) {
         if (expr.getSingle(e) instanceof String name)
-            return new Disguise[]{DisguiseUtils.getDisguise(name)};
+            return DisguiseUtils.createDisguise(name);
         EntityData<?> entityData = (EntityData<?>) expr.getSingle(e);
         if (entityData == null) return null;
         EntityType entityType = EntityUtils.toBukkitEntityType(entityData);
-        return new Disguise[]{DisguiseUtils.getDisguise(entityType)};
+        return DisguiseUtils.createDisguise(entityType);
     }
-
-    private Expression<?> expr;
 
     @Override
     public boolean isSingle() {
@@ -67,21 +67,30 @@ public class ExprSecCreateDisguise extends ExpressionSection<Disguise> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult,
-                        @Nullable SectionNode sectionNode, @Nullable List<TriggerItem> triggerItems) {
-        if (sectionNode != null) loadCode(sectionNode);
+    public boolean init(
+            Expression<?>[] exprs,
+            int matchedPattern,
+            Kleenean isDelayed,
+            SkriptParser.ParseResult parseResult,
+            @Nullable SectionNode sectionNode,
+            @Nullable List<TriggerItem> triggerItems) {
         expr = exprs[0];
+        if (expr instanceof Literal<?> literal)
+            if (((EntityData<?>) literal.getSingle()).getSuperType().equals(EntityData.fromClass(Player.class)))
+                return false;
+        if (sectionNode != null) loadCode(sectionNode);
         return true;
     }
 
     @Override
     protected @Nullable TriggerItem walk(Event e) {
+        DisguiseUtils.setLastCreatedDisguise(getDisguise(e));
         return super.walk(e, true);
     }
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        if (expr.getSingle(e) instanceof String) return "a new \"" + expr.toString(e, debug) + "\" player disguise";
+        if (expr.getSingle(e) instanceof String) return "a \"" + expr.toString(e, debug) + "\" player disguise";
         return "a " + expr.toString(e, debug) + " disguise";
     }
 

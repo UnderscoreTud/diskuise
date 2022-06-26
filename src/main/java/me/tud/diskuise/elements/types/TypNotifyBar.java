@@ -19,7 +19,7 @@ import java.io.StreamCorruptedException;
 
 public class TypNotifyBar {
     static {
-        if (Classes.getClassInfoNoError("") == null) {
+        if (Classes.getClassInfoNoError("notifybar") == null) {
             Classes.registerClass(new EnumClassInfo<>(DisguiseConfig.NotifyBar.class, "notifybar")
                     .user("notify ?bars?")
                     .name("Notify Bar")

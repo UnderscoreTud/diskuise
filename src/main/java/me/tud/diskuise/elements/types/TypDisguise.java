@@ -2,17 +2,13 @@ package me.tud.diskuise.elements.types;
 
 import ch.njol.skript.bukkitutil.EntityUtils;
 import ch.njol.skript.classes.ClassInfo;
-import ch.njol.skript.classes.EnumSerializer;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.classes.Serializer;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.yggdrasil.Fields;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.DisguiseType;
-import me.libraryaddict.disguise.disguisetypes.MobDisguise;
 import me.tud.diskuise.util.DisguiseUtils;
-import me.tud.diskuise.util.Util;
 import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +17,7 @@ import java.io.StreamCorruptedException;
 
 public class TypDisguise {
     static {
-        if (Classes.getClassInfoNoError("") == null) {
+        if (Classes.getClassInfoNoError("disguise") == null) {
             Classes.registerClass(new ClassInfo<>(Disguise.class, "disguise")
                     .user("disguises?")
                     .name("Disguise")
@@ -67,7 +63,7 @@ public class TypDisguise {
 
                         @Override
                         protected Disguise deserialize(Fields fields) throws StreamCorruptedException, NotSerializableException {
-                            return DisguiseUtils.getDisguise(EntityType.valueOf(fields.getObject("type", String.class)));
+                            return DisguiseUtils.createDisguise(EntityType.valueOf(fields.getObject("type", String.class)));
                         }
 
                         @Override

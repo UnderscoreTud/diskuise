@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 public class ExprEntityTypeOfDisguise extends DisguisePropertyExpression<EntityType> {
 
     static {
-        register(ExprEntityTypeOfDisguise.class, EntityType.class, "[entity[( |-)]]type");
+        register(ExprEntityTypeOfDisguise.class, EntityType.class, "entity[( |-)]type");
     }
 
     @Override

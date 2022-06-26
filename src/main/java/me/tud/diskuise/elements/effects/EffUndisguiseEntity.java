@@ -20,9 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 @Name("Undisguise Entity")
 @Description("Undisguises an entity")
-@Examples({"disguise all players as a cow disguise",
-        "disguise target entity to zombie",
-        "disguise all players as \"_tud\""})
+@Examples("undisguise all players")
 @Since("0.1")
 @RequiredPlugins("LibsDisguises")
 public class EffUndisguiseEntity extends Effect {

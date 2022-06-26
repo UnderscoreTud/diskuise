@@ -11,22 +11,24 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 public class DisguiseUtils {
 
     private static Disguise lastCreatedDisguise = null;
+    private static final HashMap<Disguise, List<Entity>> DISGUISED_ENTITIES = new HashMap<>();
 
-    public static Disguise getDisguise(EntityType entityType) {
-        return getDisguise(DisguiseType.getType(entityType));
+    public static Disguise createDisguise(EntityType entityType) {
+        return createDisguise(DisguiseType.getType(entityType));
     }
 
-    public static Disguise getDisguise(DisguiseType disguiseType) {
+    public static Disguise createDisguise(DisguiseType disguiseType) {
         lastCreatedDisguise = disguiseType.isMob() ? new MobDisguise(disguiseType) : new MiscDisguise(disguiseType);
         return lastCreatedDisguise;
     }
 
-    public static PlayerDisguise getDisguise(String name) {
+    public static PlayerDisguise createDisguise(String name) {
         lastCreatedDisguise = new PlayerDisguise(name);
         return (PlayerDisguise) lastCreatedDisguise;
     }
@@ -38,8 +40,6 @@ public class DisguiseUtils {
     public static void setLastCreatedDisguise(Disguise lastCreatedDisguise) {
         DisguiseUtils.lastCreatedDisguise = lastCreatedDisguise;
     }
-
-    private static final DisguiseMap DISGUISED_ENTITIES = new DisguiseMap();
 
     public static void disguise(Entity entity, Disguise disguise) {
         DisguiseAPI.disguiseToAll(entity, disguise);
@@ -97,7 +97,7 @@ public class DisguiseUtils {
         removeEntities(entities);
     }
 
-    public static DisguiseMap getDisguisedEntitiesMap() {
+    public static HashMap<Disguise, List<Entity>> getDisguisedEntitiesMap() {
         return DISGUISED_ENTITIES;
     }
     public static Collection<Entity> getDisguisedEntities(Disguise disguise) {
@@ -105,10 +105,11 @@ public class DisguiseUtils {
     }
 
     public static void addEntity(Entity entity, Disguise disguise) {
-        DISGUISED_ENTITIES.put(disguise, entity);
+        DISGUISED_ENTITIES.get(disguise).add(entity);
     }
     public static void removeEntities(Entity... entities) {
-        for (Entity value : entities) DISGUISED_ENTITIES.removeAll(value);
+        for (Entity value : entities)
+            for (Disguise key : DISGUISED_ENTITIES.keySet()) DISGUISED_ENTITIES.get(key).remove(value);
     }
 
     public static void update(Disguise disguise) {

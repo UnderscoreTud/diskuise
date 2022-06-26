@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 public class ExprDisguiseOfEntity extends SimplePropertyExpression<Entity, Disguise> {
 
     static {
-        register(ExprDisguiseOfEntity.class, Disguise.class, "dis(g|k)uise", "entities");
+        register(ExprDisguiseOfEntity.class, Disguise.class, "dis(g|k)uise[s]", "entities");
     }
 
     @Override

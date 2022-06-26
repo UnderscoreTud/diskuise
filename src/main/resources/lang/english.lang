@@ -1,10 +1,14 @@
 version: 0.3
 
 types:
-    disguise: disguise¦s @a
-    notifybar: notify bar¦s, notifybar¦s @a
+  disguise: disguise¦s @a
+  notifybar: notify bar¦s @a
 
 notifybars:
-    none: none
-    boss_bar: bossbar, boss bar
-    action_bar: actionbar, action bar
+  none: none
+  boss_bar: bossbar, boss bar
+  action_bar: actionbar, action bar
+
+ages:
+  adult: adult
+  baby: baby
