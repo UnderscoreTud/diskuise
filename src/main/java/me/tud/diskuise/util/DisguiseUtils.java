@@ -10,6 +10,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +106,7 @@ public class DisguiseUtils {
     }
 
     public static void addEntity(Entity entity, Disguise disguise) {
+        DISGUISED_ENTITIES.putIfAbsent(disguise, new ArrayList<>());
         DISGUISED_ENTITIES.get(disguise).add(entity);
     }
     public static void removeEntities(Entity... entities) {

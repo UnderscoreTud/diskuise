@@ -22,8 +22,12 @@ public abstract class WatcherPropertyExpression<F extends FlagWatcher, T> extend
 
     @Override
     @SuppressWarnings("unchecked")
-    public @Nullable T convert(Disguise disguise) {
-        return convert((F) disguise.getWatcher());
+    public final @Nullable T convert(Disguise disguise) {
+        try {
+            return convert((F) disguise.getWatcher());
+        }
+        catch (ClassCastException ignore) {}
+        return null;
     }
 
     abstract protected T convert(F f);
@@ -35,11 +39,16 @@ public abstract class WatcherPropertyExpression<F extends FlagWatcher, T> extend
 
     @Override
     @SuppressWarnings("unchecked")
-    public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-        for (Disguise disguise : getExpr().getArray(e)) change(e, (F) disguise.getWatcher(), delta, mode);
+    public final void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
+        for (Disguise disguise : getExpr().getArray(e)) {
+            try {
+                change(e, (F) disguise.getWatcher(), delta, mode);
+            }
+            catch (ClassCastException ignore) {}
+        }
     }
 
-    protected void change(Event e, F f, Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, F f, @Nullable Object[] delta, Changer.ChangeMode mode) {
         super.change(e, delta, mode);
     }
 }

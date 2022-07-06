@@ -1,5 +1,6 @@
 package me.tud.diskuise.util.skript;
 
+import ch.njol.skript.lang.Expression;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 
@@ -8,7 +9,11 @@ public abstract class WatcherPropertyCondition<T extends FlagWatcher> extends Di
     @Override
     @SuppressWarnings("unchecked")
     public final boolean check(Disguise disguise) {
-        return check((T) disguise.getWatcher());
+        try {
+            return check((T) disguise.getWatcher());
+        }
+        catch (ClassCastException ignore) {}
+        return false;
     }
 
     abstract protected boolean check(T t);
