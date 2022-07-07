@@ -36,7 +36,7 @@ public class ExprCustomName extends WatcherPropertyExpression<FlagWatcher, Strin
 
     @Override
     public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(Boolean.class) : null;
+        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(String.class) : null;
     }
 
     @Override

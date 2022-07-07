@@ -1,14 +1,44 @@
-version: 0.3
+version: ${project.version}
 
 types:
+  age: age @an
   disguise: disguise¦s @a
+  paintingart: painting art¦s @a
   notifybar: notify bar¦s @a
+
+ages:
+  adult: adult
+  baby: baby
+
+paintingarts:
+  kebab: kebab
+  aztec: aztec
+  alban: alban
+  aztec2: aztec2
+  bomb: bomb
+  plant: plant
+  wasteland: wasteland
+  pool: pool
+  courbet: courbet
+  sea: sea
+  sunset: sunset
+  creebet: creebet
+  wanderer: wanderer
+  graham: graham
+  match: match
+  bust: bust
+  stage: stage
+  void: void
+  skull_and_roses: skull and roses, skull_and_roses
+  wither: wither
+  fighters: fighters
+  pointer: pointer
+  pigscene: pigscene
+  burning_skull: burning skull, burning_skull
+  skeleton: skeleton
+  donkey_kong: donkey kong, donkey_kong
 
 notifybars:
   none: none
   boss_bar: bossbar, boss bar
   action_bar: actionbar, action bar
-
-ages:
-  adult: adult
-  baby: baby

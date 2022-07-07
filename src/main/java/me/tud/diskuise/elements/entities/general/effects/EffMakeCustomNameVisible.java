@@ -17,7 +17,7 @@ public class EffMakeCustomNameVisible extends WatcherMakeEffect<FlagWatcher> {
 
     static {
         Skript.registerEffect(EffMakeCustomNameVisible.class,
-                "make [custom[ ]]name of [dis(g|k)uise[s]] %disguises% (:not |not:in)visible");
+                "make [custom[ ]]name of [dis(g|k)uise[s]] %disguises% [(:not |not:in)]visible");
     }
 
     @Override

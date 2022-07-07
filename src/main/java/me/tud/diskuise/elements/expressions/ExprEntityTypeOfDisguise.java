@@ -1,5 +1,6 @@
 package me.tud.diskuise.elements.expressions;
 
+import ch.njol.skript.bukkitutil.EntityUtils;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.entity.EntityType;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
@@ -24,7 +25,7 @@ public class ExprEntityTypeOfDisguise extends DisguisePropertyExpression<EntityT
 
     @Override
     public @Nullable EntityType convert(Disguise disguise) {
-        return new EntityType(disguise.getEntity());
+        return new EntityType(EntityUtils.toSkriptEntityData(disguise.getType().getEntityType()), 1);
     }
 
     @Override

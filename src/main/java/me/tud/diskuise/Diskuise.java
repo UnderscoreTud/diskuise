@@ -2,10 +2,8 @@ package me.tud.diskuise;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
-import ch.njol.skript.bukkitutil.EntityUtils;
-import ch.njol.skript.util.Utils;
 import me.libraryaddict.disguise.DisguiseAPI;
-import me.tud.diskuise.util.DisguiseUtils;
+import me.tud.diskuise.listeners.JoinListener;
 import me.tud.diskuise.util.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -39,6 +37,8 @@ public final class Diskuise extends JavaPlugin {
 
         updateChecker = new UpdateChecker(this, resourceId);
         updateChecker.checkForUpdates(Bukkit.getConsoleSender());
+
+        Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
 
         try {
             addon.loadClasses("me.tud.diskuise", "elements");

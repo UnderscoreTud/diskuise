@@ -8,8 +8,7 @@ import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
 @Name("Falling Block Disguise - Lock Grid")
-@Description({"Sets whether a falling block disguise is locked to a grid.",
-        "NOTE: This expression also supports block data."})
+@Description("Sets whether a falling block disguise is locked to a grid.")
 @Examples({"make player's disguise grid locked",
         "lock {_dis}'s grid"})
 @Since("0.2-beta1")
