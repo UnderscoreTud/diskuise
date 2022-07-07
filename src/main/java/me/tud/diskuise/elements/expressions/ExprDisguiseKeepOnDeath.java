@@ -4,6 +4,7 @@ import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.DisguisePropertyExpression;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -44,6 +45,7 @@ public class ExprDisguiseKeepOnDeath extends DisguisePropertyExpression<Boolean>
         if (delta[0] == null) return;
         for (Disguise disguise : getExpr().getArray(e)) {
             disguise.setKeepDisguiseOnPlayerDeath((boolean) delta[0]);
+            DisguiseUtils.update(disguise);
         }
     }
 }

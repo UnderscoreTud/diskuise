@@ -7,7 +7,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 @Name("Hostile Disguise - Is Enraged")
 @Description("Checks whether a hostile disguise is enraged.")
 @Examples("if {_disguise} is enraged")
-@Since("0.2-beta2")
+@Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
 public class CondIsEnraged extends WatcherPropertyCondition<InsentientWatcher> {
 

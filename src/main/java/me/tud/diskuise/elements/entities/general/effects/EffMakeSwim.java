@@ -5,24 +5,24 @@ import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
 
-@Name("Disguise - Make Invisible")
-@Description("Sets whether the disguise is invisible")
-@Examples("make player's disguise invisible")
-@Since("0.2-beta0")
+@Name("Disguise - Make Swim")
+@Description("Sets whether the disguise is swimming")
+@Examples("make player's disguise swim")
+@Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
-public class EffMakeInvisible extends WatcherMakeEffect<FlagWatcher> {
+public class EffMakeSwim extends WatcherMakeEffect<FlagWatcher> {
 
     static {
-        register(EffMakeInvisible.class, "(:not |not:in)visible");
+        register(EffMakeSwim.class, "[:not] swim");
     }
 
     @Override
     protected void make(Event e, FlagWatcher flagWatcher) {
-        flagWatcher.setInvisible(isNegated());
+        flagWatcher.setSwimming(!isNegated());
     }
 
     @Override
     protected String getProperty() {
-        return "visible";
+        return "swim";
     }
 }

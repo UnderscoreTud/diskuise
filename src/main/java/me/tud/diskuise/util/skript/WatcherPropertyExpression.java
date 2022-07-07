@@ -7,11 +7,9 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
+import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class WatcherPropertyExpression<F extends FlagWatcher, T> extends DisguisePropertyExpression<T> {
 
@@ -43,6 +41,7 @@ public abstract class WatcherPropertyExpression<F extends FlagWatcher, T> extend
         for (Disguise disguise : getExpr().getArray(e)) {
             try {
                 change(e, (F) disguise.getWatcher(), delta, mode);
+                DisguiseUtils.update(disguise);
             }
             catch (ClassCastException ignore) {}
         }

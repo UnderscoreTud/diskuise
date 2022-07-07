@@ -1,14 +1,11 @@
 package me.tud.diskuise.elements.entities.general.effects;
 
-import ch.njol.skript.SkriptCommand;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.util.SkriptColor;
 import ch.njol.util.Kleenean;
-import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Event;
@@ -44,7 +41,6 @@ public class EffMakeGlow extends WatcherMakeEffect<FlagWatcher> {
             if (chatColor == null) flagWatcher.setGlowing(false);
             else if (flagWatcher.getGlowColor().equals(chatColor)) flagWatcher.setGlowing(false);
         }
-        DisguiseUtils.update(flagWatcher.getDisguise());
     }
 
     @Override

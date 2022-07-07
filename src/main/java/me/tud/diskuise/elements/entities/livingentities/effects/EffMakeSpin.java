@@ -2,7 +2,6 @@ package me.tud.diskuise.elements.entities.livingentities.effects;
 
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
-import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
 
@@ -20,7 +19,6 @@ public class EffMakeSpin extends WatcherMakeEffect<LivingWatcher> {
     @Override
     protected void make(Event e, LivingWatcher livingWatcher) {
         livingWatcher.setSpinning(!isNegated());
-        DisguiseUtils.update(livingWatcher.getDisguise());
     }
 
     @Override

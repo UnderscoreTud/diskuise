@@ -98,9 +98,6 @@ public class DisguiseUtils {
         removeEntities(entities);
     }
 
-    public static HashMap<Disguise, List<Entity>> getDisguisedEntitiesMap() {
-        return DISGUISED_ENTITIES;
-    }
     public static Collection<Entity> getDisguisedEntities(Disguise disguise) {
         return DISGUISED_ENTITIES.get(disguise);
     }
@@ -115,8 +112,7 @@ public class DisguiseUtils {
     }
 
     public static void update(Disguise disguise) {
-        for (Entity entity : DISGUISED_ENTITIES.get(disguise)) {
+        for (Entity entity : DISGUISED_ENTITIES.get(disguise))
             DisguiseAPI.disguiseEntity(entity, disguise);
-        }
     }
 }

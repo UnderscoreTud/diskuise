@@ -2,7 +2,6 @@ package me.tud.diskuise.elements.entities.general.effects;
 
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
 
@@ -20,7 +19,6 @@ public class EffMakeSneak extends WatcherMakeEffect<FlagWatcher> {
     @Override
     protected void make(Event e, FlagWatcher flagWatcher) {
         flagWatcher.setSneaking(!isNegated());
-        DisguiseUtils.update(flagWatcher.getDisguise());
     }
 
     @Override

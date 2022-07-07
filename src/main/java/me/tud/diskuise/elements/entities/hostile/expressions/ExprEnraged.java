@@ -9,7 +9,7 @@ import org.bukkit.event.Event;
 @Name("Hostile Disguise - Enraged")
 @Description("Set or get whether a hostile disguise is enraged.")
 @Examples("set enraged of player's disguise to true")
-@Since("0.2-beta2")
+@Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
 public class ExprEnraged extends WatcherPropertyExpression<InsentientWatcher, Boolean> {
 

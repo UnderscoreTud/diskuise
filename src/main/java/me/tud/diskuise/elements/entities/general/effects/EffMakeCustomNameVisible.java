@@ -3,7 +3,6 @@ package me.tud.diskuise.elements.entities.general.effects;
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +22,6 @@ public class EffMakeCustomNameVisible extends WatcherMakeEffect<FlagWatcher> {
     @Override
     protected void make(Event e, FlagWatcher flagWatcher) {
         flagWatcher.setCustomNameVisible(!isNegated());
-        DisguiseUtils.update(flagWatcher.getDisguise());
     }
 
     @Override

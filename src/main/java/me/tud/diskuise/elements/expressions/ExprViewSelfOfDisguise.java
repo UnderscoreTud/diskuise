@@ -4,6 +4,7 @@ import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.DisguisePropertyExpression;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -42,6 +43,9 @@ public class ExprViewSelfOfDisguise extends DisguisePropertyExpression<Boolean> 
     @Override
     public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
         assert delta[0] != null;
-        for (Disguise disguise : getExpr().getArray(e)) disguise.setSelfDisguiseVisible((boolean) delta[0]);
+        for (Disguise disguise : getExpr().getArray(e)) {
+            disguise.setSelfDisguiseVisible((boolean) delta[0]);
+            DisguiseUtils.update(disguise);
+        }
     }
 }
