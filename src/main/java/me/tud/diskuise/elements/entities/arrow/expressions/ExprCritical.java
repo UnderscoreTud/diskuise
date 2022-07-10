@@ -2,7 +2,7 @@ package me.tud.diskuise.elements.entities.arrow.expressions;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
-import me.libraryaddict.disguise.disguisetypes.watchers.TippedArrowWatcher;
+import me.tud.diskuise.elements.entities.arrow.BetterTippedArrowWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
 
@@ -11,14 +11,14 @@ import org.bukkit.event.Event;
 @Examples("set critical of player's disguise to true")
 @Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
-public class ExprCritical extends WatcherPropertyExpression<TippedArrowWatcher, Boolean> {
+public class ExprCritical extends WatcherPropertyExpression<BetterTippedArrowWatcher, Boolean> {
 
     static {
         register(ExprCritical.class, Boolean.class, "critical");
     }
 
     @Override
-    protected Boolean convert(TippedArrowWatcher tippedArrowWatcher) {
+    protected Boolean convert(BetterTippedArrowWatcher tippedArrowWatcher) {
         return tippedArrowWatcher.isCritical();
     }
 
@@ -33,7 +33,7 @@ public class ExprCritical extends WatcherPropertyExpression<TippedArrowWatcher, 
     }
 
     @Override
-    protected void change(Event e, TippedArrowWatcher tippedArrowWatcher, Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, BetterTippedArrowWatcher tippedArrowWatcher, Object[] delta, Changer.ChangeMode mode) {
         tippedArrowWatcher.setCritical((boolean) delta[0]);
     }
 }

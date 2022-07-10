@@ -1,7 +1,7 @@
 package me.tud.diskuise.elements.entities.arrow.conditions;
 
 import ch.njol.skript.doc.*;
-import me.libraryaddict.disguise.disguisetypes.watchers.TippedArrowWatcher;
+import me.tud.diskuise.elements.entities.arrow.BetterTippedArrowWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 
 @Name("Arrow Disguise - Is Critical")
@@ -9,14 +9,14 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 @Examples("if player's disguise is critical")
 @Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
-public class CondIsCritical extends WatcherPropertyCondition<TippedArrowWatcher> {
+public class CondIsCritical extends WatcherPropertyCondition<BetterTippedArrowWatcher> {
 
     static {
         register(CondIsCritical.class, "[a] critical [arrow]");
     }
 
     @Override
-    protected boolean check(TippedArrowWatcher tippedArrowWatcher) {
+    protected boolean check(BetterTippedArrowWatcher tippedArrowWatcher) {
         return tippedArrowWatcher.isCritical();
     }
 
