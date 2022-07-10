@@ -4,10 +4,10 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.tud.diskuise.listeners.JoinListener;
-import me.tud.diskuise.utils.Metrics;
-import me.tud.diskuise.utils.UpdateChecker;
+import me.tud.diskuise.util.UpdateChecker;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -15,40 +15,56 @@ import java.io.IOException;
 public final class Diskuise extends JavaPlugin {
 
     private static Diskuise instance;
-    private static SkriptAddon addon;
-    private static final int resourceId = 101529;
+    private SkriptAddon addon;
+    private final int resourceId = 101529;
+    private UpdateChecker updateChecker;
 
     @Override
     public void onEnable() {
+
+        if (!Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
+            getLogger().severe("Plugin not found: LibsDisguises");
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
+        if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
+            getLogger().severe("Plugin not found: ProtocolLib");
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
+
         instance = this;
         addon = Skript.registerAddon(this);
+        addon.setLanguageFileDirectory("lang");
 
-        UpdateChecker updateChecker = new UpdateChecker(this, resourceId);
+        updateChecker = new UpdateChecker(this, resourceId);
         updateChecker.checkForUpdates(Bukkit.getConsoleSender());
 
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
-        new Metrics(this, 14998);
 
         try {
             addon.loadClasses("me.tud.diskuise", "elements");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void onDisable() {
-        for (Player player : Bukkit.getOnlinePlayers()) DisguiseAPI.undisguiseToAll(player);
+        for (World world : Bukkit.getWorlds()) for (Entity entity : world.getEntities()) DisguiseAPI.undisguiseToAll(entity);
     }
 
     public static Diskuise getInstance() {
         return instance;
     }
-    public static SkriptAddon getAddonInstance() {
+
+    public SkriptAddon getAddonInstance() {
         return addon;
     }
-    public static int getResourceId() {
+
+    public int getResourceId() {
         return resourceId;
+    }
+
+    public UpdateChecker getUpdateChecker() {
+        return updateChecker;
     }
 }

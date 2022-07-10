@@ -25,13 +25,13 @@ public class EvtDisguise extends SkriptEvent {
                         "\tbroadcast \"%event-entity% disguised as %type of event-disguise%!\"")
                 .since("0.2-beta0")
                 .requiredPlugins("LibsDisguises");
-        EventValues.registerEventValue(DisguiseEvent.class, Entity.class, new Getter<Entity, DisguiseEvent>() {
+        EventValues.registerEventValue(DisguiseEvent.class, Entity.class, new Getter<>() {
             @Override
             public @Nullable Entity get(DisguiseEvent arg) {
                 return arg.getDisguised();
             }
         }, 0);
-        EventValues.registerEventValue(DisguiseEvent.class, Disguise.class, new Getter<Disguise, DisguiseEvent>() {
+        EventValues.registerEventValue(DisguiseEvent.class, Disguise.class, new Getter<>() {
             @Override
             public @Nullable Disguise get(DisguiseEvent arg) {
                 return arg.getDisguise();
@@ -52,16 +52,11 @@ public class EvtDisguise extends SkriptEvent {
     public boolean check(Event e) {
         if (entities == null) return true;
         Entity entity = ((DisguiseEvent) e).getEntity();
-        return entities.check(e, new Checker<EntityData<?>>() {
-            @Override
-            public boolean check(EntityData<?> o) {
-                return o.isInstance(entity);
-            }
-        });
+        return entities.check(e, o -> o.isInstance(entity));
     }
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        return null;
+        return "disguise" + (entities == null ? "" : " of " + entities.toString(e, debug));
     }
 }
