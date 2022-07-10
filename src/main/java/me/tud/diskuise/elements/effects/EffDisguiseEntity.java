@@ -1,7 +1,6 @@
 package me.tud.diskuise.elements.effects;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.bukkitutil.EntityUtils;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Effect;
@@ -10,14 +9,12 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.util.LiteralUtils;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
-import me.libraryaddict.disguise.DisguiseAPI;
-import me.libraryaddict.disguise.disguisetypes.*;
+import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
-
-import org.bukkit.entity.Entity;
 
 @Name("Disguise Entity")
 @Description("Disguises the specified entity into another entity")
@@ -53,7 +50,7 @@ public class EffDisguiseEntity extends Effect {
         if (object instanceof Disguise)
             disguise = (Disguise) object;
         else if (object instanceof EntityData<?> entityData)
-            disguise = DisguiseUtils.createDisguise(EntityUtils.toBukkitEntityType(entityData));
+            disguise = DisguiseUtils.createDisguise(entityData);
         else if (object instanceof String name)
             disguise = DisguiseUtils.createDisguise(name);
 
@@ -61,7 +58,6 @@ public class EffDisguiseEntity extends Effect {
         Long timeToExpire = null;
         if (timespan != null) timeToExpire = timespan.getTicks_i();
         for (Entity entity : entities) {
-            if (!(object instanceof Disguise)) DisguiseAPI.setViewDisguiseToggled(entity, true);
             if (targets.length == 0) DisguiseUtils.disguise(entity, disguise, timeToExpire);
             else DisguiseUtils.disguise(entity, disguise, timeToExpire, targets);
         }

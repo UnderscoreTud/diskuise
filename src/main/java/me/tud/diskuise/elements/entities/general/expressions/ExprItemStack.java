@@ -5,10 +5,7 @@ import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.DroppedItemWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.EnderSignalWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.ItemFrameWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.ThrowableWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.*;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -39,6 +36,12 @@ public class ExprItemStack extends WatcherPropertyExpression<FlagWatcher, ItemTy
             return new ItemType(throwableWatcher.getItemStack());
         if (flagWatcher instanceof EnderSignalWatcher enderSignalWatcher)
             return new ItemType(enderSignalWatcher.getItemStack());
+        if (flagWatcher instanceof FireballWatcher fireballWatcher)
+            fireballWatcher.getItemStack();
+        if (flagWatcher instanceof SplashPotionWatcher splashPotionWatcher)
+            splashPotionWatcher.getSplashPotion();
+        if (flagWatcher instanceof FireworkWatcher fireworkWatcher)
+            fireworkWatcher.getFirework();
         return null;
     }
 
@@ -68,5 +71,11 @@ public class ExprItemStack extends WatcherPropertyExpression<FlagWatcher, ItemTy
             throwableWatcher.setItemStack(itemStack);
         else if (flagWatcher instanceof EnderSignalWatcher enderSignalWatcher)
             enderSignalWatcher.setItemStack(itemStack);
+        else if (flagWatcher instanceof FireballWatcher fireballWatcher)
+            fireballWatcher.setItemStack(itemStack);
+        else if (flagWatcher instanceof SplashPotionWatcher splashPotionWatcher)
+            splashPotionWatcher.setSplashPotion(itemStack);
+        else if (flagWatcher instanceof FireworkWatcher fireworkWatcher)
+            fireworkWatcher.setFirework(itemStack);
     }
 }

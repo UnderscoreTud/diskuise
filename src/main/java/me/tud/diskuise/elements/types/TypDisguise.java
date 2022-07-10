@@ -7,12 +7,11 @@ import ch.njol.skript.classes.Serializer;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.yggdrasil.Fields;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
+import me.libraryaddict.disguise.disguisetypes.DisguiseType;
 import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.ClassUtils;
-import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.NotSerializableException;
 import java.io.StreamCorruptedException;
 
 public class TypDisguise {
@@ -49,20 +48,21 @@ public class TypDisguise {
                 })
                 .serializer(new Serializer<>() {
                     @Override
-                    public Fields serialize(Disguise o) throws NotSerializableException {
+                    public Fields serialize(Disguise o) {
                         Fields fields = new Fields();
-                        fields.putObject("type", o.getType().getEntityType().name());
+                        fields.putObject("type", o.getType().toString());
                         return fields;
                     }
 
                     @Override
-                    public void deserialize(Disguise o, Fields f) throws StreamCorruptedException, NotSerializableException {
+                    public void deserialize(Disguise o, Fields f) {
                         assert false;
                     }
 
                     @Override
-                    protected Disguise deserialize(Fields fields) throws StreamCorruptedException, NotSerializableException {
-                        return DisguiseUtils.createDisguise(EntityType.valueOf(fields.getObject("type", String.class)));
+                    protected Disguise deserialize(Fields fields) throws StreamCorruptedException {
+                        DisguiseType disguiseType = DisguiseType.valueOf(fields.getAndRemoveObject("type", String.class));
+                        return DisguiseUtils.createDisguise(disguiseType);
                     }
 
                     @Override

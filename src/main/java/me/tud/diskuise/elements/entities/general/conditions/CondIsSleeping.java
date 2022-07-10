@@ -4,24 +4,24 @@ import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 
-@Name("Disguise - Is Sprinting")
-@Description("Checks whether the disguise is sprinting")
-@Examples("if player's disguise is sprinting:")
+@Name("Disguise - Is Sleeping")
+@Description("Checks whether the disguise is sleeping")
+@Examples("if player's disguise is sleeping:")
 @Since("0.3")
 @RequiredPlugins("LibsDisguises")
-public class CondIsSprinting extends WatcherPropertyCondition<FlagWatcher> {
+public class CondIsSleeping extends WatcherPropertyCondition<FlagWatcher> {
 
     static {
-        register(CondIsSprinting.class, "sprinting");
+        register(CondIsSleeping.class, "sleeping");
     }
 
     @Override
     protected boolean check(FlagWatcher flagWatcher) {
-        return flagWatcher.isSprinting();
+        return flagWatcher.isSleeping();
     }
 
     @Override
     protected String getPropertyName() {
-        return "sprinting";
+        return "sleeping";
     }
 }

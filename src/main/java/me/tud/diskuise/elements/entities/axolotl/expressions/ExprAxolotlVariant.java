@@ -1,5 +1,6 @@
 package me.tud.diskuise.elements.entities.axolotl.expressions;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
@@ -17,7 +18,8 @@ import org.jetbrains.annotations.Nullable;
 public class ExprAxolotlVariant extends WatcherPropertyExpression<AxolotlWatcher, Axolotl.Variant> {
 
     static {
-        register(ExprAxolotlVariant.class, Axolotl.Variant.class, "axolotl variant");
+        if (Skript.classExists("org.bukkit.entity.Axolotl"))
+            register(ExprAxolotlVariant.class, Axolotl.Variant.class, "axolotl variant");
     }
 
     @Override

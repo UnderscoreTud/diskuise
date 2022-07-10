@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.sections;
 
-import ch.njol.skript.bukkitutil.EntityUtils;
+import ch.njol.skript.Skript;
 import ch.njol.skript.config.SectionNode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.entity.EntityData;
@@ -9,7 +9,6 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.ExpressionSection;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -40,6 +39,7 @@ public class ExprSecCreateDisguise extends ExpressionSection<Disguise> {
     }
 
     private Expression<?> expr;
+    private Disguise sectionDisguise;
 
     @Override
     protected @Nullable Disguise[] get(Event e) {
@@ -51,8 +51,7 @@ public class ExprSecCreateDisguise extends ExpressionSection<Disguise> {
             return DisguiseUtils.createDisguise(name);
         EntityData<?> entityData = (EntityData<?>) expr.getSingle(e);
         if (entityData == null) return null;
-        EntityType entityType = EntityUtils.toBukkitEntityType(entityData);
-        return DisguiseUtils.createDisguise(entityType);
+        return DisguiseUtils.createDisguise(entityData);
     }
 
     @Override
@@ -67,25 +66,31 @@ public class ExprSecCreateDisguise extends ExpressionSection<Disguise> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean init(
-            Expression<?>[] exprs,
-            int matchedPattern,
-            Kleenean isDelayed,
-            SkriptParser.ParseResult parseResult,
-            @Nullable SectionNode sectionNode,
-            @Nullable List<TriggerItem> triggerItems) {
+    public boolean init(Expression<?>[] exprs,
+                        int matchedPattern,
+                        Kleenean isDelayed,
+                        SkriptParser.ParseResult parseResult,
+                        @Nullable SectionNode sectionNode,
+                        @Nullable List<TriggerItem> triggerItems) {
         expr = exprs[0];
         if (expr instanceof Literal<?> literal)
-            if (((EntityData<?>) literal.getSingle()).getSuperType().equals(EntityData.fromClass(Player.class)))
+            if (((EntityData<?>) literal.getSingle()).getSuperType().equals(EntityData.fromClass(Player.class))) {
+                Skript.error("Use a string to create a player disguise, e.g. 'set {_disguise} to \"_tud\" player disguise");
                 return false;
+            }
         if (sectionNode != null) loadCode(sectionNode);
         return true;
     }
 
     @Override
     protected @Nullable TriggerItem walk(Event e) {
-        DisguiseUtils.setLastCreatedDisguise(getDisguise(e));
+        sectionDisguise = getDisguise(e);
+        DisguiseUtils.setLastCreatedDisguise(sectionDisguise);
         return super.walk(e, true);
+    }
+
+    public Disguise getSectionDisguise() {
+        return sectionDisguise;
     }
 
     @Override

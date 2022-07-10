@@ -9,7 +9,6 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.elements.sections.ExprSecCreateDisguise;
-import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,9 +19,11 @@ public class ExprDisguise extends SimpleExpression<Disguise> {
         Skript.registerExpression(ExprDisguise.class, Disguise.class, ExpressionType.SIMPLE, "[the] dis(g|k)uise");
     }
 
+    private ExprSecCreateDisguise section;
+
     @Override
     protected @Nullable Disguise[] get(Event e) {
-        return new Disguise[]{DisguiseUtils.getLastCreatedDisguise()};
+        return new Disguise[]{section.getSectionDisguise()};
     }
 
     @Override
@@ -42,6 +43,7 @@ public class ExprDisguise extends SimpleExpression<Disguise> {
 
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        return getParser().isCurrentSection(ExprSecCreateDisguise.class);
+        section = getParser().getCurrentSection(ExprSecCreateDisguise.class);
+        return section != null;
     }
 }

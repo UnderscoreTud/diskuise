@@ -1,5 +1,6 @@
 package me.tud.diskuise.elements.entities.axolotl.effects;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
@@ -13,7 +14,8 @@ import org.bukkit.event.Event;
 public class EffMakePlayDead extends WatcherMakeEffect<AxolotlWatcher> {
 
     static {
-        register(EffMakePlayDead.class, "[:not] play dead");
+        if (Skript.classExists("org.bukkit.entity.Axolotl"))
+            register(EffMakePlayDead.class, "[:not] play dead");
     }
 
     @Override

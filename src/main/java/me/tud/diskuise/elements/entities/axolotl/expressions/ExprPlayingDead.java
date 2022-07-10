@@ -1,5 +1,6 @@
 package me.tud.diskuise.elements.entities.axolotl.expressions;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
@@ -16,7 +17,8 @@ import org.jetbrains.annotations.Nullable;
 public class ExprPlayingDead extends WatcherPropertyExpression<AxolotlWatcher, Boolean> {
 
     static {
-        register(ExprPlayingDead.class, Boolean.class, "play[ing] dead");
+        if (Skript.classExists("org.bukkit.entity.Axolotl"))
+            register(ExprPlayingDead.class, Boolean.class, "play[ing] dead");
     }
 
     @Override
