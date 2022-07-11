@@ -4,6 +4,7 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.tud.diskuise.listeners.JoinListener;
+import me.tud.diskuise.util.Metrics;
 import me.tud.diskuise.util.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -39,6 +40,8 @@ public final class Diskuise extends JavaPlugin {
         updateChecker.checkForUpdates(Bukkit.getConsoleSender());
 
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
+        Metrics metrics = new Metrics(this, 14998);
+        metrics.addCustomChart(new Metrics.SimplePie("skript_version", () -> Skript.getInstance().getDescription().getVersion()));
 
         try {
             addon.loadClasses("me.tud.diskuise", "elements");
