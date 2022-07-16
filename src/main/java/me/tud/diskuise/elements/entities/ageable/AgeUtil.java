@@ -1,10 +1,7 @@
 package me.tud.diskuise.elements.entities.ageable;
 
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.AgeableWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.PiglinWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.ZoglinWatcher;
-import me.libraryaddict.disguise.disguisetypes.watchers.ZombieWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.*;
 
 public class AgeUtil {
 
@@ -17,6 +14,8 @@ public class AgeUtil {
             return (watcher.isBaby() ? Age.BABY : Age.ADULT);
         if (flagWatcher instanceof PiglinWatcher watcher)
             return (watcher.isBaby() ? Age.BABY : Age.ADULT);
+        if (flagWatcher instanceof ArmorStandWatcher watcher)
+            return (watcher.isSmall() ? Age.BABY : Age.ADULT);
         return null;
     }
 
@@ -25,13 +24,15 @@ public class AgeUtil {
         if (flagWatcher instanceof AgeableWatcher watcher)
             if (age == Age.ADULT) watcher.setAdult();
             else watcher.setBaby();
-        if (flagWatcher instanceof ZombieWatcher watcher)
+        else if (flagWatcher instanceof ZombieWatcher watcher)
             if (age == Age.ADULT) watcher.setAdult();
             else watcher.setBaby();
-        if (flagWatcher instanceof ZoglinWatcher watcher)
+        else if (flagWatcher instanceof ZoglinWatcher watcher)
             watcher.setBaby(age == Age.BABY);
-        if (flagWatcher instanceof PiglinWatcher watcher)
+        else if (flagWatcher instanceof PiglinWatcher watcher)
             watcher.setBaby(age == Age.BABY);
+        else if (flagWatcher instanceof ArmorStandWatcher watcher)
+            watcher.setSmall(age == Age.BABY);
     }
 
 }
