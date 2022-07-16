@@ -6,7 +6,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 
 @Name("Armor Stand Disguise - Has Arms")
 @Description("Checks whether an armor stand disguise has its arms shown")
-@Examples("show the arms of player's disguise")
+@Examples("if player's disguise has arms")
 @Since("INSERT VERSION")
 @RequiredPlugins("LibsDisguises")
 public class CondHasArms extends WatcherPropertyCondition<BetterArmorStandWatcher> {
