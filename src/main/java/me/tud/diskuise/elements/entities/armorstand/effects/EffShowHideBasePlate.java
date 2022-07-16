@@ -11,32 +11,32 @@ import me.tud.diskuise.elements.entities.armorstand.BetterArmorStandWatcher;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Armor Stand Disguise - Arms Visibility")
-@Description("Set whether an armor stand disguise has its arms shown")
-@Examples("show the arms of player's disguise")
+@Name("Armor Stand Disguise - Base Plate Visibility")
+@Description("Set whether an armor stand disguise has its base plate shown")
+@Examples("hide base plate of player's disguise")
 @Since("INSERT VERSION")
 @RequiredPlugins("LibsDisguises")
-public class EffShowHideArms extends Effect {
+public class EffShowHideBasePlate extends Effect {
 
     static {
-        Skript.registerEffect(EffShowHideArms.class,
-                "(:show|:hide) [the] arms of [dis(g|k)uise[s]] %disguises%",
-                "(:show|:hide) [dis(g|k)uise[s]] %disguises%'[s] arms");
+        Skript.registerEffect(EffShowHideBasePlate.class,
+                "(:show|:hide) [the] base[ ]plate of [dis(g|k)uise[s]] %disguises%",
+                "(:show|:hide) [dis(g|k)uise[s]] %disguises%'[s] base[ ]plate");
     }
 
     private Expression<Disguise> disguiseExpr;
-    private boolean show;
+    private boolean show = false;
 
     @Override
     protected void execute(Event e) {
         for (Disguise disguise : disguiseExpr.getArray(e))
             if (disguise.getWatcher() instanceof BetterArmorStandWatcher armorStandWatcher)
-                armorStandWatcher.setShowArms(show);
+                armorStandWatcher.setNoBasePlate(!show);
     }
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        return (show ? "show" : "hide") + " the arms of " + disguiseExpr.toString(e, debug);
+        return (show ? "show" : "hide") + " the base plate of " + disguiseExpr.toString(e, debug);
     }
 
     @Override
