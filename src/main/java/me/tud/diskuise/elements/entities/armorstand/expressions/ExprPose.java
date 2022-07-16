@@ -7,7 +7,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.watchers.ArmorStandWatcher;
+import me.tud.diskuise.elements.entities.armorstand.BetterArmorStandWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
 import org.bukkit.util.EulerAngle;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 @Examples("set head pose of player's disguise to vector(90, 0, 0)")
 @Since("INSERT VERSION")
 @RequiredPlugins("LibsDisguises")
-public class ExprPose extends WatcherPropertyExpression<ArmorStandWatcher, Vector> {
+public class ExprPose extends WatcherPropertyExpression<BetterArmorStandWatcher, Vector> {
 
     static {
         register(ExprPose.class, Vector.class,
@@ -29,7 +29,7 @@ public class ExprPose extends WatcherPropertyExpression<ArmorStandWatcher, Vecto
     String part;
 
     @Override
-    protected Vector convert(ArmorStandWatcher armorStandWatcher) {
+    protected Vector convert(BetterArmorStandWatcher armorStandWatcher) {
         return getPose(armorStandWatcher, part);
     }
 
@@ -37,7 +37,7 @@ public class ExprPose extends WatcherPropertyExpression<ArmorStandWatcher, Vecto
         return new Vector(eulerAngle.getX(), eulerAngle.getY(), eulerAngle.getZ());
     }
 
-    private Vector getPose(ArmorStandWatcher armorStandWatcher, String part) {
+    private Vector getPose(BetterArmorStandWatcher armorStandWatcher, String part) {
         return getVector(switch (part) {
             case "head" -> armorStandWatcher.getHead();
             case "body" -> armorStandWatcher.getBody();
@@ -80,7 +80,7 @@ public class ExprPose extends WatcherPropertyExpression<ArmorStandWatcher, Vecto
     }
 
     @Override
-    protected void change(Event e, ArmorStandWatcher armorStandWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, BetterArmorStandWatcher armorStandWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
         Vector vector = (Vector) delta[0];
         Vector current = getPose(armorStandWatcher, part);
         if (vector == null) return;
@@ -92,7 +92,7 @@ public class ExprPose extends WatcherPropertyExpression<ArmorStandWatcher, Vecto
         });
     }
 
-    private void setPose(ArmorStandWatcher armorStandWatcher, String part, EulerAngle eulerAngle) {
+    private void setPose(BetterArmorStandWatcher armorStandWatcher, String part, EulerAngle eulerAngle) {
         switch (part) {
             case "head" -> armorStandWatcher.setHead(eulerAngle);
             case "body" -> armorStandWatcher.setBody(eulerAngle);
