@@ -1,6 +1,7 @@
 package me.tud.diskuise.elements.entities.armorstand.expressions;
 
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
@@ -13,6 +14,11 @@ import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 
+@Name("Armor Stand Disguise - Pose")
+@Description("Set or get the pose of an armor stand disguise")
+@Examples("set head pose of player's disguise to vector(90, 0, 0)")
+@Since("INSERT VERSION")
+@RequiredPlugins("LibsDisguises")
 public class ExprPose extends WatcherPropertyExpression<ArmorStandWatcher, Vector> {
 
     static {
