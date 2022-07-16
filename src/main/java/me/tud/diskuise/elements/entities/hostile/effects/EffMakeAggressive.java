@@ -2,6 +2,8 @@ package me.tud.diskuise.elements.entities.hostile.effects;
 
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.EndermanWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.GhastWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.InsentientWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
 
@@ -10,7 +12,7 @@ import org.bukkit.event.Event;
 @Examples("make player's disguise aggressive")
 @Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
-public class EffMakeAggressive extends WatcherMakeEffect<EndermanWatcher> {
+public class EffMakeAggressive extends WatcherMakeEffect<InsentientWatcher> {
 
     static {
         register(EffMakeAggressive.class, "[:not] aggressive");
@@ -22,7 +24,10 @@ public class EffMakeAggressive extends WatcherMakeEffect<EndermanWatcher> {
     }
 
     @Override
-    protected void make(Event e, EndermanWatcher endermanWatcher) {
-        endermanWatcher.setAggressive(!isNegated());
+    protected void make(Event e, InsentientWatcher insentientWatcher) {
+        if (insentientWatcher instanceof EndermanWatcher endermanWatcher)
+            endermanWatcher.setAggressive(!isNegated());
+        else if (insentientWatcher instanceof GhastWatcher ghastWatcher)
+            ghastWatcher.setAggressive(!isNegated());
     }
 }
