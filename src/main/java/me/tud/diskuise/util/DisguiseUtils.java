@@ -8,6 +8,7 @@ import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.MushroomCowWatcher;
 import me.tud.diskuise.Diskuise;
+import me.tud.diskuise.elements.entities.armorstand.BetterArmorStandWatcher;
 import me.tud.diskuise.elements.entities.arrow.BetterTippedArrowWatcher;
 import me.tud.diskuise.elements.entities.guardian.BetterGuardianWatcher;
 import org.bukkit.Bukkit;
@@ -46,6 +47,7 @@ public class DisguiseUtils {
     public static Disguise createDisguise(DisguiseType disguiseType) {
         disguiseType.setWatcherClass(switch (disguiseType) {
             case ARROW -> BetterTippedArrowWatcher.class;
+            case ARMOR_STAND -> BetterArmorStandWatcher.class;
             case GUARDIAN, ELDER_GUARDIAN -> BetterGuardianWatcher.class;
             default -> disguiseType.getWatcherClass();
         });
