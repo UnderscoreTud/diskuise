@@ -55,10 +55,12 @@ public class UpdateChecker {
     }
 
     public void checkForUpdates(CommandSender sender) {
-        this.getVersion(version -> {
-            if (plugin.getDescription().getVersion().equalsIgnoreCase(version)) return;
-            if (!sender.isOp()) return;
-            this.sendDownloadLatest(sender);
-        });
+        if (Diskuise.getInstance().getConfig().getBoolean("check for updates", false)) {
+            this.getVersion(version -> {
+                if (plugin.getDescription().getVersion().equalsIgnoreCase(version)) return;
+                if (!sender.isOp()) return;
+                this.sendDownloadLatest(sender);
+            });
+        }
     }
 }

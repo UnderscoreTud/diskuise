@@ -1,9 +1,8 @@
 package me.tud.diskuise.elements.entities.player.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
 
 
@@ -12,7 +11,7 @@ import org.bukkit.event.Event;
 @Examples("set cape of player's disguise to true")
 @Since("0.2-beta2")
 @RequiredPlugins("LibsDisguises")
-public class ExprCape extends WatcherPropertyExpression<PlayerWatcher, Boolean> {
+public class ExprCape extends WatcherBooleanExpression<PlayerWatcher> {
 
     static {
         register(ExprCape.class, Boolean.class, "cape");
@@ -29,12 +28,7 @@ public class ExprCape extends WatcherPropertyExpression<PlayerWatcher, Boolean> 
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    protected void change(Event e, PlayerWatcher playerWatcher, Object[] delta, Changer.ChangeMode mode) {
-        playerWatcher.setCapeEnabled((boolean) delta[0]);
+    protected void change(Event e, PlayerWatcher playerWatcher, boolean bool) {
+        playerWatcher.setCapeEnabled(bool);
     }
 }

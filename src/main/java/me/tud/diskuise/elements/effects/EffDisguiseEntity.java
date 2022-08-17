@@ -5,6 +5,7 @@ import ch.njol.skript.doc.*;
 import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.util.LiteralUtils;
 import ch.njol.skript.util.Timespan;
@@ -77,6 +78,14 @@ public class EffDisguiseEntity extends Effect {
         expr = LiteralUtils.defendExpression(exprs[1]);
         targets = (Expression<Player>) exprs[2];
         timespan = (Expression<Timespan>) exprs[3];
+        if (expr instanceof Literal<?> literal) {
+            if (literal.getSingle() instanceof EntityData<?> entityData) {
+                if (entityData.getSuperType().equals(EntityData.fromClass(Player.class))) {
+                    Skript.error("Use a string to create a player disguise, e.g. 'set {_disguise} to \"_tud\" player disguise");
+                    return false;
+                }
+            }
+        }
         return LiteralUtils.canInitSafely(expr);
     }
 }

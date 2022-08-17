@@ -1,9 +1,8 @@
 package me.tud.diskuise.elements.entities.witherskull.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.WitherSkullWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
 
 @Name("Wither Skull Disguise - Blue Skull")
@@ -11,7 +10,7 @@ import org.bukkit.event.Event;
 @Examples("set blue skull of player's disguise to true")
 @Since("0.3")
 @RequiredPlugins("LibsDisguises")
-public class ExprBlueSkull extends WatcherPropertyExpression<WitherSkullWatcher, Boolean> {
+public class ExprBlueSkull extends WatcherBooleanExpression<WitherSkullWatcher> {
 
     static {
         register(ExprBlueSkull.class, Boolean.class, "blue skull");
@@ -28,12 +27,7 @@ public class ExprBlueSkull extends WatcherPropertyExpression<WitherSkullWatcher,
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    protected void change(Event e, WitherSkullWatcher witherSkullWatcher, Object[] delta, Changer.ChangeMode mode) {
-        witherSkullWatcher.setBlue((boolean) delta[0]);
+    protected void change(Event e, WitherSkullWatcher witherSkullWatcher, boolean bool) {
+        witherSkullWatcher.setBlue(bool);
     }
 }

@@ -1,9 +1,8 @@
 package me.tud.diskuise.elements.entities.livingentities.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.LivingWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
 
 @Name("Living Disguise - Spinning")
@@ -11,7 +10,7 @@ import org.bukkit.event.Event;
 @Examples("set spinning of player's disguise to true")
 @Since("0.2-beta0")
 @RequiredPlugins("LibsDisguises")
-public class ExprSpinning extends WatcherPropertyExpression<LivingWatcher, Boolean> {
+public class ExprSpinning extends WatcherBooleanExpression<LivingWatcher> {
 
     static {
         register(ExprSpinning.class, Boolean.class, "spin[ning]");
@@ -28,12 +27,7 @@ public class ExprSpinning extends WatcherPropertyExpression<LivingWatcher, Boole
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    protected void change(Event e, LivingWatcher livingWatcher, Object[] delta, Changer.ChangeMode mode) {
-        livingWatcher.setSpinning((boolean) delta[0]);
+    protected void change(Event e, LivingWatcher livingWatcher, boolean bool) {
+        livingWatcher.setSpinning(bool);
     }
 }

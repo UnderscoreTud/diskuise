@@ -31,6 +31,8 @@ public class DisguiseUtils {
 
 
     public static Disguise createDisguise(EntityData<?> entityData) {
+        if (entityData.getSuperType().equals(EntityData.fromClass(Player.class)))
+            return null;
         lastCreatedDisguise = createDisguise(DisguiseType.getType(EntityUtils.toBukkitEntityType(entityData)));
         if (entityData instanceof MooshroomData mooshroomData) {
             try {
@@ -147,7 +149,9 @@ public class DisguiseUtils {
     }
 
     public static void update(Disguise disguise) {
-        for (Entity entity : DISGUISED_ENTITIES.get(disguise))
-            DisguiseAPI.disguiseEntity(entity, disguise);
+        if (Diskuise.getInstance().getConfig().getBoolean("auto update disguises", false)) {
+            for (Entity entity : DISGUISED_ENTITIES.get(disguise))
+                DisguiseAPI.disguiseEntity(entity, disguise);
+        }
     }
 }

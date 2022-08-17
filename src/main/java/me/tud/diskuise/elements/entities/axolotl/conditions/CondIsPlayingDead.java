@@ -1,6 +1,5 @@
 package me.tud.diskuise.elements.entities.axolotl.conditions;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyCondition;
@@ -13,8 +12,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 public class CondIsPlayingDead extends WatcherPropertyCondition<AxolotlWatcher> {
 
     static {
-        if (Skript.classExists("org.bukkit.entity.Axolotl"))
-            register(CondIsPlayingDead.class, "playing dead");
+        register(CondIsPlayingDead.class, "playing dead");
     }
 
     @Override

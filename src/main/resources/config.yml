@@ -1,0 +1,9 @@
+# When true, the plugin will constantly check for new updates
+check for updates: true
+
+# When true, modifying a property of a disguise will
+# update all the entities disguised as said disguise
+# by redisguising them.
+# This will make the disguised entities flicker.
+# Recommended: true
+auto update disguises: true

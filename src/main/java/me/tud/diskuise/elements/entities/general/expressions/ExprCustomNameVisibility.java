@@ -1,19 +1,16 @@
 package me.tud.diskuise.elements.entities.general.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
-import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
 
 @Name("Disguise - Custom Name Visibility")
 @Description("Set or get whether the custom name of a disguise is visible")
 @Examples("set custom name visibility of disguise {dis} to true")
 @Since("0.2-beta0")
 @RequiredPlugins("LibsDisguises")
-public class ExprCustomNameVisibility extends WatcherPropertyExpression<FlagWatcher, Boolean> {
+public class ExprCustomNameVisibility extends WatcherBooleanExpression<FlagWatcher> {
 
     static {
         register(ExprCustomNameVisibility.class, Boolean.class, "[custom[ ]]name visibility");
@@ -30,17 +27,7 @@ public class ExprCustomNameVisibility extends WatcherPropertyExpression<FlagWatc
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(Boolean.class) : null;
-    }
-
-    @Override
-    protected void change(Event e, FlagWatcher flagWatcher, Object[] delta, Changer.ChangeMode mode) {
-        flagWatcher.setCustomNameVisible((boolean) delta[0]);
+    protected void change(Event e, FlagWatcher flagWatcher, boolean bool) {
+        flagWatcher.setCustomNameVisible(bool);
     }
 }
