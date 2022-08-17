@@ -1,11 +1,10 @@
 package me.tud.diskuise.elements.entities.hostile.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.EndermanWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.GhastWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.InsentientWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
 
 @Name("Hostile Disguise - Aggressive")
@@ -13,7 +12,7 @@ import org.bukkit.event.Event;
 @Examples("set aggressive of player's disguise to true")
 @Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
-public class ExprAggressive extends WatcherPropertyExpression<InsentientWatcher, Boolean> {
+public class ExprAggressive extends WatcherBooleanExpression<InsentientWatcher> {
 
     static {
         register(ExprAggressive.class, Boolean.class, "[is] aggressive");
@@ -34,15 +33,10 @@ public class ExprAggressive extends WatcherPropertyExpression<InsentientWatcher,
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    protected void change(Event e, InsentientWatcher insentientWatcher, Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, InsentientWatcher insentientWatcher, boolean bool) {
         if (insentientWatcher instanceof EndermanWatcher endermanWatcher)
-            endermanWatcher.setAggressive((boolean) delta[0]);
+            endermanWatcher.setAggressive(bool);
         else if (insentientWatcher instanceof GhastWatcher ghastWatcher)
-            ghastWatcher.setAggressive((boolean) delta[0]);
+            ghastWatcher.setAggressive(bool);
     }
 }

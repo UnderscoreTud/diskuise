@@ -1,9 +1,8 @@
 package me.tud.diskuise.elements.entities.bat.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.BatWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
 
 @Name("Bat Disguise - Hanging")
@@ -11,7 +10,7 @@ import org.bukkit.event.Event;
 @Examples("set hanging upside down of player's disguise to true")
 @Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
-public class ExprHanging extends WatcherPropertyExpression<BatWatcher, Boolean> {
+public class ExprHanging extends WatcherBooleanExpression<BatWatcher> {
 
     static {
         register(ExprHanging.class, Boolean.class, "hang[ing] [upside[( |-)]down]");
@@ -28,12 +27,7 @@ public class ExprHanging extends WatcherPropertyExpression<BatWatcher, Boolean> 
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    protected void change(Event e, BatWatcher batWatcher, Object[] delta, Changer.ChangeMode mode) {
-        batWatcher.setHanging((boolean) delta[0]);
+    protected void change(Event e, BatWatcher batWatcher, boolean bool) {
+        batWatcher.setHanging(bool);
     }
 }

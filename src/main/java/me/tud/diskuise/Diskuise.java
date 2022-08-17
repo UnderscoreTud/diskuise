@@ -3,6 +3,7 @@ package me.tud.diskuise;
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import me.libraryaddict.disguise.DisguiseAPI;
+import me.tud.diskuise.commands.DiskuiseCommand;
 import me.tud.diskuise.listeners.JoinListener;
 import me.tud.diskuise.util.Metrics;
 import me.tud.diskuise.util.UpdateChecker;
@@ -26,15 +27,20 @@ public final class Diskuise extends JavaPlugin {
         if (!Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
             getLogger().severe("Plugin not found: LibsDisguises");
             Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }
         if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
             getLogger().severe("Plugin not found: ProtocolLib");
             Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }
 
         instance = this;
         addon = Skript.registerAddon(this);
         addon.setLanguageFileDirectory("lang");
+
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
 
         updateChecker = new UpdateChecker(this, resourceId);
         updateChecker.checkForUpdates(Bukkit.getConsoleSender());
@@ -48,6 +54,8 @@ public final class Diskuise extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        getCommand("diskuise").setExecutor(new DiskuiseCommand());
     }
 
     @Override

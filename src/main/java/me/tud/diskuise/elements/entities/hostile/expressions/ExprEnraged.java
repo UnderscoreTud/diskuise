@@ -1,9 +1,8 @@
 package me.tud.diskuise.elements.entities.hostile.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.InsentientWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
 
 @Name("Hostile Disguise - Enraged")
@@ -11,7 +10,7 @@ import org.bukkit.event.Event;
 @Examples("set enraged of player's disguise to true")
 @Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
-public class ExprEnraged extends WatcherPropertyExpression<InsentientWatcher, Boolean> {
+public class ExprEnraged extends WatcherBooleanExpression<InsentientWatcher> {
 
     static {
         register(ExprEnraged.class, Boolean.class, "[is] enrage[d]");
@@ -28,12 +27,7 @@ public class ExprEnraged extends WatcherPropertyExpression<InsentientWatcher, Bo
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    protected void change(Event e, InsentientWatcher insentientWatcher, Object[] delta, Changer.ChangeMode mode) {
-        insentientWatcher.setEnraged((boolean) delta[0]);
+    protected void change(Event e, InsentientWatcher insentientWatcher, boolean bool) {
+        insentientWatcher.setEnraged(bool);
     }
 }

@@ -1,9 +1,8 @@
 package me.tud.diskuise.elements.entities.armorstand.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.ArmorStandWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
 
 @Name("Armor Stand Disguise - Marker")
@@ -11,7 +10,7 @@ import org.bukkit.event.Event;
 @Examples("set marker of player's disguise to true")
 @Since("INSERT VERSION")
 @RequiredPlugins("LibsDisguises")
-public class ExprMarker extends WatcherPropertyExpression<ArmorStandWatcher, Boolean> {
+public class ExprMarker extends WatcherBooleanExpression<ArmorStandWatcher> {
 
     static {
         register(ExprMarker.class, Boolean.class, "[is] marker");
@@ -28,12 +27,7 @@ public class ExprMarker extends WatcherPropertyExpression<ArmorStandWatcher, Boo
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    protected void change(Event e, ArmorStandWatcher armorStandWatcher, Object[] delta, Changer.ChangeMode mode) {
-        armorStandWatcher.setSmall((boolean) delta[0]);
+    protected void change(Event e, ArmorStandWatcher armorStandWatcher, boolean bool) {
+        armorStandWatcher.setSmall(bool);
     }
 }

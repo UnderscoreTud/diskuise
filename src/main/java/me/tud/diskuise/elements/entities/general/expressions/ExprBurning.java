@@ -1,19 +1,16 @@
 package me.tud.diskuise.elements.entities.general.expressions;
 
-import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.*;
-import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyExpression;
+import me.tud.diskuise.util.skript.WatcherBooleanExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
 
 @Name("Disguise - Burning")
 @Description("Set or get whether the disguise is burning")
 @Examples("set burning of disguise {dis} to true")
 @Since("0.2-beta0")
 @RequiredPlugins("LibsDisguises")
-public class ExprBurning extends WatcherPropertyExpression<FlagWatcher, Boolean> {
+public class ExprBurning extends WatcherBooleanExpression<FlagWatcher> {
 
     static {
         register(ExprBurning.class, Boolean.class, "(burn[ing]|on fire)");
@@ -30,17 +27,7 @@ public class ExprBurning extends WatcherPropertyExpression<FlagWatcher, Boolean>
     }
 
     @Override
-    public Class<? extends Boolean> getReturnType() {
-        return Boolean.class;
-    }
-
-    @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(Boolean.class) : null;
-    }
-
-    @Override
-    protected void change(Event e, FlagWatcher flagWatcher, Object[] delta, Changer.ChangeMode mode) {
-        flagWatcher.setBurning((boolean) delta[0]);
+    protected void change(Event e, FlagWatcher flagWatcher, boolean bool) {
+        flagWatcher.setBurning(bool);
     }
 }
