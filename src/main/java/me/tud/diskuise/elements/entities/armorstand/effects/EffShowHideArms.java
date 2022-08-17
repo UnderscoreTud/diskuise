@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Armor Stand Disguise - Arms Visibility")
 @Description("Set whether an armor stand disguise has its arms shown")
 @Examples("show the arms of player's disguise")
-@Since("INSERT VERSION")
+@Since("0.3.1")
 @RequiredPlugins("LibsDisguises")
 public class EffShowHideArms extends Effect {
 

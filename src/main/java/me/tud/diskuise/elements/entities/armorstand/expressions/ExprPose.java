@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Armor Stand Disguise - Pose")
 @Description("Set or get the pose of an armor stand disguise")
 @Examples("set head pose of player's disguise to vector(90, 0, 0)")
-@Since("INSERT VERSION")
+@Since("0.3.1")
 @RequiredPlugins("LibsDisguises")
 public class ExprPose extends WatcherPropertyExpression<BetterArmorStandWatcher, Vector> {
 

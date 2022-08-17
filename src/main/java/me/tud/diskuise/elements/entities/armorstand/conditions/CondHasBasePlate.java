@@ -7,7 +7,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 @Name("Armor Stand Disguise - Has Base Plate")
 @Description("Checks whether an armor stand disguise has its base plate shown")
 @Examples("if player's disguise has a base plate")
-@Since("INSERT VERSION")
+@Since("0.3.1")
 @RequiredPlugins("LibsDisguises")
 public class CondHasBasePlate extends WatcherPropertyCondition<BetterArmorStandWatcher> {
 

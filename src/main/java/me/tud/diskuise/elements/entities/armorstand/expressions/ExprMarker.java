@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Armor Stand Disguise - Marker")
 @Description("Set or get whether an armor stand disguise is a marker")
 @Examples("set marker of player's disguise to true")
-@Since("INSERT VERSION")
+@Since("0.3.1")
 @RequiredPlugins("LibsDisguises")
 public class ExprMarker extends WatcherBooleanExpression<ArmorStandWatcher> {
 
