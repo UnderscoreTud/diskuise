@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Armor Stand Disguise - Make Small")
 @Description("Set whether an armor stand disguise is small")
 @Examples("make player's disguise small")
-@Since("INSERT VERSION")
+@Since("0.3.1")
 @RequiredPlugins("LibsDisguises")
 public class EffMakeSmall extends WatcherMakeEffect<ArmorStandWatcher> {
 

@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 @Name("Armor Stand Disguise - Base Plate Visibility")
 @Description("Set whether an armor stand disguise has its base plate shown")
 @Examples("hide base plate of player's disguise")
-@Since("INSERT VERSION")
+@Since("0.3.1")
 @RequiredPlugins("LibsDisguises")
 public class EffShowHideBasePlate extends Effect {
 

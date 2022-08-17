@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Armor Stand Disguise - Make Marker")
 @Description("Set whether an armor stand disguise is a marker")
 @Examples("make player's disguise a marker")
-@Since("INSERT VERSION")
+@Since("0.3.1")
 @RequiredPlugins("LibsDisguises")
 public class EffMakeMarker extends WatcherMakeEffect<ArmorStandWatcher> {
 

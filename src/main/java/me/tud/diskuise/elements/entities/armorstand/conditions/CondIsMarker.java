@@ -7,7 +7,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 @Name("Armor Stand Disguise - Is Marker")
 @Description("Checks whether an armor stand disguise is a marker")
 @Examples("if player's disguise is a marker")
-@Since("INSERT VERSION")
+@Since("0.3.1")
 @RequiredPlugins("LibsDisguises")
 public class CondIsMarker extends WatcherPropertyCondition<ArmorStandWatcher> {
 
