@@ -22,7 +22,7 @@ public class EffMakePlayDead extends WatcherMakeEffect<AxolotlWatcher> {
     }
 
     @Override
-    protected void make(Event e, AxolotlWatcher axolotlWatcher) {
-        axolotlWatcher.setPlayingDead(!isNegated());
+    protected void make(Event e, AxolotlWatcher axolotlWatcher, boolean bool) {
+        axolotlWatcher.setPlayingDead(bool);
     }
 }

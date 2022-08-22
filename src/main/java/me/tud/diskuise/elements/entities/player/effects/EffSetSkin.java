@@ -35,8 +35,8 @@ public class EffSetSkin extends Effect {
         if (skinExpr.getSingle(e) instanceof OfflinePlayer offlinePlayer)
             skin = offlinePlayer.getName();
         else skin = (String) skinExpr.getSingle(e);
-        if (disguise == null || !(disguise.getWatcher() instanceof PlayerWatcher) || skin == null) return;
-        ((PlayerWatcher) disguise.getWatcher()).setSkin(skin);
+        if (disguise == null || !(disguise.getWatcher() instanceof PlayerWatcher playerWatcher) || skin == null) return;
+        playerWatcher.setSkin(skin);
     }
 
     @Override

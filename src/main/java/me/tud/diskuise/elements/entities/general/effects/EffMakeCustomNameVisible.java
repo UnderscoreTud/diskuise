@@ -3,6 +3,7 @@ package me.tud.diskuise.elements.entities.general.effects;
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
+import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -22,8 +23,10 @@ public class EffMakeCustomNameVisible extends WatcherMakeEffect<FlagWatcher> {
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher) {
-        flagWatcher.setCustomNameVisible(!isNegated());
+    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
+        if (flagWatcher instanceof PlayerWatcher playerWatcher)
+            playerWatcher.setNameVisible(false);
+        else flagWatcher.setCustomNameVisible(bool);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class EffMakeCritical extends WatcherMakeEffect<BetterTippedArrowWatcher>
     }
 
     @Override
-    protected void make(Event e, BetterTippedArrowWatcher tippedArrowWatcher) {
-        tippedArrowWatcher.setCritical(!isNegated());
+    protected void make(Event e, BetterTippedArrowWatcher tippedArrowWatcher, boolean bool) {
+        tippedArrowWatcher.setCritical(bool);
     }
 }

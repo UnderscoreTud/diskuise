@@ -22,8 +22,8 @@ public class EffMakeSmall extends WatcherMakeEffect<ArmorStandWatcher> {
     }
 
     @Override
-    protected void make(Event e, ArmorStandWatcher armorStandWatcher) {
-        armorStandWatcher.setSmall(!isNegated());
+    protected void make(Event e, ArmorStandWatcher armorStandWatcher, boolean bool) {
+        armorStandWatcher.setSmall(bool);
     }
 
 }

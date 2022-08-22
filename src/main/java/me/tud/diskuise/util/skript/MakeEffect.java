@@ -35,12 +35,12 @@ public abstract class MakeEffect<T> extends Effect {
 
     abstract protected String getProperty();
 
-    abstract protected void make(Event e, T t);
+    abstract protected void make(Event e, T t, boolean bool);
 
     @Override
     protected void execute(Event e) {
         for (T t : getExpr().getArray(e))
-            make(e, t);
+            make(e, t, !isNegated());
     }
 
     @Override
@@ -52,7 +52,7 @@ public abstract class MakeEffect<T> extends Effect {
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         setExpr((Expression<? extends T>) exprs[0]);
-        setNegated(parseResult.hasTag("not"));
+        negated = parseResult.hasTag("not");
         return true;
     }
 }

@@ -13,11 +13,11 @@ import org.bukkit.event.Event;
 public class EffMakeInvisible extends WatcherMakeEffect<FlagWatcher> {
 
     static {
-        register(EffMakeInvisible.class, "(:not |not:in)visible");
+        register(EffMakeInvisible.class, "[(:not |not:in)]visible");
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher) {
+    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
         flagWatcher.setInvisible(isNegated());
     }
 

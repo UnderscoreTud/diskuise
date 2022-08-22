@@ -42,7 +42,7 @@ public class EffDisguiseEntity extends Effect {
     protected void execute(Event e) {
         Entity[] entities = this.entities.getArray(e);
         Object object = this.expr.getSingle(e);
-        Player[] targets = new Player[0];
+        Player[] targets = null;
         Timespan timespan = null;
         if (this.targets != null) targets = this.targets.getArray(e);
         if (this.timespan != null) timespan = this.timespan.getSingle(e);
@@ -58,10 +58,8 @@ public class EffDisguiseEntity extends Effect {
         if (disguise == null) return;
         Long timeToExpire = null;
         if (timespan != null) timeToExpire = timespan.getTicks_i();
-        for (Entity entity : entities) {
-            if (targets.length == 0) DisguiseUtils.disguise(entity, disguise, timeToExpire);
-            else DisguiseUtils.disguise(entity, disguise, timeToExpire, targets);
-        }
+        for (Entity entity : entities)
+            DisguiseUtils.disguise(entity, disguise, timeToExpire, targets);
     }
 
     @Override
@@ -81,7 +79,7 @@ public class EffDisguiseEntity extends Effect {
         if (expr instanceof Literal<?> literal) {
             if (literal.getSingle() instanceof EntityData<?> entityData) {
                 if (entityData.getSuperType().equals(EntityData.fromClass(Player.class))) {
-                    Skript.error("Use a string to create a player disguise, e.g. 'set {_disguise} to \"_tud\" player disguise");
+                    Skript.error("Use a string to disguise as a player, e.g. 'disguise player as \"_tud\"");
                     return false;
                 }
             }

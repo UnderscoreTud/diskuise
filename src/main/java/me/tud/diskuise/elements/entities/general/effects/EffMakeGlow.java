@@ -26,7 +26,7 @@ public class EffMakeGlow extends WatcherMakeEffect<FlagWatcher> {
     private Expression<SkriptColor> skriptColorExpr;
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher) {
+    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
         ChatColor chatColor = null;
         if (skriptColorExpr != null) {
             SkriptColor skriptColor = skriptColorExpr.getSingle(e);

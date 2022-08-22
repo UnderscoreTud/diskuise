@@ -29,7 +29,7 @@ public class EffMakeAge extends WatcherMakeEffect<FlagWatcher> {
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher) {
+    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
         AgeUtil.setDisguiseAge(flagWatcher, age);
     }
 
