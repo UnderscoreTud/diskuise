@@ -8,7 +8,7 @@ import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
-import me.tud.diskuise.util.skript.ExpressionSection;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
@@ -30,62 +30,48 @@ import java.util.List;
         "\tdisguise all players as disguise"})
 @Since("0.1, 0.3 (Section)")
 @RequiredPlugins("LibsDisguises")
-public class ExprSecCreateDisguise extends ExpressionSection<Disguise> {
+public class SecCreateDisguise extends Section {
 
     static {
-        register(ExprSecCreateDisguise.class, Disguise.class, ExpressionType.PATTERN_MATCHES_EVERYTHING,
+        Skript.registerSection(SecCreateDisguise.class,
                 "[create] [a] [new] %*entitydata% dis(g|k)uise",
-                "[create] [a] [new] %string% [player] dis(g|k)uise");
+                "[create] [a] [new] dis(g|k)uise from %string/offlineplayer/entitydata%");
     }
 
     private Expression<?> expr;
     private Disguise sectionDisguise;
 
-    @Override
-    protected @Nullable Disguise[] get(Event e) {
-        return new Disguise[]{getDisguise(e)};
-    }
-
     private Disguise getDisguise(Event e) {
-        if (expr.getSingle(e) instanceof String name)
+        Object object = expr.getSingle(e);
+        if (object instanceof String name)
             return DisguiseUtils.createDisguise(name);
-        EntityData<?> entityData = (EntityData<?>) expr.getSingle(e);
+        else if (object instanceof OfflinePlayer player)
+            return DisguiseUtils.createDisguise(player.getName());
+        EntityData<?> entityData = (EntityData<?>) object;
         if (entityData == null) return null;
         return DisguiseUtils.createDisguise(entityData);
     }
 
     @Override
-    public boolean isSingle() {
-        return true;
-    }
-
-    @Override
-    public Class<? extends Disguise> getReturnType() {
-        return Disguise.class;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs,
                         int matchedPattern,
                         Kleenean isDelayed,
                         SkriptParser.ParseResult parseResult,
-                        @Nullable SectionNode sectionNode,
-                        @Nullable List<TriggerItem> triggerItems) {
+                        SectionNode sectionNode,
+                        List<TriggerItem> triggerItems) {
         expr = exprs[0];
         if (expr instanceof Literal<?> literal)
             if (((EntityData<?>) literal.getSingle()).getSuperType().equals(EntityData.fromClass(Player.class))) {
-                Skript.error("Use a string to create a player disguise, e.g. 'set {_disguise} to \"_tud\" player disguise");
+                Skript.error("Use a string to create a player disguise, e.g. 'set {_disguise} to disguise from \"_tud\"");
                 return false;
             }
-        if (sectionNode != null) loadCode(sectionNode);
+        loadCode(sectionNode);
         return true;
     }
 
     @Override
     protected @Nullable TriggerItem walk(Event e) {
         sectionDisguise = getDisguise(e);
-        DisguiseUtils.setLastCreatedDisguise(sectionDisguise);
         return super.walk(e, true);
     }
 
@@ -95,8 +81,7 @@ public class ExprSecCreateDisguise extends ExpressionSection<Disguise> {
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        if (expr.getSingle(e) instanceof String) return "a \"" + expr.toString(e, debug) + "\" player disguise";
-        return "a " + expr.toString(e, debug) + " disguise";
+        return "disguise from " + expr.toString(e, debug);
     }
 
 }
