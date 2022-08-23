@@ -7,7 +7,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 @Name("Pillager Disguise - Is Aiming Bow")
 @Description("Check whether a pillager disguise is aiming a bow")
 @Examples("if player's disguise is aiming a bow")
-@Since("INSERT VERSION")
+@Since("0.3.2")
 @RequiredPlugins("LibsDisguises")
 public class CondIsAimingBow extends WatcherPropertyCondition<PillagerWatcher> {
 

@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Pillager Disguise - Aiming Bow")
 @Description("Set or get whether a pillager disguise is aiming a bow")
 @Examples("set aiming bow state of player's disguise to true")
-@Since("INSERT VERSION")
+@Since("0.3.2")
 @RequiredPlugins("LibsDisguises")
 public class ExprAimingBow extends WatcherBooleanExpression<PillagerWatcher> {
 

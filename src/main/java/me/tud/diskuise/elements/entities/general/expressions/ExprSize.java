@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
         "Set or get the size of a disguise.",
         "This only works on a phantom or slime disguise"})
 @Examples("set the size of {_dis} to 25")
-@Since("INSERT VERSION")
+@Since("0.3.2")
 @RequiredPlugins("LibsDisguises")
 public class ExprSize extends WatcherPropertyExpression<FlagWatcher, Long> {
 

@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 @Description({"Set or get the puff state of a puffer fish disguise (how infalted it is)",
             "The stages go from 1-3"})
 @Examples("set the puffer stage of {_dis} to 3")
-@Since("INSERT VERSION")
+@Since("0.3.2")
 @RequiredPlugins("LibsDisguises")
 public class ExprPufferState extends WatcherPropertyExpression<PufferFishWatcher, Number> {
 

@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Pillager Disguise - Make Aim Bow")
 @Description("Set whether a pillager disguise is aiming a bow")
 @Examples("make player's disguise aim a bow")
-@Since("INSERT VERSION")
+@Since("0.3.2")
 @RequiredPlugins("LibsDisguises")
 public class EffMakeAimBow extends WatcherMakeEffect<PillagerWatcher> {
     
