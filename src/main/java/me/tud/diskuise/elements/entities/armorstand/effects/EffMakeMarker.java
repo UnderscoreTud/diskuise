@@ -22,8 +22,8 @@ public class EffMakeMarker extends WatcherMakeEffect<ArmorStandWatcher> {
     }
 
     @Override
-    protected void make(Event e, ArmorStandWatcher armorStandWatcher) {
-        armorStandWatcher.setMarker(!isNegated());
+    protected void make(Event e, ArmorStandWatcher armorStandWatcher, boolean bool) {
+        armorStandWatcher.setMarker(bool);
     }
 
 }

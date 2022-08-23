@@ -29,7 +29,7 @@ public class EffDominantHand extends WatcherMakeEffect<PlayerWatcher> {
     }
 
     @Override
-    protected void make(Event e, PlayerWatcher playerWatcher) {
+    protected void make(Event e, PlayerWatcher playerWatcher, boolean bool) {
         playerWatcher.setMainHand(MainHand.valueOf(hand.toUpperCase()));
     }
 

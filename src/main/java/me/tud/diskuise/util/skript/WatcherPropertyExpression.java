@@ -1,7 +1,6 @@
 package me.tud.diskuise.util.skript;
 
 import ch.njol.skript.classes.Changer;
-import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.util.DisguiseUtils;
@@ -21,11 +20,6 @@ public abstract class WatcherPropertyExpression<F extends FlagWatcher, T> extend
     }
 
     abstract protected T convert(F f);
-
-    @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(Boolean.class) : null;
-    }
 
     @Override
     @SuppressWarnings("unchecked")

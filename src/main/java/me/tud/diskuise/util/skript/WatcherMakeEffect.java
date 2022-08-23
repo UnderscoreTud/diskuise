@@ -7,17 +7,17 @@ import org.bukkit.event.Event;
 
 public abstract class WatcherMakeEffect<T extends FlagWatcher> extends DisguiseMakeEffect {
 
-    abstract protected void make(Event e, T t);
+    abstract protected void make(Event e, T t, boolean bool);
 
     @Override
-    final protected void make(Event e, Disguise disguise) {}
+    final protected void make(Event e, Disguise disguise, boolean bool) {}
 
     @Override
     @SuppressWarnings("unchecked")
     protected void execute(Event e) {
         for (Disguise disguise : getExpr().getArray(e))
             try {
-                make(e, (T) disguise.getWatcher());
+                make(e, (T) disguise.getWatcher(), !isNegated());
                 DisguiseUtils.update(disguise);
             }
             catch (ClassCastException ignore) {}

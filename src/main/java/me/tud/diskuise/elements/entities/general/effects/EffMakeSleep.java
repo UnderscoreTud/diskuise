@@ -17,8 +17,8 @@ public class EffMakeSleep extends WatcherMakeEffect<FlagWatcher> {
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher) {
-        flagWatcher.setSleeping(!isNegated());
+    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
+        flagWatcher.setSleeping(bool);
     }
 
     @Override

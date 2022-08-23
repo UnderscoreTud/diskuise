@@ -3,7 +3,6 @@ package me.tud.diskuise.elements.entities.armorstand;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.MetaIndex;
 import me.libraryaddict.disguise.disguisetypes.watchers.ArmorStandWatcher;
-import me.tud.diskuise.util.Util;
 
 public class BetterArmorStandWatcher extends ArmorStandWatcher {
 
@@ -12,8 +11,7 @@ public class BetterArmorStandWatcher extends ArmorStandWatcher {
     }
 
     private void setArmorStandFlag(int value, boolean isTrue) {
-        byte b1 = (Byte)this.getData(MetaIndex.ARMORSTAND_META);
-        Util.log(b1 + "");
+        byte b1 = this.getData(MetaIndex.ARMORSTAND_META);
         if (isTrue) {
             b1 = (byte) (b1 | value);
         } else {
@@ -25,22 +23,27 @@ public class BetterArmorStandWatcher extends ArmorStandWatcher {
     }
 
     @Override
-    public void setShowArms(boolean showArms) {
-        setArmorStandFlag(4, showArms);
-    }
-
-    @Override
     public void setSmall(boolean isSmall) {
         setArmorStandFlag(1, isSmall);
     }
 
     @Override
+    public void setNoGravity(boolean noGravity) {
+        setArmorStandFlag(1 << 1, noGravity);
+    }
+
+    @Override
+    public void setShowArms(boolean showArms) {
+        setArmorStandFlag(1 << 2, showArms);
+    }
+
+    @Override
     public void setNoBasePlate(boolean noBasePlate) {
-        setArmorStandFlag(8, noBasePlate);
+        setArmorStandFlag(1 << 3, noBasePlate);
     }
 
     @Override
     public void setMarker(boolean isMarker) {
-        setArmorStandFlag(16, isMarker);
+        setArmorStandFlag(1 << 4, isMarker);
     }
 }

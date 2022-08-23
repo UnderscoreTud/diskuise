@@ -32,7 +32,7 @@ public class EffLockGrid extends WatcherMakeEffect<FallingBlockWatcher> {
     }
 
     @Override
-    protected void make(Event e, FallingBlockWatcher fallingBlockWatcher) {
-        fallingBlockWatcher.setGridLocked(!isNegated());
+    protected void make(Event e, FallingBlockWatcher fallingBlockWatcher, boolean bool) {
+        fallingBlockWatcher.setGridLocked(bool);
     }
 }

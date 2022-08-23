@@ -33,5 +33,7 @@ public abstract class WatcherBooleanExpression<T extends FlagWatcher> extends Wa
         change(e, t, bool);
     }
 
-    abstract protected void change(Event e, T t, boolean bool);
+    protected void change(Event e, T t, boolean bool) {
+        super.change(e, new Object[]{bool}, Changer.ChangeMode.SET);
+    }
 }

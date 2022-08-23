@@ -6,6 +6,7 @@ import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.*;
+import me.tud.diskuise.elements.entities.itemframe.BetterItemFrameWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -30,7 +31,7 @@ public class ExprItemStack extends WatcherPropertyExpression<FlagWatcher, ItemTy
     protected ItemType convert(FlagWatcher flagWatcher) {
         if (flagWatcher instanceof DroppedItemWatcher droppedItemWatcher)
             return new ItemType(droppedItemWatcher.getItemStack());
-        if (flagWatcher instanceof ItemFrameWatcher itemFrameWatcher)
+        if (flagWatcher instanceof BetterItemFrameWatcher itemFrameWatcher)
             return new ItemType(itemFrameWatcher.getItem());
         if (flagWatcher instanceof ThrowableWatcher throwableWatcher)
             return new ItemType(throwableWatcher.getItemStack());
@@ -65,7 +66,7 @@ public class ExprItemStack extends WatcherPropertyExpression<FlagWatcher, ItemTy
         ItemStack itemStack = ((ItemType) delta[0]).getRandom();
         if (flagWatcher instanceof DroppedItemWatcher droppedItemWatcher)
             droppedItemWatcher.setItemStack(itemStack);
-        else if (flagWatcher instanceof ItemFrameWatcher itemFrameWatcher)
+        else if (flagWatcher instanceof BetterItemFrameWatcher itemFrameWatcher)
             itemFrameWatcher.setItem(itemStack);
         else if (flagWatcher instanceof ThrowableWatcher throwableWatcher)
             throwableWatcher.setItemStack(itemStack);
