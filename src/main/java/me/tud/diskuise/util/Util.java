@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Util {
 
     public static void log(Object object) {
-        if (object.getClass().isArray()) {
+        if (object != null && object.getClass().isArray()) {
             Diskuise.getInstance().getLogger().info(colored(Arrays.toString((Object[]) object)));
             return;
         }

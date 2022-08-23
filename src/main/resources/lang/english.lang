@@ -2,7 +2,7 @@ version: ${project.version}
 
 types:
   age: age @an
-  axolotlvariant: Axolotl Variant¦s @an
+  axolotlvariant: axolotl variant¦s @an
   disguise: disguise¦s @a
   paintingart: painting art¦s @a
   notifybar: notify bar¦s @a
@@ -12,11 +12,11 @@ ages:
   baby: baby
 
 axolotlvariants:
-  lucy: lucy
-  wild: wild
-  gold: gold
-  cyan: cyan, aqua
-  blue: blue
+  lucy: lucy axolotl
+  wild: wild axolotl
+  gold: gold axolotl
+  cyan: cyan axolotl, aqua axolotl
+  blue: blue axolotl
 
 paintingarts:
   kebab: kebab
