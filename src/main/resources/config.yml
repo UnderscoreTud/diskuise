@@ -7,3 +7,10 @@ check for updates: true
 # This will make the disguised entities flicker.
 # Recommended: true
 auto update disguises: true
+
+# When true, disguising a player will follow the libs
+# disguises config (e.g. showing player nametags by
+# default if set in the libs config as it does with
+# the /disguise command)
+# This is false by default.
+disguise with libs config: false
