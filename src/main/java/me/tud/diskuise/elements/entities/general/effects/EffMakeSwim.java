@@ -17,8 +17,8 @@ public class EffMakeSwim extends WatcherMakeEffect<FlagWatcher> {
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setSwimming(bool);
+    protected void make(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setSwimming(state);
     }
 
     @Override

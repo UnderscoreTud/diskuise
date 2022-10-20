@@ -22,7 +22,7 @@ public class EffMakeHang extends WatcherMakeEffect<BatWatcher> {
     }
 
     @Override
-    protected void make(Event e, BatWatcher batWatcher, boolean bool) {
-        batWatcher.setHanging(bool);
+    protected void make(Event e, BatWatcher batWatcher, boolean state) {
+        batWatcher.setHanging(state);
     }
 }

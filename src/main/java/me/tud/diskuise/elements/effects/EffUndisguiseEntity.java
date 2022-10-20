@@ -1,22 +1,15 @@
 package me.tud.diskuise.elements.effects;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.bukkitutil.EntityUtils;
 import ch.njol.skript.doc.*;
-import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
-import me.libraryaddict.disguise.DisguiseAPI;
-import me.libraryaddict.disguise.disguisetypes.*;
 import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Undisguise Entity")
 @Description("Undisguises an entity")
@@ -26,8 +19,7 @@ import org.jetbrains.annotations.Nullable;
 public class EffUndisguiseEntity extends Effect {
 
     static {
-        Skript.registerEffect(EffUndisguiseEntity.class,
-                "undis(g|k)uise %entities%");
+        Skript.registerEffect(EffUndisguiseEntity.class, "undisguise %entities%");
     }
 
     private Expression<Entity> entities;

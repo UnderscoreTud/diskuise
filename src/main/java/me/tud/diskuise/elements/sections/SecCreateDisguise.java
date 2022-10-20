@@ -11,31 +11,35 @@ import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 import java.util.List;
 
 @Name("Create Disguise")
 @Description("Creates a new customizable disguise")
-@Examples({"command /disguise <entitytype>:",
+@Examples({
+        "command /disguise <entitytype>:",
         "\ttrigger:",
-        "\t\tset {_disguise} to new arg 1 disguise",
+        "\t\tset {_disguise} to disguise from arg 1",
         "\t\tdisguise player as {_disguise}",
-        "\n",
-        "disguise player as new cow disguise",
-        "\n\n",
+        "",
+        "set {_disguise} to disguise from \"_tud\"",
+        "disguise player as {_disguise}",
+        "",
         "create a new zombie disguise:",
         "\tset burning of disguise to true",
         "\tmake disguise glow red",
-        "\tdisguise all players as disguise"})
+        "\tdisguise all players as disguise"
+})
 @Since("0.1, 0.3 (Section)")
 @RequiredPlugins("LibsDisguises")
 public class SecCreateDisguise extends Section {
 
     static {
         Skript.registerSection(SecCreateDisguise.class,
-                "[create] [a] [new] %*entitydata% dis(g|k)uise",
-                "[create] [a] [new] dis(g|k)uise from %string/offlineplayer/entitydata%");
+                "[create] [a] [new] %*entitydata% disguise",
+                "[create] [a] [new] disguise from %entitydata%",
+                "[create] [a] [new] [player] disguise from %string/offlineplayer%");
     }
 
     private Expression<?> expr;

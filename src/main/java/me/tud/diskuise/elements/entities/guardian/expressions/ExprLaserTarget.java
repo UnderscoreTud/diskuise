@@ -1,13 +1,14 @@
 package me.tud.diskuise.elements.entities.guardian.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.tud.diskuise.elements.entities.guardian.BetterGuardianWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Guardian Disguise - Laser Beam")
 @Description("Set or get the targeted entity of a guardian disguise laser beam")
@@ -36,7 +37,7 @@ public class ExprLaserTarget extends WatcherPropertyExpression<BetterGuardianWat
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, RESET, DELETE -> CollectionUtils.array(Entity.class);
             default -> null;
@@ -44,7 +45,7 @@ public class ExprLaserTarget extends WatcherPropertyExpression<BetterGuardianWat
     }
 
     @Override
-    protected void change(Event e, BetterGuardianWatcher guardianWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, BetterGuardianWatcher guardianWatcher, @Nullable Object[] delta, ChangeMode mode) {
         switch (mode) {
             case DELETE, RESET -> guardianWatcher.setTarget((Entity) null);
             case SET -> {

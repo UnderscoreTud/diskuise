@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprCustomNameVisibility extends WatcherBooleanExpression<FlagWatcher> {
 
     static {
-        register(ExprCustomNameVisibility.class, Boolean.class, "[custom[ ]]name visibility");
+        register(ExprCustomNameVisibility.class, "[custom[ ]]name visibility");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprCustomNameVisibility extends WatcherBooleanExpression<FlagWatch
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setCustomNameVisible(bool);
+    protected void change(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setCustomNameVisible(state);
     }
 }

@@ -9,7 +9,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.elements.entities.armorstand.BetterArmorStandWatcher;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Armor Stand Disguise - Arms Visibility")
 @Description("Set whether an armor stand disguise has its arms shown")
@@ -20,8 +20,8 @@ public class EffShowHideArms extends Effect {
 
     static {
         Skript.registerEffect(EffShowHideArms.class,
-                "(:show|:hide) [the] arms of [dis(g|k)uise[s]] %disguises%",
-                "(:show|:hide) [dis(g|k)uise[s]] %disguises%'[s] arms");
+                "(:show|:hide) [the] arms of [disguise[s]] %disguises%",
+                "(:show|:hide) [disguise[s]] %disguises%'[s] arms");
     }
 
     private Expression<Disguise> disguiseExpr;

@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprEnraged extends WatcherBooleanExpression<InsentientWatcher> {
 
     static {
-        register(ExprEnraged.class, Boolean.class, "[is] enrage[d]");
+        register(ExprEnraged.class, "[is] enrage[d]");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprEnraged extends WatcherBooleanExpression<InsentientWatcher> {
     }
 
     @Override
-    protected void change(Event e, InsentientWatcher insentientWatcher, boolean bool) {
-        insentientWatcher.setEnraged(bool);
+    protected void change(Event e, InsentientWatcher insentientWatcher, boolean state) {
+        insentientWatcher.setEnraged(state);
     }
 }

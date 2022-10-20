@@ -11,7 +11,7 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,8 @@ public class ExprEntitiesOfDisguise extends PropertyExpression<Disguise, Entity>
 
     static {
         Skript.registerExpression(ExprEntitiesOfDisguise.class, Entity.class, ExpressionType.PROPERTY,
-                "[(all [of the]|the)] [dis(g|k)uised] entities of [dis(g|k)uise] %disguises%",
-                "[dis(g|k)uise] %disguises%'[s] entities");
+                "[(all [of the]|the)] [disguised] entities of [disguise] %disguises%",
+                "[disguise] %disguises%'[s] entities");
     }
 
     @Override

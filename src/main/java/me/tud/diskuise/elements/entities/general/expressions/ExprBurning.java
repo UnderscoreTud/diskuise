@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprBurning extends WatcherBooleanExpression<FlagWatcher> {
 
     static {
-        register(ExprBurning.class, Boolean.class, "(burn[ing]|on fire)");
+        register(ExprBurning.class, "(burn[ing]|on fire)");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprBurning extends WatcherBooleanExpression<FlagWatcher> {
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setBurning(bool);
+    protected void change(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setBurning(state);
     }
 }

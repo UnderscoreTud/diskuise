@@ -14,7 +14,8 @@ public class BetterArmorStandWatcher extends ArmorStandWatcher {
         byte b1 = this.getData(MetaIndex.ARMORSTAND_META);
         if (isTrue) {
             b1 = (byte) (b1 | value);
-        } else {
+        }
+        else {
             b1 = (byte) (b1 & ~value);
         }
 

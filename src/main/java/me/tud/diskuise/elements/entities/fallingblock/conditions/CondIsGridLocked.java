@@ -5,7 +5,7 @@ import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Falling Block Disguise - Is Grid Locked")
 @Description("Checks whether a falling block disguise is locked to a grid.")
@@ -16,8 +16,8 @@ public class CondIsGridLocked extends WatcherPropertyCondition<FallingBlockWatch
 
     static {
         Skript.registerCondition(CondIsGridLocked.class,
-                "grid of [dis(g|k)uise[s]] %disguises% (is|are) locked",
-                "grid of [dis(g|k)uise[s]] %disguises% (isn't|is not|aren't|are not) locked");
+                "grid of [disguise[s]] %disguises% (is|are) locked",
+                "grid of [disguise[s]] %disguises% (isn't|is not|aren't|are not) locked");
     }
 
     @Override

@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprBlueSkull extends WatcherBooleanExpression<WitherSkullWatcher> {
 
     static {
-        register(ExprBlueSkull.class, Boolean.class, "blue skull");
+        register(ExprBlueSkull.class, "blue skull");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprBlueSkull extends WatcherBooleanExpression<WitherSkullWatcher> 
     }
 
     @Override
-    protected void change(Event e, WitherSkullWatcher witherSkullWatcher, boolean bool) {
-        witherSkullWatcher.setBlue(bool);
+    protected void change(Event e, WitherSkullWatcher witherSkullWatcher, boolean state) {
+        witherSkullWatcher.setBlue(state);
     }
 }

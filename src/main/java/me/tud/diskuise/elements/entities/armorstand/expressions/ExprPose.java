@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.entities.armorstand.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -12,7 +12,8 @@ import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Armor Stand Disguise - Pose")
 @Description("Set or get the pose of an armor stand disguise")
@@ -72,7 +73,7 @@ public class ExprPose extends WatcherPropertyExpression<BetterArmorStandWatcher,
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, ADD, REMOVE, RESET -> CollectionUtils.array(Vector.class);
             default -> null;
@@ -80,7 +81,7 @@ public class ExprPose extends WatcherPropertyExpression<BetterArmorStandWatcher,
     }
 
     @Override
-    protected void change(Event e, BetterArmorStandWatcher armorStandWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, BetterArmorStandWatcher armorStandWatcher, @Nullable Object[] delta, ChangeMode mode) {
         Vector vector = (Vector) delta[0];
         Vector current = getPose(armorStandWatcher, part);
         if (vector == null) return;

@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprHanging extends WatcherBooleanExpression<BatWatcher> {
 
     static {
-        register(ExprHanging.class, Boolean.class, "hang[ing] [upside[( |-)]down]");
+        register(ExprHanging.class, "hang[ing] [upside[( |-)]down]");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprHanging extends WatcherBooleanExpression<BatWatcher> {
     }
 
     @Override
-    protected void change(Event e, BatWatcher batWatcher, boolean bool) {
-        batWatcher.setHanging(bool);
+    protected void change(Event e, BatWatcher batWatcher, boolean state) {
+        batWatcher.setHanging(state);
     }
 }

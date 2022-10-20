@@ -14,7 +14,7 @@ import org.bukkit.event.Event;
 public class ExprCape extends WatcherBooleanExpression<PlayerWatcher> {
 
     static {
-        register(ExprCape.class, Boolean.class, "cape");
+        register(ExprCape.class, "cape");
     }
 
     @Override
@@ -28,7 +28,7 @@ public class ExprCape extends WatcherBooleanExpression<PlayerWatcher> {
     }
 
     @Override
-    protected void change(Event e, PlayerWatcher playerWatcher, boolean bool) {
-        playerWatcher.setCapeEnabled(bool);
+    protected void change(Event e, PlayerWatcher playerWatcher, boolean state) {
+        playerWatcher.setCapeEnabled(state);
     }
 }

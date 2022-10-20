@@ -23,8 +23,9 @@ import org.bukkit.TreeSpecies;
 import org.bukkit.entity.*;
 import org.bukkit.entity.MushroomCow.Variant;
 import org.bukkit.entity.Villager.Profession;
+import org.bukkit.entity.minecart.RideableMinecart;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 import java.io.NotSerializableException;
 import java.io.StreamCorruptedException;
@@ -33,6 +34,7 @@ import java.util.*;
 public class DisguiseUtils {
 
     private static final WeakHashMap<Disguise, Set<Entity>> DISGUISED_ENTITIES = new WeakHashMap<>();
+    private static final String DEFAULT_PLAYER_NAME = "Steve";
     private static final HashMap<Entity, Disguise> ENTITY_LAST_DISGUISE = new HashMap<>();
     private static final TreeSpecies[] treeSpecies = TreeSpecies.values();
     private static final Parrot.Variant[] parrotVariants = Parrot.Variant.values();
@@ -46,8 +48,7 @@ public class DisguiseUtils {
         EntityType entityType = typeFromClass(entityData.getType());
         if (entityType == null) return null;
         lastCreatedDisguise = createDisguise(DisguiseType.getType(entityType));
-        modify:
-        try {
+        modify: try {
             Fields fields = entityData.serialize();
             FlagWatcher watcher = lastCreatedDisguise.getWatcher();
             if (watcher instanceof AxolotlWatcher axolotlWatcher) {
@@ -92,7 +93,7 @@ public class DisguiseUtils {
                 else if (watcher instanceof EndermanWatcher endermanWatcher)
                     endermanWatcher.setItemInMainHand(itemStack);
                 else if (watcher instanceof FallingBlockWatcher fallingBlockWatcher)
-                    fallingBlockWatcher.setItemInMainHand(itemStack);
+                    fallingBlockWatcher.setBlock(itemStack);
                 else ((SplashPotionWatcher) watcher).setSplashPotion(itemStack);
             }
             else if (watcher instanceof FoxWatcher foxWatcher) {
@@ -131,22 +132,17 @@ public class DisguiseUtils {
                 pigWatcher.setSaddled(i == 1);
             }
             else if (watcher instanceof RabbitWatcher rabbitWatcher) {
-                class RabbitUtil {
-                    private static RabbitType typeFromInt(int i) {
-                        return switch (i) {
-                            case 1 -> RabbitType.BLACK;
-                            case 2 -> RabbitType.PATCHES;
-                            case 3 -> RabbitType.BROWN;
-                            case 4 -> RabbitType.GOLD;
-                            case 5 -> RabbitType.PEPPER;
-                            case 6 -> RabbitType.KILLER_BUNNY;
-                            case 7 -> RabbitType.WHITE;
-                            default -> CollectionUtils.getRandom(rabbitTypes);
-                        };
-                    }
-                }
                 int i = fields.getAndRemovePrimitive("type", int.class);
-                rabbitWatcher.setType(RabbitUtil.typeFromInt(i));
+                rabbitWatcher.setType(switch (i) {
+                    case 1 -> RabbitType.BLACK;
+                    case 2 -> RabbitType.PATCHES;
+                    case 3 -> RabbitType.BROWN;
+                    case 4 -> RabbitType.GOLD;
+                    case 5 -> RabbitType.PEPPER;
+                    case 6 -> RabbitType.KILLER_BUNNY;
+                    case 7 -> RabbitType.WHITE;
+                    default -> CollectionUtils.getRandom(rabbitTypes);
+                });
             }
             else if (watcher instanceof SheepWatcher sheepWatcher) {
                 Color[] colors = fields.getAndRemoveObject("colors", Color[].class);
@@ -196,6 +192,8 @@ public class DisguiseUtils {
             entityClass = new FishData(new Random().nextInt(1, 5)).getType();
         else if (entityClass == AbstractHorse.class)
             entityClass = Horse.class;
+        else if (entityClass == Minecart.class)
+            entityClass = RideableMinecart.class;
 
         for (EntityType type : EntityType.values()) {
             if (type.getEntityClass() == entityClass)
@@ -212,6 +210,8 @@ public class DisguiseUtils {
             case ITEM_FRAME, GLOW_ITEM_FRAME -> BetterItemFrameWatcher.class;
             default -> disguiseType.getWatcherClass();
         });
+        if (disguiseType.isPlayer())
+            return createDisguise(DEFAULT_PLAYER_NAME);
         lastCreatedDisguise = disguiseType.isMob() ? new MobDisguise(disguiseType) : new MiscDisguise(disguiseType);
         setupDisguise(lastCreatedDisguise);
         return lastCreatedDisguise;
@@ -235,23 +235,19 @@ public class DisguiseUtils {
         return lastCreatedDisguise;
     }
 
-    public static void setLastCreatedDisguise(Disguise lastCreatedDisguise) {
-        DisguiseUtils.lastCreatedDisguise = lastCreatedDisguise;
-    }
-
     public static void disguise(Entity entity, Disguise disguise) {
-        disguise(entity, disguise, null, null);
+        disguise(entity, disguise, -1, null);
     }
 
-    public static void disguise(Entity entity, Disguise disguise, @Nullable Long timeToExpire) {
+    public static void disguise(Entity entity, Disguise disguise, long timeToExpire) {
         disguise(entity, disguise, timeToExpire, null);
     }
 
     public static void disguise(Entity entity, Disguise disguise, @Nullable Player[] targets) {
-        disguise(entity, disguise, null, targets);
+        disguise(entity, disguise, -1, targets);
     }
 
-    public static void disguise(Entity entity, Disguise disguise, @Nullable Long timeToExpire, @Nullable Player[] targets) {
+    public static void disguise(Entity entity, Disguise disguise, long timeToExpire, @Nullable Player[] targets) {
         List<Player> viewers = new ArrayList<>();
         if (targets == null)
             viewers.addAll(Bukkit.getOnlinePlayers());
@@ -267,7 +263,7 @@ public class DisguiseUtils {
         if (new HashSet<>(viewers).containsAll(Bukkit.getOnlinePlayers()))
             ENTITY_LAST_DISGUISE.remove(entity);
         addEntity(entity, disguise);
-        if (timeToExpire != null) {
+        if (timeToExpire > -1) {
             Bukkit.getScheduler().runTaskLater(Diskuise.getInstance(), () -> {
                 if (DisguiseAPI.getDisguise(entity) == disguise) undisguise(entity);
             }, timeToExpire);

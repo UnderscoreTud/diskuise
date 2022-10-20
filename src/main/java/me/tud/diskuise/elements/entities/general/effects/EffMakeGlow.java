@@ -9,12 +9,14 @@ import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Disguise - Make Glow")
 @Description("Sets whether the disguise is glowing")
-@Examples({"make player's disguise glow",
-        "make {_disguise} glow red"})
+@Examples({
+        "make player's disguise glow",
+        "make {_disguise} glow red"
+})
 @Since("0.2-beta0")
 @RequiredPlugins("LibsDisguises")
 public class EffMakeGlow extends WatcherMakeEffect<FlagWatcher> {
@@ -26,7 +28,7 @@ public class EffMakeGlow extends WatcherMakeEffect<FlagWatcher> {
     private Expression<SkriptColor> skriptColorExpr;
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
+    protected void make(Event e, FlagWatcher flagWatcher, boolean state) {
         ChatColor chatColor = null;
         if (skriptColorExpr != null) {
             SkriptColor skriptColor = skriptColorExpr.getSingle(e);

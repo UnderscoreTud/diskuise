@@ -2,14 +2,12 @@ package me.tud.diskuise.elements.entities.general.conditions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.*;
-import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyCondition;
-import org.bukkit.event.Event;
 
 @Name("Disguise - Is Invisible")
 @Description("Checks whether a disguise is invisible")
@@ -20,10 +18,10 @@ public class CondIsInvisible extends WatcherPropertyCondition<FlagWatcher> {
 
     static {
         Skript.registerCondition(CondIsInvisible.class,
-                "[dis(g|k)uise[s]] %disguises% (is|are) invisible",
-                "[dis(g|k)uise[s]] %disguises% (isn't|is not|aren't|are not) invisible",
-                "[dis(g|k)uise[s]] %disguises% (isn't|is not|aren't|are not) visible",
-                "[dis(g|k)uise[s]] %disguises% (is|are) visible");
+                "[disguise[s]] %disguises% (is|are) invisible",
+                "[disguise[s]] %disguises% (isn't|is not|aren't|are not) invisible",
+                "[disguise[s]] %disguises% (isn't|is not|aren't|are not) visible",
+                "[disguise[s]] %disguises% (is|are) visible");
     }
 
     @Override

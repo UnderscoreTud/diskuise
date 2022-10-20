@@ -13,7 +13,7 @@ import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +27,8 @@ public class ExprDisguiseOfEntity extends SimpleExpression<Disguise> {
 
     static {
         Skript.registerExpression(ExprDisguiseOfEntity.class, Disguise.class, ExpressionType.COMBINED,
-                "dis(g|k)uise[s] of %entities% [for %-players%]",
-                "%entities%'[s] dis(g|k)uise[s] [for %-players%]");
+                "disguise[s] of %entities% [for %-players%]",
+                "%entities%'[s] disguise[s] [for %-players%]");
     }
 
     private Expression<Entity> entityExpr;

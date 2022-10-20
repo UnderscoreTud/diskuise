@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.entities.pufferfish.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,11 +10,12 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.PufferFishWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Puffer Fish Disguise - Puff State")
 @Description({"Set or get the puff state of a puffer fish disguise (how infalted it is)",
-            "The stages go from 1-3"})
+        "The stages go from 1-3"})
 @Examples("set the puffer stage of {_dis} to 3")
 @Since("0.3.2")
 @RequiredPlugins("LibsDisguises")
@@ -47,7 +48,7 @@ public class ExprPufferState extends WatcherPropertyExpression<PufferFishWatcher
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, ADD, REMOVE, DELETE, RESET -> CollectionUtils.array(Number.class);
             default -> null;
@@ -55,7 +56,7 @@ public class ExprPufferState extends WatcherPropertyExpression<PufferFishWatcher
     }
 
     @Override
-    protected void change(Event e, PufferFishWatcher pufferFishWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, PufferFishWatcher pufferFishWatcher, @Nullable Object[] delta, ChangeMode mode) {
         switch (mode) {
             case DELETE, RESET -> {
                 pufferFishWatcher.setPuffState(0);

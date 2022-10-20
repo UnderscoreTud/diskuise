@@ -15,22 +15,24 @@ import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Disguise Entity")
 @Description("Disguises the specified entity into another entity")
-@Examples({"disguise all players as a cow disguise",
+@Examples({
+        "disguise all players as a cow disguise",
         "disguise target entity to zombie",
-        "disguise all players as \"_tud\""})
+        "disguise all players as \"_tud\""
+})
 @Since("0.1")
 @RequiredPlugins("LibsDisguises")
 public class EffDisguiseEntity extends Effect {
 
     static {
         Skript.registerEffect(EffDisguiseEntity.class,
-                "dis(g|k)uise %entities% (to|as) %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]",
-                "set %entities%'[s] dis(g|k)uise to %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]",
-                "set dis(g|k)uise of %entities% to %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]");
+                "disguise %entities% (to|as) %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]",
+                "set %entities%'[s] disguise to %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]",
+                "set disguise of %entities% to %disguise/entitydata/string% [(for|to) %-players%] [for %-timespan%]");
     }
 
     private Expression<Entity> entities;
@@ -55,17 +57,19 @@ public class EffDisguiseEntity extends Effect {
         else if (object instanceof String name)
             disguise = DisguiseUtils.createDisguise(name);
 
-        if (disguise == null) return;
-        Long timeToExpire = null;
-        if (timespan != null) timeToExpire = timespan.getTicks_i();
+        if (disguise == null)
+            return;
+        long timeToExpire = -1;
+        if (timespan != null)
+            timeToExpire = timespan.getTicks_i();
         for (Entity entity : entities)
             DisguiseUtils.disguise(entity, disguise, timeToExpire, targets);
     }
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        return "disguise " + entities.toString(e, debug) + " as " + expr.toString(e, debug)
-                + " to " + (targets == null ? "all players" : targets.toString(e, debug))
+        return "disguise " + entities.toString(e, debug) + " as " + expr.toString(e, debug) + " to "
+                + (targets == null ? "all players" : targets.toString(e, debug))
                 + (timespan == null ? "" : " for " + timespan.toString(e, debug));
     }
 

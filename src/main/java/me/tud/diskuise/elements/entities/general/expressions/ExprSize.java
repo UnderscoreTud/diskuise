@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.entities.general.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
@@ -8,7 +8,8 @@ import me.libraryaddict.disguise.disguisetypes.watchers.PhantomWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.SlimeWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Disguise - Size")
 @Description({
@@ -43,7 +44,7 @@ public class ExprSize extends WatcherPropertyExpression<FlagWatcher, Long> {
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, ADD, REMOVE, RESET -> CollectionUtils.array(Long.class);
             default -> null;
@@ -51,7 +52,7 @@ public class ExprSize extends WatcherPropertyExpression<FlagWatcher, Long> {
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, FlagWatcher flagWatcher, Object[] delta, ChangeMode mode) {
         int i = convert(flagWatcher).intValue();
         int change = delta == null ? 0 : ((Long) delta[0]).intValue();
         switch (mode) {

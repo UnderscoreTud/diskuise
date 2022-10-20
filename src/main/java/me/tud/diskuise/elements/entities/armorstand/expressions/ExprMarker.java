@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprMarker extends WatcherBooleanExpression<ArmorStandWatcher> {
 
     static {
-        register(ExprMarker.class, Boolean.class, "[is] marker");
+        register(ExprMarker.class, "[is] marker");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprMarker extends WatcherBooleanExpression<ArmorStandWatcher> {
     }
 
     @Override
-    protected void change(Event e, ArmorStandWatcher armorStandWatcher, boolean bool) {
-        armorStandWatcher.setSmall(bool);
+    protected void change(Event e, ArmorStandWatcher armorStandWatcher, boolean state) {
+        armorStandWatcher.setSmall(state);
     }
 }

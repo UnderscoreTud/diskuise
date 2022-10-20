@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprSleeping extends WatcherBooleanExpression<FlagWatcher> {
 
     static {
-        register(ExprSleeping.class, Boolean.class, "sleeping");
+        register(ExprSleeping.class, "sleeping");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprSleeping extends WatcherBooleanExpression<FlagWatcher> {
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setSleeping(bool);
+    protected void change(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setSleeping(state);
     }
 }

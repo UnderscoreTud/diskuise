@@ -10,7 +10,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Last Created Disguise")
 @Description("Returns the last created disguise")
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 public class ExprLastCreatedDisguise extends SimpleExpression<Disguise> {
 
     static {
-        Skript.registerExpression(ExprLastCreatedDisguise.class, Disguise.class, ExpressionType.SIMPLE, "[the] [last[ly]] created dis(g|k)uise");
+        Skript.registerExpression(ExprLastCreatedDisguise.class, Disguise.class, ExpressionType.SIMPLE, "[the] [last[ly]] created disguise");
     }
 
     @Override

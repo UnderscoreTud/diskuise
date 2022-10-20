@@ -1,13 +1,14 @@
 package me.tud.diskuise.elements.entities.painting.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.watchers.PaintingWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.Art;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Painting Disguise - Art")
 @Description("Set or get the 'art' of a painting disguise")
@@ -36,12 +37,12 @@ public class ExprArt extends WatcherPropertyExpression<PaintingWatcher, Art> {
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(Art.class) : null;
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
+        return mode == ChangeMode.SET ? CollectionUtils.array(Art.class) : null;
     }
 
     @Override
-    protected void change(Event e, PaintingWatcher paintingWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, PaintingWatcher paintingWatcher, @Nullable Object[] delta, ChangeMode mode) {
         paintingWatcher.setArt((Art) delta[0]);
     }
 }

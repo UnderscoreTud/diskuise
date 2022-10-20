@@ -5,7 +5,7 @@ import ch.njol.skript.doc.*;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.ExpressionType;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Clone Disguise")
 @Description("Clones an already existing disguise")
@@ -16,8 +16,8 @@ public class ExprDisguiseClone extends SimplePropertyExpression<Disguise, Disgui
 
     static {
         Skript.registerExpression(ExprDisguiseClone.class, Disguise.class, ExpressionType.PROPERTY,
-                "[the] clone of %disguise% [dis(g|k)uise]",
-                "cloned %disguise% [dis(g|k)uise]");
+                "[the] clone of %disguise% [disguise]",
+                "cloned %disguise% [disguise]");
     }
 
     @Override

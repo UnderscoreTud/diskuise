@@ -17,8 +17,8 @@ public class EffMakeSpin extends WatcherMakeEffect<LivingWatcher> {
     }
 
     @Override
-    protected void make(Event e, LivingWatcher livingWatcher, boolean bool) {
-        livingWatcher.setSpinning(bool);
+    protected void make(Event e, LivingWatcher livingWatcher, boolean state) {
+        livingWatcher.setSpinning(state);
     }
 
     @Override

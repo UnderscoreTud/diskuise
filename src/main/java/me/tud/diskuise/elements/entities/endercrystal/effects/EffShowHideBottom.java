@@ -9,7 +9,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.EnderCrystalWatcher;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Ender Crystal Disguise - Bottom")
 @Description("Set whether an ender crystal disguise has the bottom shown")
@@ -20,8 +20,8 @@ public class EffShowHideBottom extends Effect {
 
     static {
         Skript.registerEffect(EffShowHideBottom.class,
-                "(:show|:hide) [the] bottom of [dis(g|k)uise[s]] %disguises%",
-                "(:show|:hide) [dis(g|k)uise[s]] %disguises%'[s] bottom");
+                "(:show|:hide) [the] bottom of [disguise[s]] %disguises%",
+                "(:show|:hide) [disguise[s]] %disguises%'[s] bottom");
     }
 
     private Expression<Disguise> disguiseExpr;

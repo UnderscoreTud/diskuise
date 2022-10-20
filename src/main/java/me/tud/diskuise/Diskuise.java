@@ -2,6 +2,7 @@ package me.tud.diskuise;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
+import ch.njol.skript.command.Commands;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.tud.diskuise.commands.DiskuiseCommand;
 import me.tud.diskuise.listeners.JoinListener;
@@ -9,6 +10,7 @@ import me.tud.diskuise.util.Metrics;
 import me.tud.diskuise.util.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -51,16 +53,21 @@ public final class Diskuise extends JavaPlugin {
 
         try {
             addon.loadClasses("me.tud.diskuise", "elements");
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
 
-        getCommand("diskuise").setExecutor(new DiskuiseCommand());
+        CommandMap commandMap = Commands.getCommandMap();
+        if (commandMap == null)
+            return;
+        commandMap.register("diskuise", new DiskuiseCommand());
     }
 
     @Override
     public void onDisable() {
-        for (World world : Bukkit.getWorlds()) for (Entity entity : world.getEntities()) DisguiseAPI.undisguiseToAll(entity);
+        for (World world : Bukkit.getWorlds())
+            for (Entity entity : world.getEntities()) DisguiseAPI.undisguiseToAll(entity);
     }
 
     public static Diskuise getInstance() {

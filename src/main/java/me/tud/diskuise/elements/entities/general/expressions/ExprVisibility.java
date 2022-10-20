@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprVisibility extends WatcherBooleanExpression<FlagWatcher> {
 
     static {
-        register(ExprVisibility.class, Boolean.class, "visibility");
+        register(ExprVisibility.class, "visibility");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprVisibility extends WatcherBooleanExpression<FlagWatcher> {
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setInvisible(!bool);
+    protected void change(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setInvisible(!state);
     }
 }

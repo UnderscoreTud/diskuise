@@ -17,8 +17,8 @@ public class EffMakeBurn extends WatcherMakeEffect<FlagWatcher> {
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setBurning(bool);
+    protected void make(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setBurning(state);
     }
 
     @Override

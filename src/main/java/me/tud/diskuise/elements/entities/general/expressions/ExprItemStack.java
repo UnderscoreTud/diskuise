@@ -1,7 +1,7 @@
 package me.tud.diskuise.elements.entities.general.expressions;
 
 import ch.njol.skript.aliases.ItemType;
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
@@ -10,14 +10,15 @@ import me.tud.diskuise.elements.entities.itemframe.BetterItemFrameWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Disguise - Item Stack")
 @Description({"Set or get the item of a disguise.",
-            "For Dropped Item Disguises, it returns the item of it.",
-            "For Item Frame Disguises, it returns the item inside the frame.",
-            "For throwable projectiles (eggs, snowballs, enderpearls, etc.), it returns the displayed item.",
-            "Other disguises don't have items associated with them."})
+        "For Dropped Item Disguises, it returns the item of it.",
+        "For Item Frame Disguises, it returns the item inside the frame.",
+        "For throwable projectiles (eggs, snowballs, enderpearls, etc.), it returns the displayed item.",
+        "Other disguises don't have items associated with them."})
 @Examples("set the dropped item of {_dis} to diamond sword")
 @Since("0.2-beta1")
 @RequiredPlugins("LibsDisguises")
@@ -57,12 +58,12 @@ public class ExprItemStack extends WatcherPropertyExpression<FlagWatcher, ItemTy
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(ItemType.class) : null;
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
+        return mode == ChangeMode.SET ? CollectionUtils.array(ItemType.class) : null;
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, FlagWatcher flagWatcher, Object[] delta, ChangeMode mode) {
         ItemStack itemStack = ((ItemType) delta[0]).getRandom();
         if (flagWatcher instanceof DroppedItemWatcher droppedItemWatcher)
             droppedItemWatcher.setItemStack(itemStack);

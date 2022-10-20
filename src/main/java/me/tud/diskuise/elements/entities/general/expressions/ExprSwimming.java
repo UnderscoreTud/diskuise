@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprSwimming extends WatcherBooleanExpression<FlagWatcher> {
 
     static {
-        register(ExprSwimming.class, Boolean.class, "swim[ming]");
+        register(ExprSwimming.class, "swim[ming]");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprSwimming extends WatcherBooleanExpression<FlagWatcher> {
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setSwimming(bool);
+    protected void change(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setSwimming(state);
     }
 }

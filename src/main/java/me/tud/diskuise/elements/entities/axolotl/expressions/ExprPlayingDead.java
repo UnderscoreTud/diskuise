@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprPlayingDead extends WatcherBooleanExpression<AxolotlWatcher> {
 
     static {
-        register(ExprPlayingDead.class, Boolean.class, "play[ing] dead");
+        register(ExprPlayingDead.class, "play[ing] dead");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprPlayingDead extends WatcherBooleanExpression<AxolotlWatcher> {
     }
 
     @Override
-    protected void change(Event e, AxolotlWatcher axolotlWatcher, boolean bool) {
-        axolotlWatcher.setPlayingDead(bool);
+    protected void change(Event e, AxolotlWatcher axolotlWatcher, boolean state) {
+        axolotlWatcher.setPlayingDead(state);
     }
 }

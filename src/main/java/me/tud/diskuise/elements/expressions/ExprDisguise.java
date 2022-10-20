@@ -10,13 +10,13 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.elements.sections.SecCreateDisguise;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @NoDoc
 public class ExprDisguise extends SimpleExpression<Disguise> {
 
     static {
-        Skript.registerExpression(ExprDisguise.class, Disguise.class, ExpressionType.SIMPLE, "[the] dis(g|k)uise");
+        Skript.registerExpression(ExprDisguise.class, Disguise.class, ExpressionType.SIMPLE, "[the] disguise");
     }
 
     private SecCreateDisguise section;

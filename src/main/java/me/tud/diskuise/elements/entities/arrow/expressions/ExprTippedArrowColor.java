@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.entities.arrow.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.util.Color;
 import ch.njol.skript.util.SkriptColor;
@@ -9,7 +9,8 @@ import me.tud.diskuise.elements.entities.arrow.BetterTippedArrowWatcher;
 import me.tud.diskuise.util.Util;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Arrow Disguise - Tipped Arrow Color")
 @Description("Set or get the tip particle color of an arrow disguise")
@@ -39,7 +40,7 @@ public class ExprTippedArrowColor extends WatcherPropertyExpression<BetterTipped
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, RESET, DELETE -> CollectionUtils.array(Color.class);
             default -> null;
@@ -47,7 +48,7 @@ public class ExprTippedArrowColor extends WatcherPropertyExpression<BetterTipped
     }
 
     @Override
-    protected void change(Event e, BetterTippedArrowWatcher betterTippedArrowWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, BetterTippedArrowWatcher betterTippedArrowWatcher, @Nullable Object[] delta, ChangeMode mode) {
         if (delta == null) {
             betterTippedArrowWatcher.removeColor();
             return;

@@ -22,7 +22,7 @@ public class EffDisplayInTab extends WatcherMakeEffect<PlayerWatcher> {
     }
 
     @Override
-    protected void make(Event e, PlayerWatcher playerWatcher, boolean bool) {
-        playerWatcher.setDisplayedInTab(bool);
+    protected void make(Event e, PlayerWatcher playerWatcher, boolean state) {
+        playerWatcher.setDisplayedInTab(state);
     }
 }

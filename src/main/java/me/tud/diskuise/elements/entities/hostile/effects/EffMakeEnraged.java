@@ -22,7 +22,7 @@ public class EffMakeEnraged extends WatcherMakeEffect<InsentientWatcher> {
     }
 
     @Override
-    protected void make(Event e, InsentientWatcher insentientWatcher, boolean bool) {
-        insentientWatcher.setEnraged(bool);
+    protected void make(Event e, InsentientWatcher insentientWatcher, boolean state) {
+        insentientWatcher.setEnraged(state);
     }
 }

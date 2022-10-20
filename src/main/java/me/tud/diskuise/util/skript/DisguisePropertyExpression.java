@@ -9,8 +9,8 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 public abstract class DisguisePropertyExpression<T> extends SimplePropertyExpression<Disguise, T> {
 
     public static <T> void register(Class<? extends Expression<T>> c, Class<T> type, String property) {
-        Skript.registerExpression(c, type, ExpressionType.PROPERTY, "[the] " + property + " of [dis(g|k)uise[s]] %disguises%",
-                "[dis(g|k)uise[s]] %disguises%'[s] " + property);
+        Skript.registerExpression(c, type, ExpressionType.PROPERTY, "[the] " + property + " of [disguise[s]] %disguises%",
+                "[disguise[s]] %disguises%'[s] " + property);
     }
 
 }

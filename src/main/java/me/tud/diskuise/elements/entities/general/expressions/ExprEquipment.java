@@ -1,7 +1,7 @@
 package me.tud.diskuise.elements.entities.general.expressions;
 
 import ch.njol.skript.aliases.ItemType;
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -15,16 +15,19 @@ import org.bukkit.Material;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Disguise - Equipment")
 @Description("Get or set the item in a disguise's equipment slot.")
-@Examples({"set helmet slot of {_disguise} to iron helmet",
+@Examples({
+        "set helmet slot of {_disguise} to iron helmet",
         "set chestplate slot of {_disguise} to iron chestplate",
         "set leggings slot of {_disguise} to iron leggings",
         "set boots slot of {_disguise} to iron boots",
         "set main hand slot of {_disguise} to iron sword",
-        "set offhand slot of {_disguise} to shield"})
+        "set offhand slot of {_disguise} to shield"
+})
 @Since("0.2-beta0")
 @RequiredPlugins("LibsDisguises")
 public class ExprEquipment extends WatcherPropertyExpression<FlagWatcher, ItemType> {
@@ -66,7 +69,7 @@ public class ExprEquipment extends WatcherPropertyExpression<FlagWatcher, ItemTy
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, ADD, REMOVE, REMOVE_ALL, DELETE -> CollectionUtils.array(ItemType.class);
             default -> null;
@@ -74,13 +77,13 @@ public class ExprEquipment extends WatcherPropertyExpression<FlagWatcher, ItemTy
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, FlagWatcher flagWatcher, @Nullable Object[] delta, ChangeMode mode) {
         ItemStack itemStack = new ItemStack(Material.AIR);
         ItemStack current = flagWatcher.getItemStack(equipmentSlot);
         if (flagWatcher instanceof EndermanWatcher endermanWatcher)
             current = endermanWatcher.getItemInMainHand();
         if (current == null) current = new ItemStack(Material.AIR);
-        if (mode != Changer.ChangeMode.DELETE) {
+        if (mode != ChangeMode.DELETE) {
             if (delta[0] == null) return;
             ItemType itemType = (ItemType) delta[0];
             itemStack = switch (mode) {
