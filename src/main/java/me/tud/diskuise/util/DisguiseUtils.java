@@ -10,6 +10,7 @@ import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.DisguiseConfig;
 import me.libraryaddict.disguise.disguisetypes.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.*;
+import me.libraryaddict.disguise.utilities.DisguiseUtilities;
 import me.tud.diskuise.Diskuise;
 import me.tud.diskuise.elements.entities.ageable.Age;
 import me.tud.diskuise.elements.entities.ageable.AgeUtil;
@@ -20,6 +21,7 @@ import me.tud.diskuise.elements.entities.itemframe.BetterItemFrameWatcher;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.TreeSpecies;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.entity.MushroomCow.Variant;
 import org.bukkit.entity.Villager.Profession;
@@ -248,6 +250,17 @@ public class DisguiseUtils {
     }
 
     public static void disguise(Entity entity, Disguise disguise, long timeToExpire, @Nullable Player[] targets) {
+        FileConfiguration diskuiseConfig = Diskuise.getInstance().getConfig();
+        if (diskuiseConfig.getBoolean("disguise with libs config", false)) {
+            if (!(entity instanceof Player player)) return;
+            if (DisguiseConfig.isNameOfPlayerShownAboveDisguise()) {
+                FlagWatcher watcher = disguise.getWatcher();
+                if (watcher instanceof LivingWatcher) {
+                    watcher.setCustomName(DisguiseUtilities.getDisplayName(player.getName()));
+                    watcher.setCustomNameVisible(DisguiseConfig.isNameAboveHeadAlwaysVisible());
+                }
+            }
+        }
         List<Player> viewers = new ArrayList<>();
         if (targets == null)
             viewers.addAll(Bukkit.getOnlinePlayers());
