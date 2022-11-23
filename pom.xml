@@ -6,7 +6,7 @@
 
     <groupId>me.tud</groupId>
     <artifactId>diskuise</artifactId>
-    <version>0.3.2</version>
+    <version>0.3.3</version>
     <packaging>jar</packaging>
 
     <name>Diskuise</name>
