@@ -12,3 +12,6 @@ You can download Diskuise at the [releases page](https://github.com/UnderscoreTu
 
 ## Documentations
 Documentations of Diskuise can be found [here](http://skripthub.net/docs/?addon=Diskuise)
+
+## Support
+If you have any issues, please create an issue at the [issue tracker](https://github.com/UnderscoreTud/diskuise/issues)
