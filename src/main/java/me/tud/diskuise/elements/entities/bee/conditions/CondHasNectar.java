@@ -7,7 +7,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 @Name("Bee Disguise - Has Nectar")
 @Description("Check whether the bee disguise has nectar")
 @Examples("if player's disguise has nectar")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class CondHasNectar extends WatcherPropertyCondition<BeeWatcher> {
 

@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
         "set skin of target entity's disguise to \"https://crafatar.com/skins/2a50f585-2dd2-4043-a72b-6e20a6795a6d\"",
         "set player's disguise's skin to \"2a50f585-2dd2-4043-a72b-6e20a6795a6d\""
 })
-@Since("0.2-beta2, INSERT VERSION (expression)")
+@Since("0.2-beta2, 0.3.3 (expression)")
 @RequiredPlugins("LibsDisguises")
 public class ExprSkin extends WatcherPropertyExpression<PlayerWatcher, String> {
 

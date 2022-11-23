@@ -7,7 +7,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 @Name("Bee Disguise - Has Stinger")
 @Description("Check whether the bee disguise has stinger")
 @Examples("if player's disguise has stinger")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class CondHasStinger extends WatcherPropertyCondition<BeeWatcher> {
 

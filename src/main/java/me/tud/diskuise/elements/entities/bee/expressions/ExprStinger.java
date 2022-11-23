@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Bee Disguise - Stinger")
 @Description("Set or get whether the bee disguise has stinger")
 @Examples("set has stinger state of player's disguise to true")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class ExprStinger extends WatcherBooleanExpression<BeeWatcher> {
 

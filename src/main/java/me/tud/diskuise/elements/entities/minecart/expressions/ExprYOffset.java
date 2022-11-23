@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 @Name("Minecart Disguise - Y Block Offset")
 @Description("Set or get the y block offset of a minecart disguise")
 @Examples("add 10 to y block offset of player's disguise")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class ExprYOffset extends WatcherPropertyExpression<MinecartWatcher, Long> {
 

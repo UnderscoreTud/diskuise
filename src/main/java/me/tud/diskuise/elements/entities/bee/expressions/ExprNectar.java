@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Bee Disguise - Nectar")
 @Description("Set or get whether the bee disguise has nectar")
 @Examples("set has nectar state of player's disguise to true")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class ExprNectar extends WatcherBooleanExpression<BeeWatcher> {
 

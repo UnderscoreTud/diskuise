@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Falling Block Disguise - Grid Lock State")
 @Description("Set or get whether a falling block disguise is locked to a grid.")
 @Examples("set grid lock state of player's disguise to true")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class ExprGridLock extends WatcherBooleanExpression<FallingBlockWatcher> {
 

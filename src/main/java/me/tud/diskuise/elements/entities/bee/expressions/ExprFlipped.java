@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Bee Disguise - Flipped")
 @Description("Set or get whether the bee disguise is flipped")
 @Examples("set flipped state of player's disguise to true")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class ExprFlipped extends WatcherBooleanExpression<BeeWatcher> {
 

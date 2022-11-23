@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Bee Disguise - Have Nectar")
 @Description("Set whether the bee disguise has nectar")
 @Examples("make {_disguise} have nectar")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class EffMakeHaveNectar extends WatcherMakeEffect<BeeWatcher> {
 
