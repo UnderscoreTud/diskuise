@@ -5,20 +5,22 @@ import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Falling Block Disguise - Lock Grid")
 @Description("Sets whether a falling block disguise is locked to a grid.")
-@Examples({"make player's disguise grid locked",
-        "lock {_dis}'s grid"})
+@Examples({
+        "make player's disguise grid locked",
+        "lock {_dis}'s grid"
+})
 @Since("0.2-beta1")
 @RequiredPlugins("LibsDisguises")
 public class EffLockGrid extends WatcherMakeEffect<FallingBlockWatcher> {
 
     static {
-        Skript.registerEffect(EffLockGrid.class, "[not:un]lock grid of [dis(g|k)uise[s]] %disguises%",
-                "[not:un]lock [dis(g|k)uise[s]] %disguises%'[s] grid",
-                "make [dis(g|k)uise[s]] %disguises% [:not] grid[ ]lock[ed]");
+        Skript.registerEffect(EffLockGrid.class, "[not:un]lock grid of [disguise[s]] %disguises%",
+                "[not:un]lock [disguise[s]] %disguises%'[s] grid",
+                "make [disguise[s]] %disguises% [:not] grid[ ]lock[ed]");
     }
 
     @Override
@@ -32,7 +34,7 @@ public class EffLockGrid extends WatcherMakeEffect<FallingBlockWatcher> {
     }
 
     @Override
-    protected void make(Event e, FallingBlockWatcher fallingBlockWatcher, boolean bool) {
-        fallingBlockWatcher.setGridLocked(bool);
+    protected void make(Event e, FallingBlockWatcher fallingBlockWatcher, boolean state) {
+        fallingBlockWatcher.setGridLocked(state);
     }
 }

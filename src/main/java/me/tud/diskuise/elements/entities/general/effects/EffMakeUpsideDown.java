@@ -17,8 +17,8 @@ public class EffMakeUpsideDown extends WatcherMakeEffect<FlagWatcher> {
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setUpsideDown(bool);
+    protected void make(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setUpsideDown(state);
     }
 
     @Override

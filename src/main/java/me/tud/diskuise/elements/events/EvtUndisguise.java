@@ -7,18 +7,17 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
-import ch.njol.util.Checker;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.events.UndisguiseEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 public class EvtUndisguise extends SkriptEvent {
 
     static {
-        Skript.registerEvent("Undisguise", EvtUndisguise.class, UndisguiseEvent.class,
-                "[entity] undis(g|k)uise [(of|for) %-entitydatas%]")
+        Skript.registerEvent("On Undisguise", EvtUndisguise.class, UndisguiseEvent.class,
+                        "[entity] undisguise [(of|for) %-entitydatas%]")
                 .description("This event gets called when an entity undisguises"
                         , "(Cancellable)")
                 .examples("on entity undisguise:",
@@ -39,7 +38,7 @@ public class EvtUndisguise extends SkriptEvent {
         }, 0);
     }
 
-    Literal<EntityData<?>> entities;
+    private Literal<EntityData<?>> entities;
 
     @Override
     @SuppressWarnings("unchecked")

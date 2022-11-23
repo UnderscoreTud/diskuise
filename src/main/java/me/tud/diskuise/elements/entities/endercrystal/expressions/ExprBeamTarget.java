@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.entities.endercrystal.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import com.comphenix.protocol.wrappers.BlockPosition;
@@ -8,7 +8,8 @@ import me.libraryaddict.disguise.disguisetypes.watchers.EnderCrystalWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Ender Crystal Disguise - Beam Target")
 @Description("Get or set the target location of an ender crystal disguise's beam")
@@ -39,7 +40,7 @@ public class ExprBeamTarget extends WatcherPropertyExpression<EnderCrystalWatche
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, DELETE, RESET -> CollectionUtils.array(Location.class);
             default -> null;
@@ -47,7 +48,7 @@ public class ExprBeamTarget extends WatcherPropertyExpression<EnderCrystalWatche
     }
 
     @Override
-    protected void change(Event e, EnderCrystalWatcher enderCrystalWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, EnderCrystalWatcher enderCrystalWatcher, @Nullable Object[] delta, ChangeMode mode) {
         switch (mode) {
             case DELETE, RESET -> enderCrystalWatcher.setBeamTarget(null);
             case SET -> {

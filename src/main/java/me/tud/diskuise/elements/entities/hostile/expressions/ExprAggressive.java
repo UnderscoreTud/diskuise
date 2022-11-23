@@ -15,7 +15,7 @@ import org.bukkit.event.Event;
 public class ExprAggressive extends WatcherBooleanExpression<InsentientWatcher> {
 
     static {
-        register(ExprAggressive.class, Boolean.class, "[is] aggressive");
+        register(ExprAggressive.class, "[is] aggressive");
     }
 
     @Override
@@ -33,10 +33,10 @@ public class ExprAggressive extends WatcherBooleanExpression<InsentientWatcher> 
     }
 
     @Override
-    protected void change(Event e, InsentientWatcher insentientWatcher, boolean bool) {
+    protected void change(Event e, InsentientWatcher insentientWatcher, boolean state) {
         if (insentientWatcher instanceof EndermanWatcher endermanWatcher)
-            endermanWatcher.setAggressive(bool);
+            endermanWatcher.setAggressive(state);
         else if (insentientWatcher instanceof GhastWatcher ghastWatcher)
-            ghastWatcher.setAggressive(bool);
+            ghastWatcher.setAggressive(state);
     }
 }

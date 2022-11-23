@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprAimingBow extends WatcherBooleanExpression<PillagerWatcher> {
 
     static {
-        register(ExprAimingBow.class, Boolean.class, "aiming [a] bow");
+        register(ExprAimingBow.class, "aiming [a] bow");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprAimingBow extends WatcherBooleanExpression<PillagerWatcher> {
     }
 
     @Override
-    protected void change(Event e, PillagerWatcher pillagerWatcher, boolean bool) {
-        pillagerWatcher.setAimingBow(bool);
+    protected void change(Event e, PillagerWatcher pillagerWatcher, boolean state) {
+        pillagerWatcher.setAimingBow(state);
     }
 }

@@ -7,7 +7,7 @@ import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.util.EnumUtils;
 import ch.njol.skript.util.Utils;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 public class EnumClassInfo<T extends Enum<T>> extends ClassInfo<T> {
 

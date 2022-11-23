@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.entities.itemframe.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,7 +10,8 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.elements.entities.itemframe.BetterItemFrameWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Item Frame Disguise - Rotation")
 @Description("Set or get the rotation of an item frame disguise")
@@ -46,7 +47,7 @@ public class ExprRotation extends WatcherPropertyExpression<BetterItemFrameWatch
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, ADD, REMOVE, RESET -> CollectionUtils.array(Number.class);
             default -> null;
@@ -54,7 +55,7 @@ public class ExprRotation extends WatcherPropertyExpression<BetterItemFrameWatch
     }
 
     @Override
-    protected void change(Event e, BetterItemFrameWatcher itemFrameWatcher, Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, BetterItemFrameWatcher itemFrameWatcher, Object[] delta, ChangeMode mode) {
         int i = itemFrameWatcher.getRotation();
         int change = delta == null ? 0 : ((Number) delta[0]).intValue();
         switch (mode) {

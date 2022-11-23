@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprCritical extends WatcherBooleanExpression<BetterTippedArrowWatcher> {
 
     static {
-        register(ExprCritical.class, Boolean.class, "critical");
+        register(ExprCritical.class, "critical");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprCritical extends WatcherBooleanExpression<BetterTippedArrowWatc
     }
 
     @Override
-    protected void change(Event e, BetterTippedArrowWatcher tippedArrowWatcher, boolean bool) {
-        tippedArrowWatcher.setCritical(bool);
+    protected void change(Event e, BetterTippedArrowWatcher tippedArrowWatcher, boolean state) {
+        tippedArrowWatcher.setCritical(state);
     }
 }

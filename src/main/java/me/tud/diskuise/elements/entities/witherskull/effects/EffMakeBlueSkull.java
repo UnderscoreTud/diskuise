@@ -22,7 +22,7 @@ public class EffMakeBlueSkull extends WatcherMakeEffect<WitherSkullWatcher> {
     }
 
     @Override
-    protected void make(Event e, WitherSkullWatcher witherSkullWatcher, boolean bool) {
-        witherSkullWatcher.setBlue(bool);
+    protected void make(Event e, WitherSkullWatcher witherSkullWatcher, boolean state) {
+        witherSkullWatcher.setBlue(state);
     }
 }

@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.entities.irongolem.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,11 +11,12 @@ import me.libraryaddict.disguise.disguisetypes.GolemCrack;
 import me.libraryaddict.disguise.disguisetypes.watchers.IronGolemWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Iron Golem Disguise - Cracks")
 @Description({"Set or get the cracks in an iron golem disguise",
-            "The stages go from 1-4 (1 being no cracks and 4 being full of cracks)"})
+        "The stages go from 1-4 (1 being no cracks and 4 being full of cracks)"})
 @Examples("set the golem cracks of {_dis} to 3")
 @Since("0.2-beta3")
 @RequiredPlugins("LibsDisguises")
@@ -61,7 +62,7 @@ public class ExprCracks extends WatcherPropertyExpression<IronGolemWatcher, Numb
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
         return switch (mode) {
             case SET, ADD, REMOVE, DELETE, RESET -> CollectionUtils.array(Number.class);
             default -> null;
@@ -69,7 +70,7 @@ public class ExprCracks extends WatcherPropertyExpression<IronGolemWatcher, Numb
     }
 
     @Override
-    protected void change(Event e, IronGolemWatcher ironGolemWatcher, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, IronGolemWatcher ironGolemWatcher, @Nullable Object[] delta, ChangeMode mode) {
         switch (mode) {
             case DELETE, RESET -> {
                 ironGolemWatcher.setCracks(GolemCrack.HEALTH_100);

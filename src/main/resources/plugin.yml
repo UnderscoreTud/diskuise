@@ -6,9 +6,3 @@ softdepend: [ Skript, LibsDisguises, ProtocolLib ]
 authors: [ _tud ]
 description: A simple Skript addon for disguising players/entities into other entities
 website: https://github.com/UnderscoreTud/diskuise
-commands:
-  diskuise:
-    description: Reload config for Diskuise
-    usage: /diskuise reload
-    permission: diskuise.reload
-    permission-message: &cYou do not have permission to execute this command

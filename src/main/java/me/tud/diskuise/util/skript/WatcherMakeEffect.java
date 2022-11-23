@@ -7,10 +7,10 @@ import org.bukkit.event.Event;
 
 public abstract class WatcherMakeEffect<T extends FlagWatcher> extends DisguiseMakeEffect {
 
-    abstract protected void make(Event e, T t, boolean bool);
+    abstract protected void make(Event e, T t, boolean state);
 
     @Override
-    final protected void make(Event e, Disguise disguise, boolean bool) {}
+    final protected void make(Event e, Disguise disguise, boolean state) {}
 
     @Override
     @SuppressWarnings("unchecked")

@@ -18,18 +18,18 @@ public abstract class DisguisePropertyCondition extends PropertyCondition<Disgui
         switch (propertyType) {
             case BE:
                 Skript.registerCondition(c,
-                        "[dis(g|k)uise[s]] %disguises% (is|are) " + property,
-                        "[dis(g|k)uise[s]] %disguises% (isn't|is not|aren't|are not) " + property);
+                        "[disguise[s]] %disguises% (is|are) " + property,
+                        "[disguise[s]] %disguises% (isn't|is not|aren't|are not) " + property);
                 break;
             case CAN:
                 Skript.registerCondition(c,
-                        "[dis(g|k)uise[s]] %disguises% can " + property,
-                        "[dis(g|k)uise[s]] %disguises% (can't|cannot|can not) " + property);
+                        "[disguise[s]] %disguises% can " + property,
+                        "[disguise[s]] %disguises% (can't|cannot|can not) " + property);
                 break;
             case HAVE:
                 Skript.registerCondition(c,
-                        "[dis(g|k)uise[s]] %disguises% (has|have) " + property,
-                        "[dis(g|k)uise[s]] %disguises% (doesn't|does not|do not|don't) have " + property);
+                        "[disguise[s]] %disguises% (has|have) " + property,
+                        "[disguise[s]] %disguises% (doesn't|does not|do not|don't) have " + property);
                 break;
             default:
                 assert false;

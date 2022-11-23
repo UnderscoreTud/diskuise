@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprSpinning extends WatcherBooleanExpression<LivingWatcher> {
 
     static {
-        register(ExprSpinning.class, Boolean.class, "spin[ning]");
+        register(ExprSpinning.class, "spin[ning]");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprSpinning extends WatcherBooleanExpression<LivingWatcher> {
     }
 
     @Override
-    protected void change(Event e, LivingWatcher livingWatcher, boolean bool) {
-        livingWatcher.setSpinning(bool);
+    protected void change(Event e, LivingWatcher livingWatcher, boolean state) {
+        livingWatcher.setSpinning(state);
     }
 }

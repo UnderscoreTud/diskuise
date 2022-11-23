@@ -15,14 +15,7 @@ import java.net.URL;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-public class UpdateChecker {
-    public final Diskuise plugin;
-    public final int resourceId;
-
-    public UpdateChecker(Diskuise plugin, int resourceId) {
-        this.plugin = plugin;
-        this.resourceId = resourceId;
-    }
+public record UpdateChecker(Diskuise plugin, int resourceId) {
 
     public void getVersion(final Consumer<String> consumer) {
         Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
@@ -31,7 +24,8 @@ public class UpdateChecker {
                 if (scanner.hasNext()) {
                     consumer.accept(scanner.next());
                 }
-            } catch (IOException exception) {
+            }
+            catch (IOException exception) {
                 plugin.getLogger().info("Unable to check for updates: " + exception.getMessage());
             }
         });
@@ -48,8 +42,7 @@ public class UpdateChecker {
         string.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/diskuise.101529/"));
         message.addExtra(string);
         getVersion(version -> {
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    "&6" + plugin.getDescription().getName() + " v" + version + " &7is now available. &cCurrent version: v" + plugin.getDescription().getVersion()));
+            sender.sendMessage(Util.colored("&6" + plugin.getDescription().getName() + " v" + version + " &7is now available. &cCurrent version: v" + plugin.getDescription().getVersion()));
             sender.spigot().sendMessage(message);
         });
     }

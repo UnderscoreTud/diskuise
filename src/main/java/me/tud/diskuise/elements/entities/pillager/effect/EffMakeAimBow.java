@@ -11,18 +11,18 @@ import org.bukkit.event.Event;
 @Since("0.3.2")
 @RequiredPlugins("LibsDisguises")
 public class EffMakeAimBow extends WatcherMakeEffect<PillagerWatcher> {
-    
+
     static {
         register(EffMakeAimBow.class, "[:not] aim [a] bow");
     }
-    
+
     @Override
     protected String getProperty() {
         return "aiming a bow";
     }
 
     @Override
-    protected void make(Event e, PillagerWatcher pillagerWatcher, boolean bool) {
-        pillagerWatcher.setAimingBow(bool);
+    protected void make(Event e, PillagerWatcher pillagerWatcher, boolean state) {
+        pillagerWatcher.setAimingBow(state);
     }
 }

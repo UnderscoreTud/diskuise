@@ -7,18 +7,17 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
-import ch.njol.util.Checker;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.events.DisguiseEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 public class EvtDisguise extends SkriptEvent {
 
     static {
-        Skript.registerEvent("Disguise", EvtDisguise.class, DisguiseEvent.class,
-                "[entity] dis(g|k)uise [(of|for) %-entitydatas%]")
+        Skript.registerEvent("On Disguise", EvtDisguise.class, DisguiseEvent.class,
+                        "[entity] disguise [(of|for) %-entitydatas%]")
                 .description("This event gets called when an entity disguises"
                         , "(Cancellable)")
                 .examples("on entity disguise:",
@@ -39,7 +38,7 @@ public class EvtDisguise extends SkriptEvent {
         }, 0);
     }
 
-    Literal<EntityData<?>> entities;
+    private Literal<EntityData<?>> entities;
 
     @Override
     @SuppressWarnings("unchecked")

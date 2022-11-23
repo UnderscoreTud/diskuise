@@ -24,10 +24,10 @@ public class EffMakeAggressive extends WatcherMakeEffect<InsentientWatcher> {
     }
 
     @Override
-    protected void make(Event e, InsentientWatcher insentientWatcher, boolean bool) {
+    protected void make(Event e, InsentientWatcher insentientWatcher, boolean state) {
         if (insentientWatcher instanceof EndermanWatcher endermanWatcher)
-            endermanWatcher.setAggressive(bool);
+            endermanWatcher.setAggressive(state);
         else if (insentientWatcher instanceof GhastWatcher ghastWatcher)
-            ghastWatcher.setAggressive(bool);
+            ghastWatcher.setAggressive(state);
     }
 }

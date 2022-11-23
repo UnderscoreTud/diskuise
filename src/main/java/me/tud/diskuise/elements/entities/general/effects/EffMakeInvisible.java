@@ -17,7 +17,7 @@ public class EffMakeInvisible extends WatcherMakeEffect<FlagWatcher> {
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
+    protected void make(Event e, FlagWatcher flagWatcher, boolean state) {
         flagWatcher.setInvisible(isNegated());
     }
 

@@ -9,7 +9,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.elements.entities.armorstand.BetterArmorStandWatcher;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Armor Stand Disguise - Base Plate Visibility")
 @Description("Set whether an armor stand disguise has its base plate shown")
@@ -20,8 +20,8 @@ public class EffShowHideBasePlate extends Effect {
 
     static {
         Skript.registerEffect(EffShowHideBasePlate.class,
-                "(:show|:hide) [the] base[ ]plate of [dis(g|k)uise[s]] %disguises%",
-                "(:show|:hide) [dis(g|k)uise[s]] %disguises%'[s] base[ ]plate");
+                "(:show|:hide) [the] base[ ]plate of [disguise[s]] %disguises%",
+                "(:show|:hide) [disguise[s]] %disguises%'[s] base[ ]plate");
     }
 
     private Expression<Disguise> disguiseExpr;

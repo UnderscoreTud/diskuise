@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public class ExprGlowing extends WatcherBooleanExpression<FlagWatcher> {
 
     static {
-        register(ExprGlowing.class, Boolean.class, "glow[ing]");
+        register(ExprGlowing.class, "glow[ing]");
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ExprGlowing extends WatcherBooleanExpression<FlagWatcher> {
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setGlowing(bool);
+    protected void change(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setGlowing(state);
     }
 }

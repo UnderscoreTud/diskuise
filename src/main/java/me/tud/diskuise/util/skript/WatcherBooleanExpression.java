@@ -1,19 +1,20 @@
 package me.tud.diskuise.util.skript;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class WatcherBooleanExpression<T extends FlagWatcher> extends WatcherPropertyExpression<T, Boolean> {
 
-    public static <T> void register(Class<? extends Expression<T>> c, Class<T> type, String property) {
-        Skript.registerExpression(c, type, ExpressionType.PROPERTY, "[the] " + property + " [state] of [dis(g|k)uise[s]] %disguises%",
-                "[dis(g|k)uise[s]] %disguises%'[s] " + property + " [state]");
+    public static void register(Class<? extends Expression<Boolean>> c, String property) {
+        Skript.registerExpression(c, Boolean.class, ExpressionType.PROPERTY, "[the] " + property + " [state] of [disguise[s]] %disguises%",
+                "[disguise[s]] %disguises%'[s] " + property + " [state]");
     }
 
     @Override
@@ -22,18 +23,18 @@ public abstract class WatcherBooleanExpression<T extends FlagWatcher> extends Wa
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(Boolean.class) : null;
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
+        return mode == ChangeMode.SET ? CollectionUtils.array(Boolean.class) : null;
     }
 
     @Override
-    protected final void change(Event e, T t, @Nullable Object[] delta, Changer.ChangeMode mode) {
-        Boolean bool = (Boolean) delta[0];
-        if (bool == null) return;
-        change(e, t, bool);
+    protected final void change(Event e, T t, @Nullable Object[] delta, ChangeMode mode) {
+        Boolean state = (Boolean) delta[0];
+        if (state == null) return;
+        change(e, t, state);
     }
 
-    protected void change(Event e, T t, boolean bool) {
-        super.change(e, new Object[]{bool}, Changer.ChangeMode.SET);
+    protected void change(Event e, T t, boolean state) {
+        super.change(e, new Object[]{state}, ChangeMode.SET);
     }
 }

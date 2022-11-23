@@ -17,8 +17,8 @@ public class EffMakeSneak extends WatcherMakeEffect<FlagWatcher> {
     }
 
     @Override
-    protected void make(Event e, FlagWatcher flagWatcher, boolean bool) {
-        flagWatcher.setSneaking(bool);
+    protected void make(Event e, FlagWatcher flagWatcher, boolean state) {
+        flagWatcher.setSneaking(state);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package me.tud.diskuise.elements.entities.general.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.util.Color;
 import ch.njol.skript.util.SkriptColor;
@@ -9,7 +9,8 @@ import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.util.skript.SkriptUtils;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("Disguise - Glowing Color")
 @Description("Set or get the glow color of a disguise")
@@ -38,12 +39,12 @@ public class ExprGlowColor extends WatcherPropertyExpression<FlagWatcher, Skript
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(Color.class) : null;
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
+        return mode == ChangeMode.SET ? CollectionUtils.array(Color.class) : null;
     }
 
     @Override
-    protected void change(Event e, FlagWatcher flagWatcher, Object[] delta, Changer.ChangeMode mode) {
+    protected void change(Event e, FlagWatcher flagWatcher, Object[] delta, ChangeMode mode) {
         flagWatcher.setGlowColor(((SkriptColor) delta[0]).asChatColor());
     }
 }

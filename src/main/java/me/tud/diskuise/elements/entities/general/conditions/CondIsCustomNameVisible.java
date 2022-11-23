@@ -1,17 +1,13 @@
 package me.tud.diskuise.elements.entities.general.conditions;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.conditions.base.PropertyCondition;
 import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
-import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
 
 @Name("Disguise - Is Custom Name Visible")
 @Description("Checks whether the custom name of a disguise is visible")
@@ -22,10 +18,10 @@ public class CondIsCustomNameVisible extends Condition {
 
     static {
         Skript.registerCondition(CondIsCustomNameVisible.class,
-                "[custom[ ]]name of [dis(g|k)uise[s]] %disguises% (is|are) visible",
-                "[custom[ ]]name of [dis(g|k)uise[s]] %disguises% (isn't|is not|aren't|are not) visible",
-                "[custom[ ]]name of [dis(g|k)uise[s]] %disguises% (isn't|is not|aren't|are not) invisible",
-                "[custom[ ]]name of [dis(g|k)uise[s]] %disguises% (is|are) invisible");
+                "[custom[ ]]name of [disguise[s]] %disguises% (is|are) visible",
+                "[custom[ ]]name of [disguise[s]] %disguises% (isn't|is not|aren't|are not) visible",
+                "[custom[ ]]name of [disguise[s]] %disguises% (isn't|is not|aren't|are not) invisible",
+                "[custom[ ]]name of [disguise[s]] %disguises% (is|are) invisible");
     }
 
     private Expression<? extends Disguise> expr;

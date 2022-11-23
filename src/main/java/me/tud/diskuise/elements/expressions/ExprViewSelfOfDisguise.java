@@ -1,13 +1,14 @@
 package me.tud.diskuise.elements.expressions;
 
-import ch.njol.skript.classes.Changer;
+import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.DisguisePropertyExpression;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 @Name("View Self Of Disguise")
 @Description("Get or set whether a player sees their own disguise")
@@ -36,12 +37,12 @@ public class ExprViewSelfOfDisguise extends DisguisePropertyExpression<Boolean> 
     }
 
     @Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return mode == Changer.ChangeMode.SET ? CollectionUtils.array(Boolean.class) : null;
+    public @Nullable Class<?>[] acceptChange(@NotNull ChangeMode mode) {
+        return mode == ChangeMode.SET ? CollectionUtils.array(Boolean.class) : null;
     }
 
     @Override
-    public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
+    public void change(Event e, @Nullable Object[] delta, ChangeMode mode) {
         assert delta[0] != null;
         for (Disguise disguise : getExpr().getArray(e)) {
             disguise.setSelfDisguiseVisible((boolean) delta[0]);

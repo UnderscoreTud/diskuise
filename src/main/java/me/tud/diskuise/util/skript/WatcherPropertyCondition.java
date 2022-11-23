@@ -1,6 +1,5 @@
 package me.tud.diskuise.util.skript;
 
-import ch.njol.skript.lang.Expression;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 

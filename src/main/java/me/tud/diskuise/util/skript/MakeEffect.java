@@ -6,7 +6,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.Nullable;
 
 public abstract class MakeEffect<T> extends Effect {
 
@@ -35,7 +35,7 @@ public abstract class MakeEffect<T> extends Effect {
 
     abstract protected String getProperty();
 
-    abstract protected void make(Event e, T t, boolean bool);
+    abstract protected void make(Event e, T t, boolean state);
 
     @Override
     protected void execute(Event e) {
