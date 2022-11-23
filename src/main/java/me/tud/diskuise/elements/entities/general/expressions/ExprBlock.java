@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
         "This expression only works on falling block and minecart disguise",
         "NOTE: This expression also supports block data."})
 @Examples("set the block of {_dis} to diamond block")
-@Since("0.2-beta1, INSERT VERSION (minecart)")
+@Since("0.2-beta1, 0.3.3 (minecart)")
 @RequiredPlugins("LibsDisguises")
 public class ExprBlock extends WatcherPropertyExpression<FlagWatcher, ItemType> {
 

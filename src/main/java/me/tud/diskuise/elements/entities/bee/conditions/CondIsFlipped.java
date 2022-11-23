@@ -7,7 +7,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyCondition;
 @Name("Bee Disguise - Is Flipped")
 @Description("Check whether the bee disguise is flipped")
 @Examples("if player's disguise is flipped")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class CondIsFlipped extends WatcherPropertyCondition<BeeWatcher> {
 

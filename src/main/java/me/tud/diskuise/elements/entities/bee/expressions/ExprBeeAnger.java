@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 @Name("Bee Disguise - Anger")
 @Description("Set or get the anger of a bee disguise")
 @Examples("set anger of player's disguise to true")
-@Since("INSERT VERSION")
+@Since("0.3.3")
 @RequiredPlugins("LibsDisguises")
 public class ExprBeeAnger extends WatcherBooleanExpression<BeeWatcher> {
 
