@@ -8,7 +8,6 @@ plugins {
 
 group = "me.tud.diskuise"
 version = "0.3.4"
-java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
@@ -38,6 +37,11 @@ dependencies {
     compileOnly("LibsDisguises:LibsDisguises:10.0.44")
     compileOnly("com.comphenix.protocol:ProtocolLib:5.1.0")
     compileOnly("org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.600")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
 val properties = Properties()
