@@ -1,8 +1,10 @@
-name: Diskuise
-version: '${project.version}'
-main: me.tud.diskuise.Diskuise
-api-version: 1.17
-softdepend: [ Skript, LibsDisguises, ProtocolLib ]
-authors: [ _tud ]
+name: $name
+version: $version
 description: A simple Skript addon for disguising players/entities into other entities
+author: _tud
+
 website: https://github.com/UnderscoreTud/diskuise
+api-version: 1.19
+
+main: ${group}.Diskuise
+softdepend: [ Skript, LibsDisguises, ProtocolLib ]

@@ -6,9 +6,8 @@ plugins {
     id("com.gradleup.shadow") version "8.3.0"
 }
 
-group = "me.tud"
+group = "me.tud.diskuise"
 version = "0.3.4"
-description = "Diskuise"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
@@ -28,12 +27,16 @@ repositories {
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
+    maven {
+        url = uri("https://repo.dmulloy2.net/repository/public/")
+    }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
     compileOnly("com.github.SkriptLang:Skript:2.10.0")
     compileOnly("LibsDisguises:LibsDisguises:10.0.44")
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.1.0")
     compileOnly("org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.600")
 }
 
