@@ -1,88 +1,52 @@
 package me.tud.diskuise;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.SkriptAddon;
-import ch.njol.skript.command.Commands;
-import me.libraryaddict.disguise.DisguiseAPI;
-import me.tud.diskuise.commands.DiskuiseCommand;
-import me.tud.diskuise.listeners.JoinListener;
-import me.tud.diskuise.util.Metrics;
-import me.tud.diskuise.util.UpdateChecker;
+import ch.njol.skript.util.Version;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.command.CommandMap;
-import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.IOException;
+import org.skriptlang.skript.addon.SkriptAddon;
 
 public final class Diskuise extends JavaPlugin {
 
+    private static final int BSTATS_SERVICE_ID = 14998;
+
     private static Diskuise instance;
     private SkriptAddon addon;
-    private final int resourceId = 101529;
-    private UpdateChecker updateChecker;
 
     @Override
     public void onEnable() {
-
         if (!Bukkit.getPluginManager().isPluginEnabled("LibsDisguises")) {
-            getLogger().severe("Plugin not found: LibsDisguises");
+            getLogger().severe("Could not find LibsDisguises! Disabling Diskuise...");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
         if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
-            getLogger().severe("Plugin not found: ProtocolLib");
+            getLogger().severe("Could not find ProtocolLib! Disabling Diskuise...");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+        if (Skript.getVersion().isSmallerThan(new Version(2, 10))) {
+            getLogger().severe("Diskuise requires Skript 2.10 or higher! Disabling Diskuise...");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
 
         instance = this;
-        addon = Skript.registerAddon(this);
-        addon.setLanguageFileDirectory("lang");
+        addon = Skript.instance().registerAddon(getClass(), "Diskuise");
+        addon.localizer().setSourceDirectories("lang", null);
 
-        getConfig().options().copyDefaults();
-        saveDefaultConfig();
-
-        updateChecker = new UpdateChecker(this, resourceId);
-        updateChecker.checkForUpdates(Bukkit.getConsoleSender());
-
-        Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
-        Metrics metrics = new Metrics(this, 14998);
-        metrics.addCustomChart(new Metrics.SimplePie("skript_version", () -> Skript.getInstance().getDescription().getVersion()));
-
-        try {
-            addon.loadClasses("me.tud.diskuise", "elements");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        CommandMap commandMap = Commands.getCommandMap();
-        if (commandMap == null)
-            return;
-        commandMap.register("diskuise", new DiskuiseCommand());
-    }
-
-    @Override
-    public void onDisable() {
-        for (World world : Bukkit.getWorlds())
-            for (Entity entity : world.getEntities()) DisguiseAPI.undisguiseToAll(entity);
-    }
-
-    public static Diskuise getInstance() {
-        return instance;
+        Metrics metrics = new Metrics(this, BSTATS_SERVICE_ID);
+        metrics.addCustomChart(new SimplePie("skript_version", () -> Skript.getVersion().toString()));
     }
 
     public SkriptAddon getAddonInstance() {
         return addon;
     }
 
-    public int getResourceId() {
-        return resourceId;
+    public static Diskuise getInstance() {
+        return instance;
     }
 
-    public UpdateChecker getUpdateChecker() {
-        return updateChecker;
-    }
 }
