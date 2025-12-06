@@ -10,7 +10,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.elements.sections.SecCreateDisguise;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @NoDoc
 public class ExprDisguise extends SimpleExpression<Disguise> {

@@ -10,7 +10,7 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.PufferFishWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @Name("Puffer Fish Disguise - Puff State")

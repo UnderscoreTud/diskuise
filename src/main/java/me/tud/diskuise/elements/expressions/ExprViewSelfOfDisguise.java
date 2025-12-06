@@ -7,7 +7,7 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
 import me.tud.diskuise.util.skript.DisguisePropertyExpression;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @Name("View Self Of Disguise")

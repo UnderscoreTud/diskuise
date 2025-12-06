@@ -11,7 +11,7 @@ import me.libraryaddict.disguise.disguisetypes.GolemCrack;
 import me.libraryaddict.disguise.disguisetypes.watchers.IronGolemWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @Name("Iron Golem Disguise - Cracks")

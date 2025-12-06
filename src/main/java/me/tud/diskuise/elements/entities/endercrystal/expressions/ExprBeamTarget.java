@@ -4,11 +4,12 @@ import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
 import com.comphenix.protocol.wrappers.BlockPosition;
+import com.github.retrooper.packetevents.util.Vector3i;
 import me.libraryaddict.disguise.disguisetypes.watchers.EnderCrystalWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @Name("Ender Crystal Disguise - Beam Target")
@@ -24,9 +25,14 @@ public class ExprBeamTarget extends WatcherPropertyExpression<EnderCrystalWatche
 
     @Override
     protected Location convert(EnderCrystalWatcher enderCrystalWatcher) {
-        BlockPosition blockPosition = enderCrystalWatcher.getBeamTarget();
-        if (blockPosition == null) return null;
-        return blockPosition.toLocation(enderCrystalWatcher.getDisguise().getEntity().getWorld());
+        Vector3i blockPosition = enderCrystalWatcher.getBeamTarget();
+        if (blockPosition == null)
+            return null;
+        return new Location(
+            enderCrystalWatcher.getDisguise().getEntity().getWorld(),
+            blockPosition.getX(), blockPosition.getY(), blockPosition.getZ()
+        );
+        //return blockPosition.toLocation(enderCrystalWatcher.getDisguise().getEntity().getWorld());
     }
 
     @Override
@@ -54,7 +60,8 @@ public class ExprBeamTarget extends WatcherPropertyExpression<EnderCrystalWatche
             case SET -> {
                 Location location = (Location) delta[0];
                 if (location == null) return;
-                enderCrystalWatcher.setBeamTarget(new BlockPosition(location.toVector()));
+				Vector3i vector = new Vector3i(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+                enderCrystalWatcher.setBeamTarget(vector);
             }
         }
     }

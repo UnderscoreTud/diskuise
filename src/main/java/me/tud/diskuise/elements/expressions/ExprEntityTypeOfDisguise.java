@@ -5,7 +5,7 @@ import ch.njol.skript.doc.*;
 import ch.njol.skript.entity.EntityType;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.skript.DisguisePropertyExpression;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Entity Type Of Disguise")
 @Description("Returns the entity type of a disguise")

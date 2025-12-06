@@ -9,7 +9,7 @@ import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Disguise - Make Glow")
 @Description("Sets whether the disguise is glowing")

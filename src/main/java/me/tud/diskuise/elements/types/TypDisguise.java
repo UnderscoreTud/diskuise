@@ -6,7 +6,7 @@ import ch.njol.skript.classes.Parser;
 import ch.njol.skript.lang.ParseContext;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.skript.ClassUtils;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class TypDisguise {
     static {

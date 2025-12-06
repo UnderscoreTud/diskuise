@@ -5,7 +5,7 @@ import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class WatcherPropertyExpression<F extends FlagWatcher, T> extends DisguisePropertyExpression<T> {
 

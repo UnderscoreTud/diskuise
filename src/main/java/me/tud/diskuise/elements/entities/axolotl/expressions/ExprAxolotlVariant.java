@@ -7,7 +7,7 @@ import me.libraryaddict.disguise.disguisetypes.watchers.AxolotlWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.entity.Axolotl;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @Name("Axolotl Disguise - Variant")

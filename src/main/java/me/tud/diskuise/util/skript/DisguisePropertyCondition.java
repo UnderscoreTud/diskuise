@@ -36,17 +36,10 @@ public abstract class DisguisePropertyCondition extends PropertyCondition<Disgui
         }
     }
 
-    private Expression<? extends Disguise> expr;
-
-    protected Expression<? extends Disguise> getExpr() {
-        return expr;
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        expr = (Expression<? extends Disguise>) exprs[0];
-        setExpr(expr);
+        setExpr((Expression<? extends Disguise>) exprs[0]);
         setNegated(matchedPattern == 1);
         return true;
     }

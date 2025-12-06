@@ -9,7 +9,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.elements.entities.armorstand.BetterArmorStandWatcher;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Armor Stand Disguise - Arms Visibility")
 @Description("Set whether an armor stand disguise has its arms shown")

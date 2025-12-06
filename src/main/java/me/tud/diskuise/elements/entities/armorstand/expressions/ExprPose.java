@@ -12,7 +12,7 @@ import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @Name("Armor Stand Disguise - Pose")

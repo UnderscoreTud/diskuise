@@ -9,7 +9,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.EnderCrystalWatcher;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Ender Crystal Disguise - Bottom")
 @Description("Set whether an ender crystal disguise has the bottom shown")

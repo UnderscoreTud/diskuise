@@ -7,7 +7,7 @@ import me.libraryaddict.disguise.disguisetypes.watchers.PaintingWatcher;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.Art;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @Name("Painting Disguise - Art")

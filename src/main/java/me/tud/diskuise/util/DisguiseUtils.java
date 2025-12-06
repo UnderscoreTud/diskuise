@@ -2,7 +2,6 @@ package me.tud.diskuise.util;
 
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.entity.EntityData;
-import ch.njol.skript.entity.FishData;
 import ch.njol.skript.util.Color;
 import ch.njol.util.coll.CollectionUtils;
 import ch.njol.yggdrasil.Fields;
@@ -24,10 +23,11 @@ import org.bukkit.TreeSpecies;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.entity.MushroomCow.Variant;
+import org.bukkit.entity.Rabbit.Type;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.entity.minecart.RideableMinecart;
 import org.bukkit.inventory.ItemStack;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.NotSerializableException;
 import java.io.StreamCorruptedException;
@@ -135,16 +135,8 @@ public class DisguiseUtils {
             }
             else if (watcher instanceof RabbitWatcher rabbitWatcher) {
                 int i = fields.getAndRemovePrimitive("type", int.class);
-                rabbitWatcher.setType(switch (i) {
-                    case 1 -> RabbitType.BLACK;
-                    case 2 -> RabbitType.PATCHES;
-                    case 3 -> RabbitType.BROWN;
-                    case 4 -> RabbitType.GOLD;
-                    case 5 -> RabbitType.PEPPER;
-                    case 6 -> RabbitType.KILLER_BUNNY;
-                    case 7 -> RabbitType.WHITE;
-                    default -> CollectionUtils.getRandom(rabbitTypes);
-                });
+				Type type = Optional.ofNullable(RabbitType.getType(i)).orElse(CollectionUtils.getRandom(rabbitTypes).getType());
+				rabbitWatcher.setType(type);
             }
             else if (watcher instanceof SheepWatcher sheepWatcher) {
                 Color[] colors = fields.getAndRemoveObject("colors", Color[].class);
@@ -190,9 +182,7 @@ public class DisguiseUtils {
     }
 
     private static EntityType typeFromClass(Class<? extends Entity> entityClass) {
-        if (entityClass == Fish.class)
-            entityClass = new FishData(new Random().nextInt(1, 5)).getType();
-        else if (entityClass == AbstractHorse.class)
+        if (entityClass == AbstractHorse.class)
             entityClass = Horse.class;
         else if (entityClass == Minecart.class)
             entityClass = RideableMinecart.class;

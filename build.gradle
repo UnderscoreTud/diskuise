@@ -1,0 +1,82 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+	id 'io.papermc.paperweight.userdev' version '2.0.0-SNAPSHOT'
+	id 'java'
+}
+
+def supportedJava = 21
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(supportedJava))
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs += ['-source', '' + supportedJava, '-target', '' + supportedJava]
+}
+
+compileTestJava.options.encoding = 'UTF-8'
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+	//mavenLocal()
+	mavenCentral()
+
+	// Spigot
+	maven {
+		url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+	}
+
+	// Bungeecord
+	maven {
+		url "https://oss.sonatype.org/content/repositories/snapshots/"
+	}
+
+	// Paper and Adventure API
+	maven {
+		url 'https://repo.papermc.io/repository/maven-public/'
+	}
+
+	// Skript
+	maven {
+		url 'https://repo.skriptlang.org/releases'
+	}
+
+	maven {
+		url 'https://repo.md-5.net/content/groups/public/'
+	}
+
+	maven { url = uri("https://repo.codemc.io/repository/maven-releases/") }
+
+	maven { url = uri("https://repo.codemc.io/repository/maven-snapshots/") }
+
+}
+
+dependencies {
+
+	// Paper/Bukkit
+	paperweight.paperDevBundle("1.21.5-R0.1-SNAPSHOT")
+
+	implementation (group: 'me.libraryaddict.disguises', name: 'libsdisguises', version: '11.0.7')
+	implementation (group: 'net.dmulloy2', name: 'ProtocolLib', version: '5.4.0')
+	compileOnly("com.github.retrooper:packetevents-spigot:2.9.4")
+
+	// Skript
+	implementation (group: 'com.github.SkriptLang', name: 'Skript', version: '2.12.1') {
+		transitive = false
+	}
+
+	// Adventure API serializer to text components for Bukkit.
+	implementation (group: 'net.kyori', name: 'adventure-text-serializer-bungeecord', version: '4.4.1')
+	implementation (group: 'net.kyori', name: 'adventure-text-serializer-gson', version: '4.23.0')
+	implementation (group: 'net.kyori', name: 'adventure-platform-bukkit', version: '4.4.1')
+
+}
+
+processResources {
+	filter ReplaceTokens, tokens: ["version": project.property("version")]
+	   from ('lang') {
+        include '**/*'
+        into 'lang/'
+    }
+}

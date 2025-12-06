@@ -6,12 +6,11 @@ import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.registrations.EventValues;
-import ch.njol.skript.util.Getter;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.libraryaddict.disguise.events.UndisguiseEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class EvtUndisguise extends SkriptEvent {
 
@@ -24,18 +23,8 @@ public class EvtUndisguise extends SkriptEvent {
                         "\tbroadcast \"%event-entity% undisguised from %type of event-disguise%!\"")
                 .since("0.2-beta0")
                 .requiredPlugins("LibsDisguises");
-        EventValues.registerEventValue(UndisguiseEvent.class, Entity.class, new Getter<>() {
-            @Override
-            public @Nullable Entity get(UndisguiseEvent arg) {
-                return arg.getDisguised();
-            }
-        }, 0);
-        EventValues.registerEventValue(UndisguiseEvent.class, Disguise.class, new Getter<>() {
-            @Override
-            public @Nullable Disguise get(UndisguiseEvent arg) {
-                return arg.getDisguise();
-            }
-        }, 0);
+        EventValues.registerEventValue(UndisguiseEvent.class, Entity.class, UndisguiseEvent::getDisguised, EventValues.TIME_NOW);
+        EventValues.registerEventValue(UndisguiseEvent.class, Disguise.class, UndisguiseEvent::getDisguise, EventValues.TIME_NOW);
     }
 
     private Literal<EntityData<?>> entities;

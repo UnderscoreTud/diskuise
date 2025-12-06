@@ -14,7 +14,7 @@ import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Create Disguise")
 @Description("Creates a new customizable disguise")

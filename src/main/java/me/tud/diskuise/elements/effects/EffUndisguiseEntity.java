@@ -9,7 +9,7 @@ import ch.njol.util.Kleenean;
 import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Undisguise Entity")
 @Description("Undisguises an entity")

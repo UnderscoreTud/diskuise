@@ -5,7 +5,7 @@ import ch.njol.skript.doc.*;
 import me.libraryaddict.disguise.disguisetypes.watchers.FallingBlockWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Falling Block Disguise - Lock Grid")
 @Description("Sets whether a falling block disguise is locked to a grid.")

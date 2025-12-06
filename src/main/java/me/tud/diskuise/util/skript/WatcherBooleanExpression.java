@@ -7,7 +7,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.util.coll.CollectionUtils;
 import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class WatcherBooleanExpression<T extends FlagWatcher> extends WatcherPropertyExpression<T, Boolean> {

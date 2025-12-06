@@ -6,7 +6,7 @@ import me.libraryaddict.disguise.disguisetypes.FlagWatcher;
 import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
 import me.tud.diskuise.util.skript.WatcherMakeEffect;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Disguise - Make Custom Name Visible")
 @Description("Sets whether the custom name of a disguise is visible")

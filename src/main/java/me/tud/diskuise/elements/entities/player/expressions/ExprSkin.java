@@ -3,7 +3,7 @@ package me.tud.diskuise.elements.entities.player.expressions;
 import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.doc.*;
 import ch.njol.util.coll.CollectionUtils;
-import com.comphenix.protocol.wrappers.WrappedGameProfile;
+import com.github.retrooper.packetevents.protocol.player.UserProfile;
 import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
 import me.libraryaddict.disguise.disguisetypes.watchers.PlayerWatcher;
 import me.libraryaddict.disguise.utilities.DisguiseUtilities;
@@ -13,8 +13,8 @@ import me.libraryaddict.disguise.utilities.translations.LibsMsg;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Player Disguise - Skin")
 @Description("Set the displayed skin of a player disguise")
@@ -59,7 +59,7 @@ public class ExprSkin extends WatcherPropertyExpression<PlayerWatcher, String> {
             String name = offlinePlayer.getName();
             if (name == null)
                 return;
-            WrappedGameProfile profile = DisguiseUtilities.getGameProfile(name);
+            UserProfile profile = DisguiseUtilities.getUserProfile(name);
             if (profile == null)
                 return;
             playerWatcher.setSkin(profile);
@@ -75,10 +75,11 @@ public class ExprSkin extends WatcherPropertyExpression<PlayerWatcher, String> {
             @Override
             public void onInfo(LibsMsg libsMsg, Object... objects) { }
 
-            @Override
-            public void onSuccess(WrappedGameProfile wrappedGameProfile) {
-                playerWatcher.setSkin(wrappedGameProfile);
-            }
+			@Override
+			public void onSuccess(UserProfile userProfile) {
+				playerWatcher.setSkin(userProfile);
+			}
+
         });
     }
 }

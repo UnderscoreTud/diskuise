@@ -10,7 +10,7 @@ import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import me.tud.diskuise.util.DisguiseUtils;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Last Created Disguise")
 @Description("Returns the last created disguise")

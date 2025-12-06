@@ -9,7 +9,7 @@ import ch.njol.skript.util.SkriptColor;
 import ch.njol.util.Kleenean;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Disguise - Is Glowing")
 @Description("Checks whether the disguise is glowing")

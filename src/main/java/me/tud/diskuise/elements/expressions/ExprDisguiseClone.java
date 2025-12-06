@@ -5,7 +5,7 @@ import ch.njol.skript.doc.*;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.ExpressionType;
 import me.libraryaddict.disguise.disguisetypes.Disguise;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 @Name("Clone Disguise")
 @Description("Clones an already existing disguise")

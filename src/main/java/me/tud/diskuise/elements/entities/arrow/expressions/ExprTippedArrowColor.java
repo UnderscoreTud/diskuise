@@ -9,7 +9,7 @@ import me.tud.diskuise.elements.entities.arrow.BetterTippedArrowWatcher;
 import me.tud.diskuise.util.Util;
 import me.tud.diskuise.util.skript.WatcherPropertyExpression;
 import org.bukkit.event.Event;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 @Name("Arrow Disguise - Tipped Arrow Color")
